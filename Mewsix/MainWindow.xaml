@@ -9,10 +9,10 @@
         Title="MainWindow" Height="379" Width="513.4">
     <Grid d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="4*" MinWidth="210"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-        <ListView Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ItemsSource="{Binding Songs}" >
+        <ListView Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ItemsSource="{Binding Songs}" MinWidth="200">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="0,0,0,1.5" BorderBrush="#FFE8E8E8" Background="White">
@@ -37,7 +37,6 @@
                         </Grid>
                     </Border>
                 </DataTemplate>
-
             </ListView.ItemTemplate>
         </ListView>
 
