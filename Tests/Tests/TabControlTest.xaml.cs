@@ -10,22 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Tests
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TabControlTest.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TabControlTest : Window
     {
-        public MainWindow()
+        public TabControlTest()
         {
             InitializeComponent();
-
-            TabControlTest test = new TabControlTest();
-            test.Show();
         }
     }
 }
