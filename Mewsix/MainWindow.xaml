@@ -1,0 +1,57 @@
+﻿<Window x:Class="Mewsix.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mewsix"
+        xmlns:vm="clr-namespace:Mewsix.ViewModels;assembly=Mewsix.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="379" Width="513.4">
+    <Grid d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+        <ListView Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ItemsSource="{Binding Songs}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="0,0,0,1.5" BorderBrush="#FFE8E8E8" Background="White">
+                        <Grid Margin="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="8*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Viewbox Grid.Column="0"  MaxWidth="80">
+                                <Image Source="{Binding AlbumUri}" Stretch="UniformToFill"/>
+                            </Viewbox>
+
+                            <Grid Margin="4" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="5*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock VerticalAlignment="Bottom" Text="{Binding Name}" Grid.Row="0" Margin="0,0,0,4" FontFamily="Calibri Light" FontSize="14"/>
+                                <TextBlock VerticalAlignment="Top" Text="{Binding Artist}" Grid.Row="1" Margin="0,0,0,4" FontFamily="Cambria Math" FontWeight="Bold"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!--   RIGHT PART OF THE SCREEN  -->
+
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <TextBlock Grid.Column="1" Text="{Binding Lyrics}"/>
+
+    </Grid>
+
+</Window>
