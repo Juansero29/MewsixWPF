@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mewsix"
         xmlns:vm="clr-namespace:Mewsix.ViewModels;assembly=Mewsix.ViewModels"
-        xmlns:conv="clr-namespace:TabSi"
+        xmlns:conv="clr-namespace:Mewsix.Helpers;assembly=Mewsix.Helpers"
         mc:Ignorable="d"
         Title="MainWindow" Height="379" Width="513.4">
     <Grid d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}">
