@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mewsix</RootNamespace>
     <AssemblyName>Mewsix</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -97,6 +97,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mewsix.Helpers\Mewsix.Helpers.csproj">
+      <Project>{551f2886-bc12-4b1c-af39-080647c64277}</Project>
+      <Name>Mewsix.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mewsix.Models\Mewsix.Models.csproj">
       <Project>{97bc414c-18ed-4445-96c6-4284a86dba4a}</Project>
       <Name>Mewsix.Models</Name>

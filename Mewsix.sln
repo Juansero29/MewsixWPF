@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{494C7DB9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests\Tests.csproj", "{72707D71-C7BA-4C7B-BCAC-08341AE04627}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mewsix.Helpers", "Mewsix.Helpers\Mewsix.Helpers.csproj", "{551F2886-BC12-4B1C-AF39-080647C64277}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{72707D71-C7BA-4C7B-BCAC-08341AE04627}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72707D71-C7BA-4C7B-BCAC-08341AE04627}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72707D71-C7BA-4C7B-BCAC-08341AE04627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{551F2886-BC12-4B1C-AF39-080647C64277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{551F2886-BC12-4B1C-AF39-080647C64277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{551F2886-BC12-4B1C-AF39-080647C64277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{551F2886-BC12-4B1C-AF39-080647C64277}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
