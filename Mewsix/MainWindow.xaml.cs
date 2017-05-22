@@ -50,8 +50,8 @@ namespace Mewsix
            // ListView lv = e.OriginalSource as ListView;
            // ListViewItem lvi = lv.SelectedItem as ListViewItem;
     
-            if ((DataContext as MainWindowViewModel).SelectedTrack != null)
-                MessageBox.Show((DataContext as MainWindowViewModel).SelectedTrack.ToString());
+           // if ((DataContext as MainWindowViewModel).SelectedTrack != null)
+           //     MessageBox.Show((DataContext as MainWindowViewModel).SelectedTrack.ToString());
         }
     }
 }
