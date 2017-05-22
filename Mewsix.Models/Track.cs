@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mewsix.Models
 {
-    public class Song
+    public class Track
     {
         public string Name { get; private set; }
         public string Artist { get; private set; }
@@ -14,7 +14,7 @@ namespace Mewsix.Models
 
         public string Lyrics { get; private set; }
 
-        public Song(string name, string artist, string uri)
+        public Track(string name, string artist, string uri)
         {
             Name = name;
             Artist = artist;
