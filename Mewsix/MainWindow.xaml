@@ -82,7 +82,7 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock x:Name="Info_ArtistName" Text="Artist Name"/>
+                        <TextBlock x:Name="Info_ArtistName" Text="{Binding SelectedTrack.Artist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Grid.Row="1" x:Name="Info_Track" Text="Track name"/>
 
                     </Grid>

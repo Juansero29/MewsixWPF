@@ -26,7 +26,8 @@ namespace Mewsix.ViewModels
                 new Track("Like A Stone", "Audioslave", "https://images-na.ssl-images-amazon.com/images/I/81SPG6dHDXL._SL1500_.jpg")};
         }
 
-        public void OnRaisePropertyChanged([CallerMemberName] string name = "")
+
+        public void OnPropertyChanged([CallerMemberName] string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
@@ -42,7 +43,7 @@ namespace Mewsix.ViewModels
             set
             {
                 _selectedTrack = value;
-                OnRaisePropertyChanged("SelectedTrack"); // I don't know if we need this
+                OnPropertyChanged(nameof(SelectedTrack)); // I don't know if we need this
             }
         }
 
