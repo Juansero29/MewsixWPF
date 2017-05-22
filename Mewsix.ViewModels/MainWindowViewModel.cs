@@ -30,5 +30,22 @@ namespace Mewsix.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        Track _selectedTrack;
+        public Track SelectedTrack
+        {
+            get
+            {
+                return _selectedTrack;
+            }
+
+            set
+            {
+                _selectedTrack = value;
+                OnRaisePropertyChanged("SelectedTrack"); // I don't know if we need this
+            }
+        }
+
+
     }
 }

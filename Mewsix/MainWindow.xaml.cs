@@ -1,4 +1,5 @@
-﻿using Mewsix.ViewModels;
+﻿using Mewsix.Models;
+using Mewsix.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Mewsix
             DataContext = new MainWindowViewModel();
         }
 
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // TODO mettre les noms des tabs dans un fichier de constantes? 
@@ -41,6 +43,15 @@ namespace Mewsix
                 default:
                     return;
             }
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           // ListView lv = e.OriginalSource as ListView;
+           // ListViewItem lvi = lv.SelectedItem as ListViewItem;
+    
+            if ((DataContext as MainWindowViewModel).SelectedTrack != null)
+                MessageBox.Show((DataContext as MainWindowViewModel).SelectedTrack.ToString());
         }
     }
 }

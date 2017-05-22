@@ -31,7 +31,9 @@
             <ColumnDefinition Width="4*" MinWidth="210"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-        <ListView Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ItemsSource="{Binding Tracks}" MinWidth="200">
+        <ListView SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                  ItemsSource="{Binding Tracks}" MinWidth="200" SelectionChanged="ListView_SelectionChanged">
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="0,0,0,1.5" BorderBrush="#FFE8E8E8" Background="White">

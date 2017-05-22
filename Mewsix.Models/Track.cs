@@ -21,5 +21,10 @@ namespace Mewsix.Models
             Artist = artist;
             AlbumUri = new Uri(uri);
         }
+
+        public override string ToString()
+        {
+            return Name + " by " + Artist;
+        }
     }
 }
