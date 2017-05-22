@@ -24,5 +24,23 @@ namespace Mewsix
 
             DataContext = new MainWindowViewModel();
         }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // TODO mettre les noms des tabs dans un fichier de constantes? 
+            string tabItem = ((sender as TabControl).SelectedItem as TabItem).Header as string;
+
+            switch (tabItem)
+            {
+                case "Lyrics":
+                    break;
+
+                case "Info":
+                    break;
+                    
+                default:
+                    return;
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Mewsix.Models
 {
     public class Track
     {
+
         public string Name { get; private set; }
         public string Artist { get; private set; }
         public Uri AlbumUri { get; private set; }

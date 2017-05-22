@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:Mewsix.Helpers;assembly=Mewsix.Helpers"
         xmlns:vm="clr-namespace:Mewsix.ViewModels;assembly=Mewsix.ViewModels"
+       
         mc:Ignorable="d"
-        Title="MainWindow" Height="379" Width="497.9">
+        Title="Mewix" Height="379" Width="497.9">
 
     <Window.Resources>
         <conv:TabSizeConverter x:Key="tabSizeConverter" />
@@ -60,25 +61,35 @@
 
         <!--   RIGHT PART OF THE SCREEN  -->
 
-        <TabControl Grid.Column="1">
-            <TabItem Header="Lyrics">
-                <TextBlock Grid.Column="1" Text="{Binding Lyrics}"/>
-            </TabItem>
-            <TabItem Header="Info">
-                <Grid Margin="4">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
 
-                    <TextBlock x:Name="Info_ArtistName" Text="Name of the Artist"/>
-                    <TextBlock Grid.Row="1" x:Name="Info_Track" Text="Track name"/>
-                    
-                    
-                </Grid>
 
-            </TabItem>
-        </TabControl>
+        <DockPanel Grid.Column="1"  >
+
+            <Grid DockPanel.Dock="Bottom" Height="48" Background="Aquamarine">
+                <Label Content="Space for the Musix Player Controls"></Label>
+            </Grid>
+
+            <TabControl SelectionChanged="TabControl_SelectionChanged">
+                <TabItem Header="Lyrics">
+                    <TextBlock Grid.Column="1" Text="{Binding Lyrics}"/>
+                </TabItem>
+                <TabItem Header="Info">
+                    <Grid Margin="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="Info_ArtistName" Text="Artist Name"/>
+                        <TextBlock Grid.Row="1" x:Name="Info_Track" Text="Track name"/>
+
+                    </Grid>
+
+                </TabItem>
+
+            </TabControl>
+
+        </DockPanel>
 
     </Grid>
 
