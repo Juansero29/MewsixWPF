@@ -63,7 +63,7 @@ namespace Mewsix
 
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*",
+                Filter = "Music files|*.mp3;*.flac",
                 Multiselect = true
             };
 
