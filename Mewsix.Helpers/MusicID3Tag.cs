@@ -12,7 +12,7 @@ namespace Mewsix.Helpers
     {
 
         public string Title { get; private set; }
-        public string Artist { get; private set; }
+        public string[] Artists { get; private set; }
         public string Album { get; private set; }
         public string Year { get; private set; }
         public string Comment { get; private set; }
@@ -28,7 +28,7 @@ namespace Mewsix.Helpers
             TagLib.Tag tags = TagLib.File.Create(trackPath).Tag;
 
             Title = tags.Title;
-            Artist = tags.FirstAlbumArtist;
+            Artists = tags.Performers;
             Album = tags.Album;
             Year = tags.Year.ToString();
             Comment = tags.Comment;

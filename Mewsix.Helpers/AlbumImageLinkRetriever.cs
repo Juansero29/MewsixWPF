@@ -17,13 +17,14 @@ namespace Mewsix.Helpers
             if (trackTitle == null) { trackTitle = ""; }
             using (WebClient wc = new WebClient())
             {
-                    string json = wc.DownloadString("https://api.deezer.com/search?q=" + artist.ToLower().Replace(" ", "_") + "_" + trackTitle.ToLower().Replace(" ", "_") + "&index=0&limit=2");
-                    RootObject parsedObject = JsonConvert.DeserializeObject<RootObject>(json);
+                string json = wc.DownloadString("https://api.deezer.com/search?q=" + artist.ToLower().Replace(" ", "_") + "_" + trackTitle.ToLower().Replace(" ", "_") + "&index=0&limit=2");
+                RootObject parsedObject = JsonConvert.DeserializeObject<RootObject>(json);
 
-                    if (parsedObject.data.Count > 0)
-                    {
-                        link = parsedObject.data[0].album.cover_big;
-                    } else
+                if (parsedObject.data.Count > 0)
+                {
+                    link = parsedObject.data[0].album.cover_big;
+                }
+                else
                 {
                     link = "https://seositecheckup.com/articlephoto/404_error.png";
                 }
@@ -83,5 +84,5 @@ namespace Mewsix.Helpers
         }
     }
 
-    
+
 }
