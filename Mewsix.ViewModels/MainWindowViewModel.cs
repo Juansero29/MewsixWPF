@@ -49,7 +49,7 @@ namespace Mewsix.ViewModels
         public void AddTrack(string trackPath)
         {
             MusicID3Tag tag = new MusicID3Tag(trackPath);
-            Track newTrack = new Track(trackPath, tag, "https://images-na.ssl-images-amazon.com/images/I/81SPG6dHDXL._SL1500_.jpg");
+            Track newTrack = new Track(trackPath, tag, AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artist));
             Tracks.Add(newTrack);
             SelectedTrack = newTrack;
         }
