@@ -63,16 +63,18 @@ namespace Mewsix
 
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*"
+                Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*",
+                Multiselect = true
             };
 
             if (openFileDialog.ShowDialog() == true)
             {
-                (DataContext as MainWindowViewModel).AddTrack(openFileDialog.FileName);
+                foreach (string filename in openFileDialog.FileNames)
+                {
+                    (DataContext as MainWindowViewModel).AddTrack(filename);
+                }
             }
-
-            
-
+ 
         }
 
         private void Button_Play_Click(object sender, RoutedEventArgs e)
