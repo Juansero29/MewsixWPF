@@ -37,6 +37,7 @@ namespace Mewsix.ViewModels
 
         public MainWindowViewModel()
         {
+            //TODO Implement a stub so we can get the tracks from diferent sources (do a Manager class)
             Tracks = new ObservableCollection<Track> {
                 new Track("Creep", "Radiohead", "https://images.genius.com/dc6a81658957cf95dc7a5834b6321b7a.300x300x1.jpg"),
                 new Track("Young Stuff", "Snarky Puppy", "https://s3.amazonaws.com/bit-photos/large/6303622.jpeg"),
