@@ -13,11 +13,20 @@ namespace Mewsix.Helpers
         public static string GiveAlbumImageLink(string trackTitle, string artist)
         {
             string link;
+            if (artist == null) { artist = ""; }
+            if (trackTitle == null) { trackTitle = ""; }
             using (WebClient wc = new WebClient())
             {
-                string json = wc.DownloadString("https://api.deezer.com/search?q=" + artist.ToLower().Replace(" ", "_") + "_" + trackTitle.ToLower().Replace(" ", "_") + "&index=0&limit=2");
-                RootObject parsedObject = JsonConvert.DeserializeObject<RootObject>(json);
-                link = parsedObject.data[0].album.cover_big;
+                    string json = wc.DownloadString("https://api.deezer.com/search?q=" + artist.ToLower().Replace(" ", "_") + "_" + trackTitle.ToLower().Replace(" ", "_") + "&index=0&limit=2");
+                    RootObject parsedObject = JsonConvert.DeserializeObject<RootObject>(json);
+
+                    if (parsedObject.data.Count > 0)
+                    {
+                        link = parsedObject.data[0].album.cover_big;
+                    } else
+                {
+                    link = "https://seositecheckup.com/articlephoto/404_error.png";
+                }
             }
             return link;
         }
