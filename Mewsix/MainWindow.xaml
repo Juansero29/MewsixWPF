@@ -33,6 +33,14 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Height" Value="20"/>
+            <EventSetter Event="KeyDown" Handler="TextBox_KeyDown"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+
+        </Style>
     </Window.Resources>
 
 
@@ -107,17 +115,39 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+
                         </Grid.RowDefinitions>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Artist name : "/>
-                            <TextBlock x:Name="Info_ArtistName" Text="{Binding SelectedTrack.Artist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <TextBlock Text="Track title : "/>
+                            <TextBox Text="{Binding SelectedTrack.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
-                            <TextBlock  x:Name="Info_Track" Text="Track name : "/>
-                            <TextBlock Text="{Binding SelectedTrack.Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="Artist name : "/>
+                            <TextBlock Text="{Binding SelectedTrack.Artist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
+
+                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                            <TextBlock Text="Album : "/>
+                            <TextBox Text="{Binding SelectedTrack.Album, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Orientation="Horizontal">
+                            <TextBlock Text="Year : "/>
+                            <TextBox Text="{Binding SelectedTrack.Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Orientation="Horizontal">
+                            <TextBlock Text="Lyrics : "/>
+                            <TextBlock Text="{Binding SelectedTrack.Lyrics, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+
 
                     </Grid>
 
