@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mewsix", "Mewsix\Mewsix.csproj", "{B07B9E57-1B2A-4183-96E0-A537FFB13D5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mewsix.Views", "Mewsix\Mewsix.Views.csproj", "{B07B9E57-1B2A-4183-96E0-A537FFB13D5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mewsix.Models", "Mewsix.Models\Mewsix.Models.csproj", "{97BC414C-18ED-4445-96C6-4284A86DBA4A}"
 EndProject
