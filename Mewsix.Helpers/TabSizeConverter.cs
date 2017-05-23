@@ -14,7 +14,7 @@ namespace Mewsix.Helpers
         {
             TabControl tabControl = values[0] as TabControl;
             double width = tabControl.ActualWidth / tabControl.Items.Count;
-            //Subtract 1, otherwise we could overflow to two rows.
+            //Subtract 2, otherwise we could overflow to two rows.
             return (width <= 1) ? 0 : (width - 2);
         }
 

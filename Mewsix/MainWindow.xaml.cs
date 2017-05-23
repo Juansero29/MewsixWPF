@@ -1,4 +1,5 @@
-﻿using Mewsix.Helpers;
+﻿using MahApps.Metro.Controls;
+using Mewsix.Helpers;
 using Mewsix.Models;
 using Mewsix.ViewModels;
 using Microsoft.Win32;
@@ -19,7 +20,7 @@ using System.Windows.Shapes;
 
 namespace Mewsix
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
@@ -60,9 +61,10 @@ namespace Mewsix
         private void Button_Add_Click(object sender, RoutedEventArgs e)
         {
 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
-
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*"
+            };
             if (openFileDialog.ShowDialog() == true)
             {
                 (DataContext as MainWindowViewModel).TrackUris.Add(openFileDialog.FileName);
@@ -75,12 +77,12 @@ namespace Mewsix
 
         private void Button_Play_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO Play the selected track on the ViewModel
         }
 
         private void Button_Previous_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO Go to the previous track on the ViewModel
         }
 
 

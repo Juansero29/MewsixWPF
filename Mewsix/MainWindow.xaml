@@ -1,13 +1,23 @@
-﻿<Window x:Class="Mewsix.MainWindow"
+﻿
+    <controls:MetroWindow x:Class="Mewsix.MainWindow"    
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:Mewsix.Helpers;assembly=Mewsix.Helpers"
         xmlns:vm="clr-namespace:Mewsix.ViewModels;assembly=Mewsix.ViewModels"
-       
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                          
         mc:Ignorable="d"
-        Title="Mewix" Height="379" Width="497.9">
+        Title="Mewsix" Height="379" Width="497.9"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        BorderThickness="1"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
 
     <Window.Resources>
         <conv:TabSizeConverter x:Key="tabSizeConverter" />
@@ -39,17 +49,12 @@
             <ColumnDefinition Width="4*" MinWidth="210"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-
-        <DockPanel>
-
-            <Button Name="Button_Add" DockPanel.Dock="Bottom" Click="Button_Add_Click">Add music</Button>
-
+        <Grid>
             <ListView SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                   ItemsSource="{Binding Tracks}" MinWidth="200" SelectionChanged="ListView_SelectionChanged">
-
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderThickness="0,0,0,1.5" BorderBrush="#FFE8E8E8" Background="White">
+                        <Border>
                             <Grid Margin="4">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*"/>
@@ -73,7 +78,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </DockPanel>
+            <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Name="Button_Add" Click="Button_Add_Click" Margin="16" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
+            </Button>
+        </Grid>
 
         <!--   RIGHT PART OF THE SCREEN  -->
 
@@ -151,4 +159,4 @@
 
     </Grid>
 
-</Window>
+</controls:MetroWindow>
