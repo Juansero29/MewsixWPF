@@ -9,22 +9,23 @@ namespace Mewsix.Models
     public class Track
     {
 
-        public string Name { get; private set; }
+        public string Title { get; private set; }
         public string Artist { get; private set; }
         public Uri AlbumUri { get; private set; }
 
+
         public string Lyrics { get; private set; }
 
-        public Track(string name, string artist, string uri)
+        public Track(string title, string artist, string uri)
         {
-            Name = name;
+            Title = title;
             Artist = artist;
             AlbumUri = new Uri(uri);
         }
 
         public override string ToString()
         {
-            return Name + " by " + Artist;
+            return Title + " by " + Artist;
         }
     }
 }

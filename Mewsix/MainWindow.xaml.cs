@@ -1,5 +1,6 @@
 ﻿using Mewsix.Models;
 using Mewsix.ViewModels;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace Mewsix
 
                 case "Info":
                     break;
-                    
+
                 default:
                     return;
             }
@@ -47,11 +48,46 @@ namespace Mewsix
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           // ListView lv = e.OriginalSource as ListView;
-           // ListViewItem lvi = lv.SelectedItem as ListViewItem;
-    
-           // if ((DataContext as MainWindowViewModel).SelectedTrack != null)
-           //     MessageBox.Show((DataContext as MainWindowViewModel).SelectedTrack.ToString());
+            // ListView lv = e.OriginalSource as ListView;
+            // ListViewItem lvi = lv.SelectedItem as ListViewItem;
+
+            // if ((DataContext as MainWindowViewModel).SelectedTrack != null)
+            //     MessageBox.Show((DataContext as MainWindowViewModel).SelectedTrack.ToString());
         }
+
+
+        private void Button_Add_Click(object sender, RoutedEventArgs e)
+        {
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                (DataContext as MainWindowViewModel).TrackUris.Add(openFileDialog.FileName);
+            }
+
+
+
+
+        }
+
+        private void Button_Play_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Previous_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void Button_Next_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }

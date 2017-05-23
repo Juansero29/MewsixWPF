@@ -31,35 +31,41 @@
             <ColumnDefinition Width="4*" MinWidth="210"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-        <ListView SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+
+        <DockPanel>
+
+            <Button Name="Button_Add" DockPanel.Dock="Bottom" Click="Button_Add_Click">Add music</Button>
+            
+            <ListView SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                   ItemsSource="{Binding Tracks}" MinWidth="200" SelectionChanged="ListView_SelectionChanged">
 
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderThickness="0,0,0,1.5" BorderBrush="#FFE8E8E8" Background="White">
-                        <Grid Margin="4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="8*"/>
-                            </Grid.ColumnDefinitions>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="0,0,0,1.5" BorderBrush="#FFE8E8E8" Background="White">
+                            <Grid Margin="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                </Grid.ColumnDefinitions>
 
-                            <Viewbox Grid.Column="0"  MaxWidth="80">
-                                <Image Source="{Binding AlbumUri}" Stretch="UniformToFill"/>
-                            </Viewbox>
+                                <Viewbox Grid.Column="0"  MaxWidth="80">
+                                    <Image Source="{Binding AlbumUri}" Stretch="UniformToFill"/>
+                                </Viewbox>
 
-                            <Grid Margin="4" Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="5*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock VerticalAlignment="Bottom" Text="{Binding Name}" Grid.Row="0" Margin="0,0,0,4" FontFamily="Calibri Light" FontSize="14"/>
-                                <TextBlock VerticalAlignment="Top" Text="{Binding Artist}" Grid.Row="1" Margin="0,0,0,4" FontFamily="Cambria Math" FontWeight="Bold"/>
+                                <Grid Margin="4" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5*"/>
+                                        <RowDefinition Height="5*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock VerticalAlignment="Bottom" Text="{Binding Title}" Grid.Row="0" Margin="0,0,0,4" FontFamily="Calibri Light" FontSize="14"/>
+                                    <TextBlock VerticalAlignment="Top" Text="{Binding Artist}" Grid.Row="1" Margin="0,0,0,4" FontFamily="Cambria Math" FontWeight="Bold"/>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
 
         <!--   RIGHT PART OF THE SCREEN  -->
 
@@ -69,6 +75,19 @@
 
             <Grid DockPanel.Dock="Bottom" Height="48" Background="Aquamarine">
                 <Label Content="Space for the Musix Player Controls"></Label>
+                <Grid Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button Margin="6" Grid.Column="0" Name="Button_Previous" Click="Button_Previous_Click">Previous</Button>
+                    <Button Margin="6" Grid.Column="1" Name="Button_Play" Click="Button_Play_Click">Play</Button>
+                    <Button Margin="6" Grid.Column="2" Name="Button_Next" Click="Button_Next_Click">Next</Button>
+
+                </Grid>
             </Grid>
 
             <TabControl SelectionChanged="TabControl_SelectionChanged">
@@ -82,8 +101,15 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock x:Name="Info_ArtistName" Text="{Binding SelectedTrack.Artist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Grid.Row="1" x:Name="Info_Track" Text="Track name"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Artist name : "/>
+                            <TextBlock x:Name="Info_ArtistName" Text="{Binding SelectedTrack.Artist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <TextBlock  x:Name="Info_Track" Text="Track name : "/>
+                            <TextBlock Text="{Binding SelectedTrack.Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
 
                     </Grid>
 
