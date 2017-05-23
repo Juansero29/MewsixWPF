@@ -1,4 +1,5 @@
-﻿using Mewsix.Models;
+﻿using MahApps.Metro.Controls;
+using Mewsix.Models;
 using Mewsix.ViewModels;
 using Microsoft.Win32;
 using System;
@@ -18,7 +19,7 @@ using System.Windows.Shapes;
 
 namespace Mewsix
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
