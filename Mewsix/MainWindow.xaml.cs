@@ -1,4 +1,5 @@
-﻿using Mewsix.Models;
+﻿using Mewsix.Helpers;
+using Mewsix.Models;
 using Mewsix.ViewModels;
 using Microsoft.Win32;
 using System;
@@ -88,6 +89,35 @@ namespace Mewsix
 
         }
 
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Track currentTrack = (DataContext as MainWindowViewModel).SelectedTrack;
+                TagLib.File file = TagLib.File.Create(currentTrack.TrackPath);
+                TagLib.Tag tag = file.Tag;
+
+                tag.Title = currentTrack.Title;
+                tag.Album = currentTrack.Album;
+                tag.Year = Convert.ToUInt32(currentTrack.Year);
+
+                try
+                {
+                    file.Save();
+                }
+                catch (UnauthorizedAccessException exception)
+                {
+                    MessageBox.Show("Couldn't update track info. Access denied.");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Couldn't update track info. An unknown exception occured");
+                }
+                MessageBox.Show("Track information updated !");
+
+            }
+
+        }
 
     }
 }
