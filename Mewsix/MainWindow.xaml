@@ -110,7 +110,7 @@
                 <TabItem Header="Lyrics">
                     <TextBlock Grid.Column="1" Text="{Binding Lyrics}"/>
                 </TabItem>
-                <TabItem Header="Info">
+                <TabItem IsSelected="True" Header="Info">
                     <Grid Margin="4">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />

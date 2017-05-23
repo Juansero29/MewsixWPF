@@ -17,7 +17,6 @@ namespace Mewsix.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<Track> Tracks { get; set; }
-        public TracksPathList<String> TrackUris { get; set; }
 
         Track _selectedTrack;
         public Track SelectedTrack
@@ -43,14 +42,16 @@ namespace Mewsix.ViewModels
                 new Track("Young Stuff", "Snarky Puppy", "https://s3.amazonaws.com/bit-photos/large/6303622.jpeg"),
                 new Track("Like A Stone", "Audioslave", "https://images-na.ssl-images-amazon.com/images/I/81SPG6dHDXL._SL1500_.jpg")};
 
-            TrackUris = new TracksPathList<String>();
-            TrackUris.OnAdd += TrackUris_OnAdd;
+            SelectedTrack = Tracks[1];
         }
 
-        private void TrackUris_OnAdd(object sender, TrackPathEventArgs<String> e)
+
+        public void AddTrack(string trackPath)
         {
-            MusicID3Tag tag = new MusicID3Tag(e.TrackPath);
-            Tracks.Add(new Track(e.TrackPath, tag, AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artist)));
+            MusicID3Tag tag = new MusicID3Tag(trackPath);
+            Track newTrack = new Track(trackPath, tag, "https://images-na.ssl-images-amazon.com/images/I/81SPG6dHDXL._SL1500_.jpg");
+            Tracks.Add(newTrack);
+            SelectedTrack = newTrack;
         }
 
         public void OnPropertyChanged([CallerMemberName] string name = "")
