@@ -51,6 +51,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mewsix.Helpers\Mewsix.Helpers.csproj">
+      <Project>{551F2886-BC12-4B1C-AF39-080647C64277}</Project>
+      <Name>Mewsix.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mewsix.Models\Mewsix.Models.csproj">
       <Project>{97bc414c-18ed-4445-96c6-4284a86dba4a}</Project>
       <Name>Mewsix.Models</Name>
