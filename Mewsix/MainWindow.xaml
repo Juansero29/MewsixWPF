@@ -62,8 +62,8 @@
                                         <RowDefinition Height="5*"/>
                                         <RowDefinition Height="5*"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock VerticalAlignment="Bottom" Text="{Binding Title}" Grid.Row="0" Margin="0,0,0,4" FontFamily="Calibri Light" FontSize="14"/>
-                                    <TextBlock VerticalAlignment="Top" Text="{Binding Artist}" Grid.Row="1" Margin="0,0,0,4" FontFamily="Cambria Math" FontWeight="Bold"/>
+                                    <TextBlock VerticalAlignment="Bottom" Text="{Binding Title}" Grid.Row="0" Margin="0,0,0,4" FontSize="14"/>
+                                    <TextBlock VerticalAlignment="Top" Text="{Binding Artist}" Grid.Row="1" Margin="0,0,0,4" FontWeight="Bold"/>
                                 </Grid>
                             </Grid>
                         </Border>
