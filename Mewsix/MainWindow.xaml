@@ -90,7 +90,6 @@
         <DockPanel Grid.Column="1"  >
 
             <Grid DockPanel.Dock="Bottom" Height="48" Background="Aquamarine">
-                <Label Content="Space for the Musix Player Controls"></Label>
                 <Grid Margin="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
