@@ -7,9 +7,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:Mewsix.Helpers;assembly=Mewsix.Helpers"
         xmlns:vm="clr-namespace:Mewsix.ViewModels;assembly=Mewsix.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                           
         mc:Ignorable="d"
-        Title="Mewix" Height="379" Width="497.9"
+        Title="Mewsix" Height="379" Width="497.9"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         GlowBrush="{DynamicResource AccentColorBrush}"
@@ -40,14 +41,9 @@
             <ColumnDefinition Width="4*" MinWidth="210"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-
-        <DockPanel>
-
-            <Button Name="Button_Add" DockPanel.Dock="Bottom" Click="Button_Add_Click">Add music</Button>
-
+        <Grid>
             <ListView SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                   ItemsSource="{Binding Tracks}" MinWidth="200" SelectionChanged="ListView_SelectionChanged">
-
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border>
@@ -74,7 +70,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </DockPanel>
+            <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Name="Button_Add" Click="Button_Add_Click" Margin="16" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
+            </Button>
+        </Grid>
 
         <!--   RIGHT PART OF THE SCREEN  -->
 
