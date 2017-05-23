@@ -65,9 +65,10 @@ namespace Mewsix
             {
                 Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*"
             };
+
             if (openFileDialog.ShowDialog() == true)
             {
-                (DataContext as MainWindowViewModel).TrackUris.Add(openFileDialog.FileName);
+                (DataContext as MainWindowViewModel).AddTrack(openFileDialog.FileName);
             }
 
 

@@ -49,8 +49,6 @@
   <ItemGroup>
     <Compile Include="Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrackUriEventArgs.cs" />
-    <Compile Include="TrackUrisList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
