@@ -71,8 +71,7 @@ namespace Mewsix
                 (DataContext as MainWindowViewModel).AddTrack(openFileDialog.FileName);
             }
 
-
-
+            
 
         }
 
