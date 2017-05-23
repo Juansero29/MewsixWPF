@@ -49,8 +49,8 @@ namespace Mewsix.ViewModels
 
         private void TrackUris_OnAdd(object sender, TrackPathEventArgs<String> e)
         {
-            MusicID3Tag tag = new MusicID3Tag(e.TrackPath);     
-            Tracks.Add(new Track(e.TrackPath, tag, "https://images-na.ssl-images-amazon.com/images/I/81SPG6dHDXL._SL1500_.jpg"));
+            MusicID3Tag tag = new MusicID3Tag(e.TrackPath);
+            Tracks.Add(new Track(e.TrackPath, tag, AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artist)));
         }
 
         public void OnPropertyChanged([CallerMemberName] string name = "")
