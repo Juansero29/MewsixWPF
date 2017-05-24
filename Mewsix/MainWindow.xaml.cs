@@ -25,14 +25,13 @@ namespace Mewsix
         public MainWindow()
         {
             InitializeComponent();
-
             DataContext = new MainWindowViewModel();
         }
 
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // TODO mettre les noms des tabs dans un fichier de constantes? 
+            // TODO Put the tab's names into a constant file? 
             string tabItem = ((sender as TabControl).SelectedItem as TabItem).Header as string;
 
             switch (tabItem)
@@ -90,7 +89,7 @@ namespace Mewsix
 
         private void Button_Next_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO Go to the next track on the ViewModel
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -111,11 +110,11 @@ namespace Mewsix
                 }
                 catch (UnauthorizedAccessException exception)
                 {
-                    MessageBox.Show("Couldn't update track info. Access denied.");
+                    MessageBox.Show("Couldn't update track info. Access denied." + exception.ToString());
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Couldn't update track info. An unknown exception occured");
+                    MessageBox.Show("Couldn't update track info. An unknown exception occured" + exception.ToString());
                 }
                 MessageBox.Show("Track information updated !");
 

@@ -7,18 +7,68 @@ using System.Threading.Tasks;
 
 namespace Mewsix.Models
 {
-    public class Track
+    public class Track : IEquatable<Track>
     {
+        private string _Title;
+        public string Title
+        {
+            get { return _Title; }
+            set { _Title = value; }
+        }
 
-        public string Title { get; set; }
-        public string Artists { get; private set; }
-        public Uri AlbumUri { get; private set; }
-        public string Album { get; set; }
-        public string Year { get; set; }
-        public string Lyrics { get; private set; }
+        private string _Artists;
+        public string Artists
+        {
+            get { return _Artists; }
+            set { _Artists = value; }
+        }
 
-        public string TrackPath { get; private set; }
+        private Uri _AlbumUri;
+        public Uri AlbumUri
+        {
+            get { return _AlbumUri; }
+            set { _AlbumUri = value; }
+        }
 
+        private string _Album;
+        public string Album
+        {
+            get { return _Album; }
+            set { _Album = value; }
+        }
+
+        private string _Year;
+
+        public string Year
+        {
+            get { return _Year; }
+            set { _Year = value; }
+        }
+
+        private string _Lyrics;
+        public string Lyrics
+        {
+            get { return _Lyrics; }
+            set { _Lyrics = value; }
+        }
+        private string _TrackPath;
+
+        public string TrackPath
+        {
+            get { return _TrackPath; }
+            private set { _TrackPath = value; }
+        }
+
+        public Track(PocoTrack pocotrack)
+        {
+            Title = pocotrack.Title;
+            Artists = pocotrack.Artists;
+            AlbumUri = new Uri(pocotrack.AlbumUri);
+            Album = pocotrack.Album;
+            Year = pocotrack.Year;
+            Lyrics = pocotrack.Lyrics;
+            TrackPath = pocotrack.TrackPath;
+        }
 
         public Track(string title, string artists, string uri)
         {
@@ -42,6 +92,25 @@ namespace Mewsix.Models
         public override string ToString()
         {
             return Title + " by " + Artists;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (obj == this) return true;
+            if (!obj.GetType().Equals(GetType())) return false;
+            return Equals(obj as Track);
+        }
+
+        public bool Equals(Track other)
+        {
+            if (other == null) return false;
+            return Title == other.Title && Artists == other.Artists && Year == other.Year;
+        }
+
+        public override int GetHashCode()
+        {
+            return Title.GetHashCode() % 32;
         }
     }
 }

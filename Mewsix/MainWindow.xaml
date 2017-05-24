@@ -6,9 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:Mewsix.Helpers;assembly=Mewsix.Helpers"
-        xmlns:vm="clr-namespace:Mewsix.ViewModels;assembly=Mewsix.ViewModels"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                          
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"       
         mc:Ignorable="d"
         Title="Mewsix" Height="450" Width="750"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -42,9 +40,7 @@
 
         </Style>
     </Window.Resources>
-
-
-    <Grid d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" MinWidth="210"/>
             <ColumnDefinition Width="6*"/>
