@@ -16,6 +16,5 @@ namespace Mewsix.Models
         public string Lyrics { get; set; }
         public string TrackPath { get; set; }
 
-
     }
 }

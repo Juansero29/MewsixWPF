@@ -110,7 +110,7 @@ namespace Mewsix.Models
 
         public override int GetHashCode()
         {
-            return Title.GetHashCode() % 32;
+            return Title.GetHashCode() % 31;
         }
     }
 }
