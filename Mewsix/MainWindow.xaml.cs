@@ -113,13 +113,13 @@ namespace Mewsix
                 }
                 catch (UnauthorizedAccessException exception)
                 {
-                    MessageBox.Show("Couldn't update track info. Access denied." + exception.ToString());
+                    MessageBox.Show("Couldn't update track info. Access denied.");
                     Debug.WriteLine(exception.ToString());
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Couldn't update track info. An unknown exception occured" + exception.ToString());
-                    Debug.WriteLine(exception.ToString());
+                    MessageBox.Show("Couldn't update track info. An unknown exception occured");
+                    Debug.WriteLine(exception.ToString());                    
                 }
 
             }
@@ -143,5 +143,9 @@ namespace Mewsix
             Debug.Print("A dialog should open!");
         }
 
+        private void ListView_Drop(object sender, DragEventArgs e)
+        {
+
+        }
     }
 }
