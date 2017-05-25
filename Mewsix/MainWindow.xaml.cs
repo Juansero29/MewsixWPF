@@ -124,5 +124,9 @@ namespace Mewsix
 
         }
 
+        private void ListView_Drop(object sender, DragEventArgs e)
+        {
+
+        }
     }
 }
