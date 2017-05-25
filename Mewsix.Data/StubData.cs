@@ -76,7 +76,6 @@ namespace Mewsix.Data
                     new PocoTrack{Title = "Like A Stone", Artists = "Audioslave", AlbumUri = "https://images-na.ssl-images-amazon.com/images/I/81SPG6dHDXL._SL1500_.jpg" }
             };
 
-
             //Open the JSON file, parse the poco tracks and assign them to _Tracks;
             //_Tracks = readPocoTracks;
         }
