@@ -5,6 +5,7 @@ using Mewsix.ViewModels;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,16 +108,19 @@ namespace Mewsix
                 try
                 {
                     file.Save();
+                    MessageBox.Show("Track information updated !");
+
                 }
                 catch (UnauthorizedAccessException exception)
                 {
-                    MessageBox.Show("Couldn't update track info. Access denied." + exception.ToString());
+                    MessageBox.Show("Couldn't update track info. Access denied.");
+                    Debug.WriteLine(exception.ToString());
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Couldn't update track info. An unknown exception occured" + exception.ToString());
+                    MessageBox.Show("Couldn't update track info. An unknown exception occured");
+                    Debug.WriteLine(exception.ToString());                    
                 }
-                MessageBox.Show("Track information updated !");
 
             }
 
