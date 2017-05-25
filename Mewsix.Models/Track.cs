@@ -1,40 +1,59 @@
 ﻿using Mewsix.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Mewsix.Models
 {
-    public class Track : IEquatable<Track>
+    public class Track : IEquatable<Track> , INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        
+
         private string _Title;
         public string Title
         {
             get { return _Title; }
-            set { _Title = value; }
+            set { _Title = value;
+                OnPropertyChanged(nameof(Title));
+            }
         }
 
         private string _Artists;
         public string Artists
         {
             get { return _Artists; }
-            set { _Artists = value; }
+            set { _Artists = value;
+                OnPropertyChanged(nameof(Artists));
+            }
         }
 
         private Uri _AlbumUri;
         public Uri AlbumUri
         {
             get { return _AlbumUri; }
-            set { _AlbumUri = value; }
+            set { _AlbumUri = value;
+                OnPropertyChanged(nameof(AlbumUri));
+            }
         }
 
         private string _Album;
         public string Album
         {
             get { return _Album; }
-            set { _Album = value; }
+            set { _Album = value;
+                OnPropertyChanged(nameof(Album));
+            }
         }
 
         private string _Year;
@@ -42,21 +61,27 @@ namespace Mewsix.Models
         public string Year
         {
             get { return _Year; }
-            set { _Year = value; }
+            set { _Year = value;
+                OnPropertyChanged(nameof(Year));
+            }
         }
 
         private string _Lyrics;
         public string Lyrics
         {
             get { return _Lyrics; }
-            set { _Lyrics = value; }
+            set { _Lyrics = value;
+                OnPropertyChanged(nameof(Year));
+            }
         }
         private string _TrackPath;
 
         public string TrackPath
         {
             get { return _TrackPath; }
-            private set { _TrackPath = value; }
+            private set { _TrackPath = value;
+                OnPropertyChanged(nameof(TrackPath));
+            }
         }
 
         public Track(PocoTrack pocotrack)
