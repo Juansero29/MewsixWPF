@@ -19,7 +19,7 @@ namespace Mewsix.Data
             {
                 return PocoTrack2Tracks(_Tracks);
             }
-            set
+            private set
             {
                 _Tracks = Track2PocoTracks(value);
             }
@@ -60,9 +60,8 @@ namespace Mewsix.Data
         public void Save(IEnumerable<Track> toSaveTracks)
         {
             //TODO Save the list of tracks in a file, JSON, DB....
-
             IEnumerable<PocoTrack> pocoTracksToSave = Track2PocoTracks(toSaveTracks);
-            //Conver this variable to JSON and save it into a JSON file.
+            //Convert this variable to JSON and save it into a JSON file.
 
 
             Tracks = toSaveTracks;

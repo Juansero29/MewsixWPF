@@ -5,6 +5,7 @@ using Mewsix.ViewModels;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,7 +74,7 @@ namespace Mewsix
                     (DataContext as MainWindowViewModel).AddTrack(filename);
                 }
             }
- 
+
         }
 
         private void Button_Play_Click(object sender, RoutedEventArgs e)
@@ -107,19 +108,39 @@ namespace Mewsix
                 try
                 {
                     file.Save();
+                    MessageBox.Show("Track information updated !");
+
                 }
                 catch (UnauthorizedAccessException exception)
                 {
                     MessageBox.Show("Couldn't update track info. Access denied." + exception.ToString());
+                    Debug.WriteLine(exception.ToString());
                 }
                 catch (Exception exception)
                 {
                     MessageBox.Show("Couldn't update track info. An unknown exception occured" + exception.ToString());
+                    Debug.WriteLine(exception.ToString());
                 }
-                MessageBox.Show("Track information updated !");
 
             }
 
+        }
+
+
+        private void PopupBox_OnOpened(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Just making sure the popup has opened.");
+        }
+
+        private void PopupBox_OnClosed(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Just making sure the popup has closed.");
+        }
+
+        private void Button_Add_Folder_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("This feature will be added soon!");
+            Debug.Print("A dialog should open!");
         }
 
     }
