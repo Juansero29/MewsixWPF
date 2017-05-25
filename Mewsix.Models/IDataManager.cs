@@ -10,11 +10,11 @@ namespace Mewsix.Models
     {
         IEnumerable<Track> Tracks { get; }
 
-        void Add(Track nounours);
+        void Add(Track t);
 
-        void Remove(Track nounours);
+        void Remove(Track t);
 
-        void Update(Track nounours);
+        void Update(Track t);
 
         void Save(IEnumerable<Track> toSaveTracks);
 
