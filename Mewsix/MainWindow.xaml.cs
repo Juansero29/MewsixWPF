@@ -73,8 +73,7 @@ namespace Mewsix
                 {
                     (DataContext as MainWindowViewModel).AddTrack(filename);
                 }
-            }
- 
+            } 
         }
 
         private void Button_Play_Click(object sender, RoutedEventArgs e)
@@ -86,7 +85,6 @@ namespace Mewsix
         {
             //TODO Go to the previous track on the ViewModel
         }
-
 
         private void Button_Next_Click(object sender, RoutedEventArgs e)
         {
@@ -109,8 +107,8 @@ namespace Mewsix
                 {
                     file.Save();
                     MessageBox.Show("Track information updated !");
-
                 }
+
                 catch (UnauthorizedAccessException exception)
                 {
                     MessageBox.Show("Couldn't update track info. Access denied.");
