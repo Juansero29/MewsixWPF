@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Mewsix
 {
@@ -69,12 +69,25 @@ namespace Mewsix
 
             if (openFileDialog.ShowDialog() == true)
             {
-                foreach (string filename in openFileDialog.FileNames)
+                foreach (string trackPath in openFileDialog.FileNames)
                 {
-                    (DataContext as MainWindowViewModel).AddTrack(filename);
+                    (DataContext as MainWindowViewModel).AddTrack(trackPath);
                 }
             }
+        }
 
+        private void ListView_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                foreach (var trackPath in files)
+                {
+                    if (Path.GetExtension(trackPath) == ".mp3")
+                        (DataContext as MainWindowViewModel).AddTrack(trackPath);
+                }
+            }
         }
 
         private void Button_Play_Click(object sender, RoutedEventArgs e)
@@ -119,14 +132,14 @@ namespace Mewsix
                 catch (Exception exception)
                 {
                     MessageBox.Show("Couldn't update track info. An unknown exception occured");
-                    Debug.WriteLine(exception.ToString());                    
+                    Debug.WriteLine(exception.ToString());
                 }
 
             }
 
         }
 
-
+        
         private void PopupBox_OnOpened(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Just making sure the popup has opened.");
@@ -143,9 +156,11 @@ namespace Mewsix
             Debug.Print("A dialog should open!");
         }
 
-        private void ListView_Drop(object sender, DragEventArgs e)
+        private void ListView_GiveFeedback(object sender, GiveFeedbackEventArgs e)
         {
-
+            e.UseDefaultCursors = false;
+            Mouse.SetCursor(Cursors.Hand);
+            e.Handled = true;
         }
     }
 }
