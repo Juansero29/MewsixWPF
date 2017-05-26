@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Mewsix.Models
 {
-    public class Track : IEquatable<Track> , INotifyPropertyChanged
+    public class Track : IEquatable<Track>, INotifyPropertyChanged
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -18,13 +18,15 @@ namespace Mewsix.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        
+
 
         private string _Title;
         public string Title
         {
             get { return _Title; }
-            set { _Title = value;
+            set
+            {
+                _Title = value;
                 OnPropertyChanged(nameof(Title));
             }
         }
@@ -33,7 +35,9 @@ namespace Mewsix.Models
         public string Artists
         {
             get { return _Artists; }
-            set { _Artists = value;
+            set
+            {
+                _Artists = value;
                 OnPropertyChanged(nameof(Artists));
             }
         }
@@ -42,7 +46,9 @@ namespace Mewsix.Models
         public Uri AlbumUri
         {
             get { return _AlbumUri; }
-            set { _AlbumUri = value;
+            set
+            {
+                _AlbumUri = value;
                 OnPropertyChanged(nameof(AlbumUri));
             }
         }
@@ -51,7 +57,9 @@ namespace Mewsix.Models
         public string Album
         {
             get { return _Album; }
-            set { _Album = value;
+            set
+            {
+                _Album = value;
                 OnPropertyChanged(nameof(Album));
             }
         }
@@ -61,7 +69,9 @@ namespace Mewsix.Models
         public string Year
         {
             get { return _Year; }
-            set { _Year = value;
+            set
+            {
+                _Year = value;
                 OnPropertyChanged(nameof(Year));
             }
         }
@@ -70,7 +80,9 @@ namespace Mewsix.Models
         public string Lyrics
         {
             get { return _Lyrics; }
-            set { _Lyrics = value;
+            set
+            {
+                _Lyrics = value;
                 OnPropertyChanged(nameof(Year));
             }
         }
@@ -79,7 +91,9 @@ namespace Mewsix.Models
         public string TrackPath
         {
             get { return _TrackPath; }
-            private set { _TrackPath = value;
+            private set
+            {
+                _TrackPath = value;
                 OnPropertyChanged(nameof(TrackPath));
             }
         }
