@@ -22,6 +22,7 @@ namespace Mewsix.Helpers
         private TextBlock TotalTimeTBox { get; set; }
         private Slider TimeSlider { get; set; }
         public int Duration { get; private set; }
+        private bool MouseDown { get; set; }
 
         public MewsixPlayer(TextBlock currentTimeTBlock, TextBlock totalTimeTBlock, Slider timeSlider)
         {
@@ -34,9 +35,10 @@ namespace Mewsix.Helpers
             TotalTimeTBox = totalTimeTBlock;
             TimeSlider = timeSlider;
             TimeSlider.PreviewMouseUp += TimeSlider_PreviewMouseUp;
+            TimeSlider.PreviewMouseDown += TimeSlider_PreviewMouseDown;
         }
 
-        
+   
         private void MewixPlayer_MediaEnded(object sender, EventArgs e)
         {
             IsOpened = false;
@@ -55,19 +57,25 @@ namespace Mewsix.Helpers
         private void Timer_Tick(object sender, EventArgs e)
         {
             CurrentTimeTBox.Text = String.Format($"{Position.ToString(@"m\:ss")}");
-            if (Duration != 0 && !TimeSlider.IsMouseOver)
+            if (Duration != 0 && !MouseDown)
             {
                 TimeSlider.Value = ((float)Position.TotalSeconds / Duration) * 1000;
                 Debug.WriteLine(TimeSlider.Value);
             }
         }
 
+        // MouseDown Allows us to let the slider progress only if the user hasn't clicked on it
+        private void TimeSlider_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MouseDown = true;
+        }
 
         private void TimeSlider_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             double sliderValue = TimeSlider.Value;
             int timeValue = (int) (((float)sliderValue / 1000) * Duration);
             Position = new TimeSpan(0, 0, timeValue);
+            MouseDown = false;
         }
 
         public void Play(string path)
