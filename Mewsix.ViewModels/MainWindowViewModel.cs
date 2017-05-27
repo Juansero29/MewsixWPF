@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace Mewsix.ViewModels
 {
@@ -64,11 +65,11 @@ namespace Mewsix.ViewModels
             }
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(TextBlock TextBlock_Current_Time, TextBlock TextBlock_Total_Time, Slider Slider_Time)
         {
             DataManager = new StubData();
             SelectedTrack = Tracks[1];
-            MPlayer = new MewsixPlayer();
+            MPlayer = new MewsixPlayer(TextBlock_Current_Time, TextBlock_Total_Time, Slider_Time);
         }
 
         public void AddTrack(string trackPath)

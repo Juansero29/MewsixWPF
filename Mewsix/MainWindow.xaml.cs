@@ -26,7 +26,7 @@ namespace Mewsix
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(TextBlock_Current_Time, TextBlock_Total_Time, Slider_Time);
         }
 
 
