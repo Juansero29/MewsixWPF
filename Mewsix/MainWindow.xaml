@@ -129,9 +129,9 @@
                     <Button Margin="6" Content="{StaticResource Previous}" Grid.Column="0" Name="Button_Previous" Click="Button_Previous_Click"/>
                     <Button Margin="6" Content="{StaticResource Play}" Grid.Column="1" Name="Button_Play_Pause" Click="Button_Play_Pause_Click"/>
                     <Button Margin="6" Content="{StaticResource Next}" Grid.Column="2" Name="Button_Next" Click="Button_Next_Click"></Button>
-                    <TextBlock x:Name="TextBlock_Current_Time" Grid.Column="3" TextAlignment="Center" Text="2:10" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="TextBlock_Current_Time" Grid.Column="3" TextAlignment="Center" Text="0:00" VerticalAlignment="Center"/>
                     <Slider TickFrequency="1000" Margin="4" Grid.Column="4" x:Name="Slider_Time" Minimum="0" Maximum="1000" MinWidth="80" VerticalAlignment="Center" />
-                    <TextBlock x:Name="TextBlock_Total_Time"  Grid.Column="5" Text="3:22" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="TextBlock_Total_Time"  Grid.Column="5" Text="0:00" VerticalAlignment="Center"/>
                 </Grid>
             </Grid>
 
@@ -175,7 +175,6 @@
                             <TextBlock VerticalAlignment="Center" Text="Lyrics : "/>
                             <TextBlock KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Lyrics, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
-
 
 
                     </Grid>

@@ -36,8 +36,7 @@ namespace Mewsix.Helpers
             TimeSlider.PreviewMouseUp += TimeSlider_PreviewMouseUp;
         }
 
-
-
+        
         private void MewixPlayer_MediaEnded(object sender, EventArgs e)
         {
             IsOpened = false;
