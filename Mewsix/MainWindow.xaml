@@ -40,6 +40,13 @@
                 </Setter>
             </Style>
 
+            <Image x:Key="Previous" Source="pack://application:,,,/Resources/previous.png"/>
+            <Image x:Key="Next" Source="pack://application:,,,/Resources/next.png"/>
+            <Image x:Key="Pause" Source="pack://application:,,,/Resources/pause.png"/>
+            <Image x:Key="Play" Source="pack://application:,,,/Resources/play.png"/>
+
+
+
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
@@ -109,15 +116,17 @@
             <Grid DockPanel.Dock="Bottom" Height="48" Background="Aquamarine">
                 <Grid Margin="4">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
 
                     </Grid.ColumnDefinitions>
 
-                    <Button Margin="6" Grid.Column="0" Name="Button_Previous" Click="Button_Previous_Click">Previous</Button>
-                    <Button Margin="6" Grid.Column="1" Name="Button_Play" Click="Button_Play_Click">Play</Button>
-                    <Button Margin="6" Grid.Column="2" Name="Button_Next" Click="Button_Next_Click">Next</Button>
+                    <Button Margin="6" Content="{StaticResource Previous}" Grid.Column="0" Name="Button_Previous" Click="Button_Previous_Click"/>
+                    <Button Margin="6" Content="{StaticResource Pause}" Grid.Column="1" Name="Button_Pause" Click="Button_Play_Click"></Button>
+                    <Button Margin="6" Content="{StaticResource Play}" Grid.Column="2" Name="Button_Play" Click="Button_Play_Click"></Button>
+                    <Button Margin="6" Content="{StaticResource Next}" Grid.Column="3" Name="Button_Next" Click="Button_Next_Click"></Button>
 
                 </Grid>
             </Grid>
