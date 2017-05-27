@@ -58,7 +58,7 @@ namespace Mewsix.Helpers
             CurrentTimeTBox.Text = String.Format($"{Position.ToString(@"m\:ss")}");
             if (Duration != 0 && !TimeSlider.IsMouseOver)
             {
-                TimeSlider.Value = ((float)Position.Seconds / Duration) * 1000;
+                TimeSlider.Value = ((float)Position.TotalSeconds / Duration) * 1000;
                 Debug.WriteLine(TimeSlider.Value);
             }
         }
@@ -67,7 +67,7 @@ namespace Mewsix.Helpers
         private void TimeSlider_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             double sliderValue = TimeSlider.Value;
-            int timeValue = (int)((float)sliderValue / 1000) * Duration;
+            int timeValue = (int) (((float)sliderValue / 1000) * Duration);
             Position = new TimeSpan(0, 0, timeValue);
         }
 
