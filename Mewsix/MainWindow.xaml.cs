@@ -90,10 +90,11 @@ namespace Mewsix
             }
         }
 
-        private void Button_Play_Click(object sender, RoutedEventArgs e)
+        private void Button_Play_Pause_Click(object sender, RoutedEventArgs e)
         {
-            //TODO Play the selected track on the ViewModel
+            (DataContext as MainWindowViewModel).PlaySelectedTrack();
         }
+
 
         private void Button_Previous_Click(object sender, RoutedEventArgs e)
         {
@@ -162,5 +163,7 @@ namespace Mewsix
             Mouse.SetCursor(Cursors.Hand);
             e.Handled = true;
         }
+
+     
     }
 }

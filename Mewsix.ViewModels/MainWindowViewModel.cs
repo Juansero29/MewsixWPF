@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
+using System.Windows.Media;
 
 namespace Mewsix.ViewModels
 {
@@ -15,6 +16,10 @@ namespace Mewsix.ViewModels
         public IDataManager DataManager { get; set; }
 
         public ObservableCollection<Track> Tracks { get { return new ObservableCollection<Track>(DataManager.Tracks); } set { } }
+
+        private MewsixPlayer MPlayer { get; set; }
+        private bool IsPlaying { get; set; }
+        private bool IsPaused { get; set; }
 
         Track _selectedTrack;
         public Track SelectedTrack
@@ -35,6 +40,7 @@ namespace Mewsix.ViewModels
         {
             DataManager = new StubData();
             SelectedTrack = Tracks[1];
+            MPlayer = new MewsixPlayer();
         }
 
         public void AddTrack(string trackPath)
@@ -45,7 +51,8 @@ namespace Mewsix.ViewModels
             {
                 DataManager.Add(newTrack);
                 SelectedTrack = Tracks[Tracks.Count - 1];
-            } else
+            }
+            else
             {
                 Debug.Print("This track has already been added! ");
             }
@@ -69,6 +76,28 @@ namespace Mewsix.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        public void PlaySelectedTrack()
+        {
+            if (MPlayer.CurrentTrackPath != SelectedTrack.TrackPath || !MPlayer.IsOpened)
+            {
+                MPlayer.Play(SelectedTrack.TrackPath);
+            }
+            else
+            {
+                if (!MPlayer.IsPaused)
+                {
+                    MPlayer.Pause();
+                }
+                else
+                {
+                    MPlayer.Resume();
+                }
+            }
+
+
+        }
+
 
     }
 }
