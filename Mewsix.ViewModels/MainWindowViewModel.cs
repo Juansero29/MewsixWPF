@@ -36,6 +36,34 @@ namespace Mewsix.ViewModels
             }
         }
 
+        private int _selectedIndex;
+        public int SelectedIndex
+        {
+            get
+            {
+                return _selectedIndex;
+            }
+            set
+            {
+                if (value <= 0)
+                {
+                    _selectedIndex = Tracks.Count - 1;
+                    Debug.Print("selectedIndex : " + value);
+                    return;
+                }
+                if (value >= Tracks.Count - 1)
+                {
+                    _selectedIndex = 0;
+                    Debug.Print("selectedIndex : " + value);
+                    return;
+                }
+
+                _selectedIndex = value;
+                SelectedTrack = Tracks[SelectedIndex];
+                Debug.Print("selectedIndex : " + value);
+            }
+        }
+
         public MainWindowViewModel()
         {
             DataManager = new StubData();
@@ -79,9 +107,9 @@ namespace Mewsix.ViewModels
 
         public void PlaySelectedTrack()
         {
-            if (MPlayer.CurrentTrackPath != SelectedTrack.TrackPath || !MPlayer.IsOpened)
+            if (MPlayer.CurrentTrackPath != SelectedTrack.Path || !MPlayer.IsOpened)
             {
-                MPlayer.Play(SelectedTrack.TrackPath);
+                MPlayer.Play(SelectedTrack.Path);
             }
             else
             {
@@ -95,9 +123,19 @@ namespace Mewsix.ViewModels
                 }
             }
 
-
         }
 
+        public void PlayPrevious()
+        {
+            SelectedIndex--;
+            MPlayer.NewTrack(SelectedTrack.Path);
+        }
+
+        public void PlayNext()
+        {
+            SelectedIndex++;
+            MPlayer.NewTrack(SelectedTrack.Path);
+        }
 
     }
 }

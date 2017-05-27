@@ -88,13 +88,13 @@ namespace Mewsix.Models
         }
         private string _TrackPath;
 
-        public string TrackPath
+        public string Path
         {
             get { return _TrackPath; }
             private set
             {
                 _TrackPath = value;
-                OnPropertyChanged(nameof(TrackPath));
+                OnPropertyChanged(nameof(Path));
             }
         }
 
@@ -106,7 +106,7 @@ namespace Mewsix.Models
             Album = pocotrack.Album;
             Year = pocotrack.Year;
             Lyrics = pocotrack.Lyrics;
-            TrackPath = pocotrack.TrackPath;
+            Path = pocotrack.TrackPath;
         }
 
         public Track(string title, string artists, string uri)
@@ -125,7 +125,7 @@ namespace Mewsix.Models
 
         public Track(string trackPath, MusicID3Tag t, string albumUri) : this(t.Title, t.Artists.ToList().Aggregate((i, j) => i + ", " + j), albumUri, t.Album, t.Year, t.Lyrics)
         {
-            TrackPath = trackPath;
+            Path = trackPath;
         }
 
         public override string ToString()

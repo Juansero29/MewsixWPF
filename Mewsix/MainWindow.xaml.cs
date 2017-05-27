@@ -98,13 +98,13 @@ namespace Mewsix
 
         private void Button_Previous_Click(object sender, RoutedEventArgs e)
         {
-            //TODO Go to the previous track on the ViewModel
+            (DataContext as MainWindowViewModel).PlayPrevious();
         }
 
 
         private void Button_Next_Click(object sender, RoutedEventArgs e)
         {
-            //TODO Go to the next track on the ViewModel
+            (DataContext as MainWindowViewModel).PlayNext();
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -112,7 +112,7 @@ namespace Mewsix
             if (e.Key == Key.Enter)
             {
                 Track currentTrack = (DataContext as MainWindowViewModel).SelectedTrack;
-                TagLib.File file = TagLib.File.Create(currentTrack.TrackPath);
+                TagLib.File file = TagLib.File.Create(currentTrack.Path);
                 TagLib.Tag tag = file.Tag;
 
                 tag.Title = currentTrack.Title;

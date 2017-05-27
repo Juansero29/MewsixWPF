@@ -28,14 +28,14 @@ namespace Mewsix.Helpers
         public void Play(string path)
         {
             Open(new Uri(path));
-            Play();
             CurrentTrackPath = path;
+            base.Play();
             IsOpened = true;
         }
 
         public void Resume()
         {
-            Play();
+            base.Play();
             IsOpened = true;
             IsPaused = false;
         }
@@ -45,5 +45,18 @@ namespace Mewsix.Helpers
             base.Pause();
             IsPaused = true;
         }
+
+        public void NewTrack(string path)
+        {
+            Open(new Uri(path));
+            CurrentTrackPath = path;
+            IsOpened = true;
+
+            if (!IsPaused)
+            {
+                base.Play();
+            }
+        }
+
     }
 }
