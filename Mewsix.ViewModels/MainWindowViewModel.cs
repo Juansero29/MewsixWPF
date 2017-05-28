@@ -61,15 +61,17 @@ namespace Mewsix.ViewModels
             }
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     _selectedIndex = Tracks.Count - 1;
+                    SelectedTrack = Tracks[SelectedIndex];
                     Debug.Print("selectedIndex : " + value);
                     return;
                 }
-                if (value >= Tracks.Count - 1)
+                if (value > Tracks.Count - 1)
                 {
                     _selectedIndex = 0;
+                    SelectedTrack = Tracks[SelectedIndex];
                     Debug.Print("selectedIndex : " + value);
                     return;
                 }
