@@ -16,7 +16,22 @@ namespace Mewsix.ViewModels
 
         public IDataManager DataManager { get; set; }
 
-        public ObservableCollection<Track> Tracks { get { return new ObservableCollection<Track>(DataManager.Tracks); } set { } }
+        public ObservableCollection<Track> Tracks
+        {
+            get
+            {
+                if (DataManager.Tracks != null)
+                {
+                    return new ObservableCollection<Track>(DataManager.Tracks);
+                }
+                return null;
+
+            }
+            set
+            {
+
+            }
+        }
 
         private MewsixPlayer MPlayer { get; set; }
         private bool IsPlaying { get; set; }
@@ -68,7 +83,7 @@ namespace Mewsix.ViewModels
         public MainWindowViewModel(TextBlock TextBlock_Current_Time, TextBlock TextBlock_Total_Time, Slider Slider_Time)
         {
             DataManager = new StubData();
-            SelectedTrack = Tracks[1];
+            if (DataManager.Tracks != null) SelectedTrack = Tracks[0];
             MPlayer = new MewsixPlayer(TextBlock_Current_Time, TextBlock_Total_Time, Slider_Time);
         }
 
@@ -76,7 +91,12 @@ namespace Mewsix.ViewModels
         {
             MusicID3Tag tag = new MusicID3Tag(trackPath);
             Track newTrack = new Track(trackPath, tag, AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists[0]));
-            if (!Tracks.Contains(newTrack))
+            if (Tracks == null)
+            {
+                DataManager.Add(newTrack);
+                SelectedTrack = Tracks[Tracks.Count - 1];
+            }
+            else if (!Tracks.Contains(newTrack))
             {
                 DataManager.Add(newTrack);
                 SelectedTrack = Tracks[Tracks.Count - 1];
@@ -85,6 +105,7 @@ namespace Mewsix.ViewModels
             {
                 Debug.Print("This track has already been added! ");
             }
+
             OnPropertyChanged(nameof(Tracks));
         }
 
@@ -136,6 +157,13 @@ namespace Mewsix.ViewModels
         {
             SelectedIndex++;
             MPlayer.NewTrack(SelectedTrack.Path);
+        }
+
+
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            DataManager.Save(Tracks);
+            e.Cancel = false;
         }
 
     }

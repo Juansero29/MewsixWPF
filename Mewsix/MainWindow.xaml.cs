@@ -23,10 +23,12 @@ namespace Mewsix
 {
     public partial class MainWindow
     {
+
         public MainWindow()
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel(TextBlock_Current_Time, TextBlock_Total_Time, Slider_Time);
+            Closing += (DataContext as MainWindowViewModel).OnWindowClosing;
         }
 
 

@@ -80,11 +80,14 @@ namespace Mewsix.Helpers
 
         public void Play(string path)
         {
-            Open(new Uri(path));
-            CurrentTrackPath = path;
-            IsOpened = true;
-            base.Play();
-            Timer.Start();
+            if (path != null)
+            {
+                Open(new Uri(path));
+                CurrentTrackPath = path;
+                IsOpened = true;
+                base.Play();
+                Timer.Start();
+            }
         }
 
         public void Resume()
