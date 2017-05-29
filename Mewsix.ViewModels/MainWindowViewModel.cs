@@ -118,9 +118,9 @@ namespace Mewsix.ViewModels
             SelectedTrack = Tracks[0];
         }
 
-        public void Update(Track t)
+        public void Update(Track updatedTrack, Track currentTrack)
         {
-            DataManager.Update(t);
+            DataManager.Update(updatedTrack, currentTrack);
             OnPropertyChanged(nameof(Tracks));
         }
 

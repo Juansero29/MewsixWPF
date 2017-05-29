@@ -14,7 +14,7 @@ namespace Mewsix.Models
 
         void Remove(Track t);
 
-        void Update(Track t);
+        void Update(Track updatedTrack, Track currentTrack);
 
         void Save(IEnumerable<Track> toSaveTracks);
 

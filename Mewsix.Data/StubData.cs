@@ -50,14 +50,14 @@ namespace Mewsix.Data
             Save(list);
         }
 
-        public void Update(Track track)
+        public void Update(Track updatedTrack, Track currentTrack)
         {
             List<Track> list = Tracks as List<Track>;
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i].Equals(track))
+                if (list[i].Equals(currentTrack))
                 {
-                    list[i] = track;
+                    list[i] = updatedTrack;
                 }
             }
             Save(list);
@@ -65,7 +65,6 @@ namespace Mewsix.Data
 
         public void Save(IEnumerable<Track> toSaveTracks)
         {
-            //TODO Save the list of tracks in a file, JSON, DB....
             IEnumerable<PocoTrack> pocoTracksToSave = Track2PocoTracks(toSaveTracks);
             //Convert this variable to JSON and save it into a JSON file.
             string json = JsonConvert.SerializeObject(pocoTracksToSave.ToArray(), Formatting.Indented);
@@ -77,15 +76,19 @@ namespace Mewsix.Data
 
         public void Read()
         {
-            ////TODO Read the list of tracks from a file, JSON, DB....
-            //_Tracks = new List<PocoTrack> {
-            //        new PocoTrack{Title = "Creep", Artists = "Radiohead", AlbumUri = "https://images.genius.com/dc6a81658957cf95dc7a5834b6321b7a.300x300x1.jpg" },
-            //        new PocoTrack{Title = "Young Stuff", Artists = "Snarky Puppy", AlbumUri = "https://s3.amazonaws.com/bit-photos/large/6303622.jpeg" },
-            //        new PocoTrack{Title = "Like A Stone", Artists = "Audioslave", AlbumUri = "https://images-na.ssl-images-amazon.com/images/I/81SPG6dHDXL._SL1500_.jpg" }
-            //};
-
             if (File.Exists(@"c:\Mewsix\Data.json"))
             {
+
+                //Garbage collector: He doesn't know how to clean up some of the classes because he doesn't know when we're going to stop using it, 
+                // This kind of classes implement the interface IDisposable to that we can clean it up when we find is rights. 
+                //The block using calls Dispose() when the final bracket is finished.
+
+
+                //All that we put inside the parentheses on using must implement using and then will be disposed when the final bracket is reached.
+
+
+                //There's always a case in which a resource is used by multiple objets, in that case using doesn't work, we must come back to Dispose();
+
                 using (StreamReader r = new StreamReader(@"c:\Mewsix\Data.json"))
                 {
                     string json = r.ReadToEnd();
@@ -98,9 +101,6 @@ namespace Mewsix.Data
                 Directory.CreateDirectory(@"c:\Mewsix\");
                 File.Create(@"c:\Mewsix\Data.json");
             }
-
-
-            //Open the JSON file, parse the poco tracks and assign them to _Tracks;
         }
 
         private IEnumerable<Track> PocoTrack2Tracks(IEnumerable<PocoTrack> pocotracksToConvert)
