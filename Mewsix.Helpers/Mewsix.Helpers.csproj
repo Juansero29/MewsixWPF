@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumImageLinkRetriever.cs" />
+    <Compile Include="IdGenerator.cs" />
     <Compile Include="MewsixPlayer.cs" />
     <Compile Include="MusicID3Tag.cs" />
     <Compile Include="TabSizeConverter.cs" />

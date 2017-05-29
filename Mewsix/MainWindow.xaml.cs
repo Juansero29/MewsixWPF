@@ -113,6 +113,7 @@ namespace Mewsix
         {
             if (e.Key == Key.Enter)
             {
+                //TODO This work shouldn't be done by the view.
                 Track currentTrack = (DataContext as MainWindowViewModel).SelectedTrack;
                 TagLib.File file = TagLib.File.Create(currentTrack.Path);
                 TagLib.Tag tag = file.Tag;
@@ -124,6 +125,7 @@ namespace Mewsix
                 try
                 {
                     file.Save();
+                    (DataContext as MainWindowViewModel).Update(currentTrack);
                     MessageBox.Show("Track information updated !");
 
                 }
@@ -166,6 +168,9 @@ namespace Mewsix
             e.Handled = true;
         }
 
-     
+        private void MenuItemRemove_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainWindowViewModel).Remove((DataContext as MainWindowViewModel).SelectedTrack);
+        }
     }
 }

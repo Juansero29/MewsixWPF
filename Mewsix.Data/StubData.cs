@@ -50,14 +50,17 @@ namespace Mewsix.Data
             Save(list);
         }
 
-        public void Update(Track updatedTrack, Track currentTrack)
+        public void Update(Track t)
         {
+            //TODO Get the property from the name of the property
             List<Track> list = Tracks as List<Track>;
-            for (int i = 0; i < list.Count; i++)
+            t.UpdateImage();
+            for (int i = list.Count - 1; i >= 0; i--)
             {
-                if (list[i].Equals(currentTrack))
+                if (list[i].Equals(t))
                 {
-                    list[i] = updatedTrack;
+                    list.RemoveAt(i);
+                    list.Add(t);
                 }
             }
             Save(list);
@@ -65,13 +68,16 @@ namespace Mewsix.Data
 
         public void Save(IEnumerable<Track> toSaveTracks)
         {
-            IEnumerable<PocoTrack> pocoTracksToSave = Track2PocoTracks(toSaveTracks);
-            //Convert this variable to JSON and save it into a JSON file.
-            string json = JsonConvert.SerializeObject(pocoTracksToSave.ToArray(), Formatting.Indented);
-            //Make persistant in a file with poco data
-            File.WriteAllText(@"c:\Mewsix\Data.json", json);
-            //Update for the current session
-            Tracks = toSaveTracks;
+            if (toSaveTracks != null)
+            {
+                IEnumerable<PocoTrack> pocoTracksToSave = Track2PocoTracks(toSaveTracks);
+                //Convert this variable to JSON and save it into a JSON file.
+                string json = JsonConvert.SerializeObject(pocoTracksToSave.ToArray(), Formatting.Indented);
+                //Make persistant in a file with poco data
+                File.WriteAllText(@"c:\Mewsix\Data.json", json);
+                //Update for the current session
+                Tracks = toSaveTracks;
+            }
         }
 
         public void Read()
@@ -124,7 +130,7 @@ namespace Mewsix.Data
             List<PocoTrack> pocoTracksToReturn = new List<PocoTrack>();
             foreach (Track t in tracksToConvert)
             {
-                pocoTracksToReturn.Add(new PocoTrack { Album = t.Album, Artists = t.Artists, Lyrics = t.Lyrics, AlbumUri = t.AlbumUri.ToString(), Title = t.Title, TrackPath = t.Path, Year = t.Year });
+                pocoTracksToReturn.Add(new PocoTrack { Album = t.Album, Artists = t.Artists, Lyrics = t.Lyrics, AlbumUri = t.AlbumUri.ToString(), Title = t.Title, TrackPath = t.Path, Year = t.Year, ID = t.ID });
             }
 
             return pocoTracksToReturn;

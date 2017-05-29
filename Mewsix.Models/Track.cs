@@ -20,6 +20,20 @@ namespace Mewsix.Models
         }
 
 
+        private string _ID;
+        public string ID
+        {
+            get
+            {
+                return _ID;
+            }
+            private set
+            {
+                _ID = value;
+            }
+        }
+
+
         private string _Title;
         public string Title
         {
@@ -51,6 +65,11 @@ namespace Mewsix.Models
                 _AlbumUri = value;
                 OnPropertyChanged(nameof(AlbumUri));
             }
+        }
+
+        public void UpdateImage()
+        {
+            AlbumUri = new Uri(AlbumImageLinkRetriever.GiveAlbumImageLink(Title, Artists));
         }
 
         private string _Album;
@@ -107,6 +126,7 @@ namespace Mewsix.Models
             Year = pocotrack.Year;
             Lyrics = pocotrack.Lyrics;
             Path = pocotrack.TrackPath;
+            ID = pocotrack.ID;
         }
 
         public Track(string title, string artists, string uri)
@@ -114,6 +134,7 @@ namespace Mewsix.Models
             Title = title;
             Artists = artists;
             AlbumUri = new Uri(uri);
+            ID = IdGenerator.GetID();
         }
 
         public Track(string title, string artists, string uri, string album, string year, string lyrics) : this(title, artists, uri)
@@ -121,11 +142,13 @@ namespace Mewsix.Models
             Album = album;
             Year = year;
             Lyrics = lyrics;
+            ID = IdGenerator.GetID();
         }
 
         public Track(string trackPath, MusicID3Tag t, string albumUri) : this(t.Title, t.Artists.ToList().Aggregate((i, j) => i + ", " + j), albumUri, t.Album, t.Year, t.Lyrics)
         {
             Path = trackPath;
+            ID = IdGenerator.GetID();
         }
 
         public override string ToString()
@@ -144,7 +167,7 @@ namespace Mewsix.Models
         public bool Equals(Track other)
         {
             if (other == null) return false;
-            return Title == other.Title && Artists == other.Artists && Year == other.Year;
+            return ID == other.ID;
         }
 
         public override int GetHashCode()
