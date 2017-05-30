@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Mewsix.ViewModels
 {
@@ -17,20 +18,16 @@ namespace Mewsix.ViewModels
 
         public IDataManager DataManager { get; set; }
 
+        private ObservableCollection<Track> _Tracks;
         public ObservableCollection<Track> Tracks
         {
             get
             {
-                if (DataManager.Tracks != null)
-                {
-                    return new ObservableCollection<Track>(DataManager.Tracks);
-                }
-                return null;
-
+                return _Tracks;
             }
             set
             {
-
+                _Tracks = value;
             }
         }
 
@@ -93,31 +90,10 @@ namespace Mewsix.ViewModels
         public MainWindowViewModel(TextBlock TextBlock_Current_Time, TextBlock TextBlock_Total_Time, Slider Slider_Time)
         {
             DataManager = new StubData();
-            if (DataManager.Tracks != null && DataManager.Tracks.ToList().Count > 0) { SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
+            if (DataManager.Tracks != null) _Tracks = new ObservableCollection<Track>(DataManager.Tracks);
+
+            if (Tracks != null && Tracks.ToList().Count > 0) { SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
             MPlayer = new MewsixPlayer(TextBlock_Current_Time, TextBlock_Total_Time, Slider_Time);
-        }
-
-        public void AddTrack(string trackPath)
-        {
-            MusicID3Tag tag = new MusicID3Tag(trackPath);
-            Track newTrack = new Track(trackPath, tag, AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists[0]));
-            newTrack.PropertyChanged += OnTrackPropertyChanged;
-            if (Tracks == null)
-            {
-                DataManager.Add(newTrack);
-                SelectedTrack = Tracks[Tracks.Count - 1];
-            }
-            else if (!Tracks.Contains(newTrack))
-            {
-                DataManager.Add(newTrack);
-                SelectedTrack = Tracks[Tracks.Count - 1];
-            }
-            else
-            {
-                Debug.Print("This track has already been added! ");
-            }
-
-            OnPropertyChanged(nameof(Tracks));
         }
 
         private void OnTrackPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -127,9 +103,33 @@ namespace Mewsix.ViewModels
             Update(t);
         }
 
+        public void AddTrack(string trackPath)
+        {
+            MusicID3Tag tag = new MusicID3Tag(trackPath);
+            Track newTrack = new Track(trackPath, tag, AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists[0]));
+            newTrack.PropertyChanged += OnTrackPropertyChanged;
+            if (Tracks == null) Tracks = new ObservableCollection<Track>();
+            if (Tracks == null || !Tracks.Contains(newTrack))
+            {
+                Tracks.Add(newTrack);
+                DataManager.Add(newTrack);
+                SelectedTrack = Tracks[Tracks.Count - 1];
+            }
+            else
+            {
+                Debug.Print("This track has already been added! ");
+            }
+            OnPropertyChanged(nameof(Tracks));
+        }
+
         public void Remove(Track t)
         {
+            /* REMOVE FROM VIEW MODEL'S DATA */
+            Tracks.Remove(t);
+
+            /* REMOVE FROM DATA MANAGER'S DATA*/
             DataManager.Remove(t);
+
             OnPropertyChanged(nameof(Tracks));
             if (Tracks.Count == 0) SelectedTrack = null;
             SelectedTrack = Tracks[0];
@@ -137,6 +137,17 @@ namespace Mewsix.ViewModels
 
         public void Update(Track t)
         {
+            /* UPDATE FOR THE VIEW MODEL'S DATA */
+            for (int i = Tracks.Count - 1; i >= 0; i--)
+            {
+                if (Tracks[i].Equals(t))
+                {
+                    Tracks.RemoveAt(i);
+                    Tracks.Add(t);
+                }
+            }
+
+            /* UPDATE FOR THE DATA MANAGER'S DATA */
             DataManager.Update(t);
             OnPropertyChanged(nameof(Tracks));
         }

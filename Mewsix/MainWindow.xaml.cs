@@ -115,6 +115,7 @@ namespace Mewsix
             {
                 //TODO This work shouldn't be done by the view.
                 Track currentTrack = (DataContext as MainWindowViewModel).SelectedTrack;
+                currentTrack.UpdateImage();
                 TagLib.File file = TagLib.File.Create(currentTrack.Path);
                 TagLib.Tag tag = file.Tag;
 

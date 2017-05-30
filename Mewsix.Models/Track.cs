@@ -29,7 +29,11 @@ namespace Mewsix.Models
             }
             private set
             {
-                _ID = value;
+                if(_ID != value)
+                {
+                    _ID = value;
+                    OnPropertyChanged(nameof(Title));
+                }
             }
         }
 
@@ -40,8 +44,11 @@ namespace Mewsix.Models
             get { return _Title; }
             set
             {
-                _Title = value;
-                OnPropertyChanged(nameof(Title));
+                if(_ID != value)
+                {
+                    _Title = value;
+                    OnPropertyChanged(nameof(Title));
+                }
             }
         }
 
@@ -51,8 +58,11 @@ namespace Mewsix.Models
             get { return _Artists; }
             set
             {
-                _Artists = value;
-                OnPropertyChanged(nameof(Artists));
+                if (_Artists != value)
+                {
+                    _Artists = value;
+                    OnPropertyChanged(nameof(Artists)); 
+                }
             }
         }
 
@@ -62,14 +72,12 @@ namespace Mewsix.Models
             get { return _AlbumUri; }
             set
             {
-                _AlbumUri = value;
-                OnPropertyChanged(nameof(AlbumUri));
+                if (_AlbumUri != value)
+                {
+                    _AlbumUri = value;
+                    OnPropertyChanged(nameof(AlbumUri)); 
+                }
             }
-        }
-
-        public void UpdateImage()
-        {
-            AlbumUri = new Uri(AlbumImageLinkRetriever.GiveAlbumImageLink(Title, Artists));
         }
 
         private string _Album;
@@ -78,8 +86,11 @@ namespace Mewsix.Models
             get { return _Album; }
             set
             {
-                _Album = value;
-                OnPropertyChanged(nameof(Album));
+                if (_Album != value)
+                {
+                    _Album = value;
+                    OnPropertyChanged(nameof(Album)); 
+                }
             }
         }
 
@@ -90,8 +101,11 @@ namespace Mewsix.Models
             get { return _Year; }
             set
             {
-                _Year = value;
-                OnPropertyChanged(nameof(Year));
+                if (_Year != value)
+                {
+                    _Year = value;
+                    OnPropertyChanged(nameof(Year)); 
+                }
             }
         }
 
@@ -101,8 +115,11 @@ namespace Mewsix.Models
             get { return _Lyrics; }
             set
             {
-                _Lyrics = value;
-                OnPropertyChanged(nameof(Year));
+                if (_Lyrics != value)
+                {
+                    _Lyrics = value;
+                    OnPropertyChanged(nameof(Year)); 
+                }
             }
         }
         private string _TrackPath;
@@ -112,8 +129,11 @@ namespace Mewsix.Models
             get { return _TrackPath; }
             private set
             {
-                _TrackPath = value;
-                OnPropertyChanged(nameof(Path));
+                if (_TrackPath != value)
+                {
+                    _TrackPath = value;
+                    OnPropertyChanged(nameof(Path)); 
+                }
             }
         }
 
@@ -151,6 +171,12 @@ namespace Mewsix.Models
             ID = IdGenerator.GetID();
         }
 
+
+        public void UpdateImage()
+        {
+            AlbumUri = new Uri(AlbumImageLinkRetriever.GiveAlbumImageLink(Title, Artists));
+        }
+
         public override string ToString()
         {
             return Title + " by " + Artists;
@@ -167,12 +193,13 @@ namespace Mewsix.Models
         public bool Equals(Track other)
         {
             if (other == null) return false;
-            return ID == other.ID;
+            if (ID == other.ID) return true;
+            return Title == other.Title && Artists == other.Artists;
         }
 
         public override int GetHashCode()
         {
-            return Title.GetHashCode() % 31;
+            return Math.Abs(Title.GetHashCode()) % 31;
         }
     }
 }

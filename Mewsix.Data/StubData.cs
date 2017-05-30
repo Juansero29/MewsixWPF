@@ -52,9 +52,7 @@ namespace Mewsix.Data
 
         public void Update(Track t)
         {
-            //TODO Get the property from the name of the property
             List<Track> list = Tracks as List<Track>;
-            t.UpdateImage();
             for (int i = list.Count - 1; i >= 0; i--)
             {
                 if (list[i].Equals(t))

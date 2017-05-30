@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:Mewsix.Helpers;assembly=Mewsix.Helpers"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"       
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
         mc:Ignorable="d"
         Title="Mewsix" Height="450" Width="750"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -89,7 +89,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <materialDesign:PopupBox Style="{DynamicResource MaterialDesignMultiFloatingActionAccentPopupBox}"
+            <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
                                      MaxHeight="48"
                                      MaxWidth="48"
                                      HorizontalAlignment="Right"
@@ -107,8 +107,6 @@
                     </Button>
                 </StackPanel>
             </materialDesign:PopupBox>
-
-
         </Grid>
 
 
@@ -118,22 +116,28 @@
 
         <DockPanel Grid.Column="1"  >
 
-            <Grid DockPanel.Dock="Bottom" Height="48" Background="Aquamarine">
+            <Grid DockPanel.Dock="Bottom" Height="48" Background="#BBDEFB">
                 <Grid Margin="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="2*"/>
 
 
                     </Grid.ColumnDefinitions>
 
-                    <Button Margin="6" Content="{StaticResource Previous}" Grid.Column="0" Name="Button_Previous" Click="Button_Previous_Click"/>
-                    <Button Margin="6" Content="{StaticResource Play}" Grid.Column="1" Name="Button_Play_Pause" Click="Button_Play_Pause_Click"/>
-                    <Button Margin="6" Content="{StaticResource Next}" Grid.Column="2" Name="Button_Next" Click="Button_Next_Click"></Button>
+                    <Button Margin="6" Grid.Column="0" Name="Button_Previous" Click="Button_Previous_Click">
+                        <materialDesign:PackIcon Kind="SkipPrevious" Height="Auto" Width="Auto"/>
+                    </Button>
+                    <Button Margin="6" Grid.Column="1" Name="Button_Play_Pause" Click="Button_Play_Pause_Click">
+                        <materialDesign:PackIcon Kind="Play" Height="Auto" Width="Auto" />
+                    </Button>
+                    <Button Margin="6" Grid.Column="2" Name="Button_Next" Click="Button_Next_Click">
+                        <materialDesign:PackIcon Kind="SkipNext" Height="Auto" Width="Auto" />
+                    </Button>
                     <TextBlock x:Name="TextBlock_Current_Time" Grid.Column="3" TextAlignment="Center" Text="0:00" VerticalAlignment="Center"/>
                     <Slider TickFrequency="1000" Margin="4" Grid.Column="4" x:Name="Slider_Time" Minimum="0" Maximum="1000" MinWidth="80" VerticalAlignment="Center" />
                     <TextBlock x:Name="TextBlock_Total_Time"  Grid.Column="5" Text="0:00" VerticalAlignment="Center"/>
@@ -163,7 +167,7 @@
 
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center" Text="Artist(s) : "/>
-                            <TextBlock KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Artists, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Artists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="2" Orientation="Horizontal">
