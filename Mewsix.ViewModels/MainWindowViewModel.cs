@@ -131,8 +131,9 @@ namespace Mewsix.ViewModels
             DataManager.Remove(t);
 
             OnPropertyChanged(nameof(Tracks));
-            if (Tracks.Count == 0) SelectedTrack = null;
-            SelectedTrack = Tracks[0];
+            if (Tracks.Count <= 0) { SelectedTrack = null; }
+            else { SelectedTrack = Tracks[0]; }
+
         }
 
         public void Update(Track t)
