@@ -133,7 +133,7 @@
                         <materialDesign:PackIcon Kind="SkipPrevious" Height="Auto" Width="Auto"/>
                     </Button>
                     <Button Margin="6" Grid.Column="1" Name="Button_Play_Pause" Click="Button_Play_Pause_Click">
-                        <materialDesign:PackIcon Kind="Play" Height="Auto" Width="Auto" />
+                        <materialDesign:PackIcon Kind="PlayPause" Height="Auto" Width="Auto" />
                     </Button>
                     <Button Margin="6" Grid.Column="2" Name="Button_Next" Click="Button_Next_Click">
                         <materialDesign:PackIcon Kind="SkipNext" Height="Auto" Width="Auto" />

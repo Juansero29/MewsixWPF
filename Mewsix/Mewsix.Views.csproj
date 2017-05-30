@@ -135,9 +135,7 @@
       <Name>Mewsix.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="music-player.ico" />
   </ItemGroup>
