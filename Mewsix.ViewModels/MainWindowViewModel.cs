@@ -194,16 +194,23 @@ namespace Mewsix.ViewModels
         {
             if (!Tracks.Any()) return;
 
-            SelectedIndex--;
+            SelectedIndex = GetCurrentlyPlayingIndex() - 1;
             MPlayer.NewTrack(SelectedTrack.Path);
         }
 
         public void PlayNext()
         {
             if (!Tracks.Any()) return;
-
-            SelectedIndex++;
+                       
+            SelectedIndex = GetCurrentlyPlayingIndex() +1;
             MPlayer.NewTrack(SelectedTrack.Path);
+        }
+
+        private int GetCurrentlyPlayingIndex()
+        {
+            // The index of the currently playing song which may be different from the selected song
+            Track currentlyPlaying = Tracks.Where(t => t.Path.Equals(MPlayer.CurrentTrackPath)).First();
+            return Tracks.IndexOf(currentlyPlaying);
         }
 
 
