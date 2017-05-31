@@ -23,6 +23,7 @@ namespace Mewsix.ViewModels
         {
             get
             {
+                if (_Tracks == null) { return new ObservableCollection<Track>(); }
                 return _Tracks;
             }
             set
@@ -106,12 +107,12 @@ namespace Mewsix.ViewModels
             MusicID3Tag tag = new MusicID3Tag(trackPath);
             Track newTrack = new Track(trackPath, tag, AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists[0]));
             newTrack.PropertyChanged += OnTrackPropertyChanged;
-            if (Tracks == null) Tracks = new ObservableCollection<Track>();
-            if (Tracks == null || !Tracks.Contains(newTrack))
+
+            if (!Tracks.Contains(newTrack))
             {
                 Tracks.Add(newTrack);
                 DataManager.Add(newTrack);
-                SelectedTrack = Tracks[Tracks.Count - 1];
+                SelectedIndex = Tracks.Count - 1;
             }
             else
             {
@@ -123,14 +124,25 @@ namespace Mewsix.ViewModels
         public void Remove(Track t)
         {
             /* REMOVE FROM VIEW MODEL'S DATA */
+            int oldIndex = SelectedIndex;
+            string oldTrackPath = t.Path;
             Tracks.Remove(t);
 
             /* REMOVE FROM DATA MANAGER'S DATA*/
             DataManager.Remove(t);
 
-            OnPropertyChanged(nameof(Tracks));
-            if (Tracks.Count <= 0) { SelectedTrack = null; }
-            else { SelectedTrack = Tracks[0]; }
+            if (Tracks.Count <= 0)
+            {
+                SelectedTrack = null;
+                return;
+            }
+
+            SelectedIndex = oldIndex;  // As if the next song in the list was selected
+
+            if (MPlayer.IsOpened && oldTrackPath == MPlayer.CurrentTrackPath)
+            {
+                MPlayer.NewTrack(SelectedTrack.Path);
+            }
 
         }
 
@@ -158,6 +170,8 @@ namespace Mewsix.ViewModels
 
         public void PlaySelectedTrack()
         {
+            if (!Tracks.Any()) return;
+
             if (MPlayer.CurrentTrackPath != SelectedTrack.Path || !MPlayer.IsOpened)
             {
                 MPlayer.Play(SelectedTrack.Path);
@@ -178,12 +192,16 @@ namespace Mewsix.ViewModels
 
         public void PlayPrevious()
         {
+            if (!Tracks.Any()) return;
+
             SelectedIndex--;
             MPlayer.NewTrack(SelectedTrack.Path);
         }
 
         public void PlayNext()
         {
+            if (!Tracks.Any()) return;
+
             SelectedIndex++;
             MPlayer.NewTrack(SelectedTrack.Path);
         }
