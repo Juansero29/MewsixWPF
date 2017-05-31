@@ -32,8 +32,6 @@ namespace Mewsix.ViewModels
         }
 
         private MewsixPlayer MPlayer { get; set; }
-        private bool IsPlaying { get; set; }
-        private bool IsPaused { get; set; }
 
         Track _selectedTrack;
         public Track SelectedTrack

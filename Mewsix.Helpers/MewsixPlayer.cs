@@ -60,7 +60,7 @@ namespace Mewsix.Helpers
             if (Duration != 0 && !MouseDown)
             {
                 TimeSlider.Value = ((float)Position.TotalSeconds / Duration) * 1000;
-                Debug.WriteLine(TimeSlider.Value);
+                //Debug.WriteLine(TimeSlider.Value);
             }
         }
 
