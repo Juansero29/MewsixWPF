@@ -143,11 +143,7 @@
             </Grid>
 
             <TabControl>
-                <TabItem Header="Lyrics">
-                    <ScrollViewer>
-                        <TextBlock Grid.Column="1" Text="{Binding SelectedTrack.Lyrics}" TextAlignment="Center"/>
-                    </ScrollViewer>
-                </TabItem>
+                
                 <TabItem IsSelected="True" Header="Info">
                     <Grid Margin="4">
                         <Grid.RowDefinitions>
@@ -181,6 +177,12 @@
                         </StackPanel>
                     </Grid>
 
+                </TabItem>
+
+                <TabItem Header="Lyrics">
+                    <ScrollViewer>
+                        <TextBlock Grid.Column="1" Text="{Binding SelectedTrack.Lyrics}" TextAlignment="Center"/>
+                    </ScrollViewer>
                 </TabItem>
 
             </TabControl>
