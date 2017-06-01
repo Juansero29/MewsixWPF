@@ -9,6 +9,11 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Linq;
 using System.Collections.Generic;
+using System;
+using System.Windows.Forms;
+using System.IO;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Mewsix.ViewModels
 {
@@ -86,6 +91,87 @@ namespace Mewsix.ViewModels
             }
         }
 
+        public void AddButton()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Music files|*.mp3;*.flac",
+                Multiselect = true
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (string trackPath in openFileDialog.FileNames)
+                {
+                    AddTrack(trackPath);
+                }
+            }
+        }
+
+        public void OnObjectDroppedOnView(object sender, System.Windows.DragEventArgs e)
+        {
+            List<string> filepaths = new List<string>();
+            string[] pathData = e.Data.GetData(System.Windows.DataFormats.FileDrop, false) as string[];
+            if (pathData == null) return;
+            foreach (var path in pathData)
+            {
+                //If there's a directory in the current path
+                if (Directory.Exists(path))
+                {
+                    //Add files from folder
+                    filepaths.AddRange(Directory.GetFiles(path));
+                }
+                else //If there isn't a directory, then there is a file.
+                {
+                    //Add filepath
+                    filepaths.Add(path);
+                }
+            }
+
+            //For each file path, if it's a music file, we add it to the tracks.
+            foreach (var trackPath in filepaths)
+            {
+                if (Path.GetExtension(trackPath) == ".mp3" || Path.GetExtension(trackPath) == ".flac")
+                {
+                    AddTrack(trackPath);
+                }
+            }
+        }
+
+        public void OnTextBoxKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Track currentTrack = SelectedTrack;
+                currentTrack.UpdateImage();
+                TagLib.File file = TagLib.File.Create(currentTrack.Path);
+                TagLib.Tag tag = file.Tag;
+
+                tag.Title = currentTrack.Title;
+                tag.Album = currentTrack.Album;
+                tag.Year = Convert.ToUInt32(currentTrack.Year);
+
+                try
+                {
+                    file.Save();
+                    Update(currentTrack);
+                    System.Windows.MessageBox.Show("Track information updated !");
+
+                }
+                catch (UnauthorizedAccessException exception)
+                {
+                    System.Windows.MessageBox.Show("Couldn't update track info. Access denied.");
+                    Debug.WriteLine(exception.ToString());
+                }
+                catch (Exception exception)
+                {
+                    System.Windows.MessageBox.Show("Couldn't update track info. An unknown exception occured");
+                    Debug.WriteLine(exception.ToString());
+                }
+
+            }
+        }
+
         public MainWindowViewModel(TextBlock TextBlock_Current_Time, TextBlock TextBlock_Total_Time, Slider Slider_Time)
         {
             DataManager = new StubData();
@@ -107,6 +193,7 @@ namespace Mewsix.ViewModels
             MusicID3Tag tag = new MusicID3Tag(trackPath);
             Track newTrack = new Track(trackPath, tag, AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists[0]));
             newTrack.PropertyChanged += OnTrackPropertyChanged;
+            if (_Tracks == null) _Tracks = new ObservableCollection<Track>();
 
             if (!Tracks.Contains(newTrack))
             {
@@ -204,6 +291,28 @@ namespace Mewsix.ViewModels
                        
             SelectedIndex = GetCurrentlyPlayingIndex() +1;
             MPlayer.NewTrack(SelectedTrack.Path);
+        }
+
+        public void AddFolder()
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                     string[] files = Directory.GetFiles(fbd.SelectedPath);
+                    foreach (string trackPath in files)
+                    {
+                        if (Path.GetExtension(trackPath) == ".mp3" || Path.GetExtension(trackPath) == ".flac")
+                        {
+                            AddTrack(trackPath);
+                        }
+                    }
+                }
+
+
+            }
+
         }
 
         private int GetCurrentlyPlayingIndex()

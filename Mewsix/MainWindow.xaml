@@ -94,9 +94,7 @@
                                      MaxWidth="48"
                                      HorizontalAlignment="Right"
                                      VerticalAlignment="Bottom"
-                                     Margin="16"
-                                     Opened="PopupBox_OnOpened"
-                                     Closed="PopupBox_OnClosed">
+                                     Margin="16">
                 <StackPanel>
                     <Button ToolTip="Add a music file" Opacity="0.8" Name="Button_Add" Click="Button_Add_Click">
                         <materialDesign:PackIcon Kind="MusicNote" />
