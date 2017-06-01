@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace Mewsix.Helpers
 {
@@ -14,21 +15,26 @@ namespace Mewsix.Helpers
         private static readonly string MUSIXMATCH_AUTH_KEY = "f2a6f30c5bbd5d93e582d93b03f32d1e";
         public static string GiveTrackLyrics(string trackTitle, string artist)
         {
-            string lyrics;
+            string lyrics = "No lyrics have been found!";
             if (artist == null) { artist = ""; }
             if (trackTitle == null) { trackTitle = ""; }
+
             using (WebClient wc = new WebClient())
             {
                 string json = wc.DownloadString("http://api.musixmatch.com/ws/1.1/matcher.lyrics.get?apikey="+ MUSIXMATCH_AUTH_KEY + "&q_track=" + trackTitle.ToLower().Replace(" ", "%20") + "&q_artist=" + artist.ToLower().Replace(" ", "%20"));
-                RootObject parsedObject = JsonConvert.DeserializeObject<RootObject>(json);
-                if (parsedObject.message.body == null) return "No lyrics have been found!";
-                if (!String.IsNullOrWhiteSpace(parsedObject.message.body.lyrics.lyrics_body))
+                try
                 {
-                    lyrics = parsedObject.message.body.lyrics.lyrics_body;
-                }
-                else
+                    RootObject parsedObject = JsonConvert.DeserializeObject<RootObject>(json);
+                    if (parsedObject.message.body == null) return lyrics;
+                    if (!String.IsNullOrWhiteSpace(parsedObject.message.body.lyrics.lyrics_body))
+                    {
+                        lyrics = parsedObject.message.body.lyrics.lyrics_body;
+                    }
+                    
+                } catch(JsonSerializationException e)
                 {
-                    lyrics = "No lyrics have been found!";
+                    Debug.WriteLine(e.Message);
+                    return lyrics;
                 }
             }
             return lyrics;

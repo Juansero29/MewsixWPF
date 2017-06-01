@@ -191,7 +191,7 @@ namespace Mewsix.ViewModels
         public void AddTrack(string trackPath)
         {
             MusicID3Tag tag = new MusicID3Tag(trackPath);
-            Track newTrack = new Track(trackPath, tag, AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists[0]), TrackLyricsRetriever.GiveTrackLyrics(tag.Title, tag.Artists[0]));
+            Track newTrack = new Track(trackPath, tag, AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists?[0]), TrackLyricsRetriever.GiveTrackLyrics(tag.Title, tag.Artists[0]));
             newTrack.PropertyChanged += OnTrackPropertyChanged;
             if (_Tracks == null) _Tracks = new ObservableCollection<Track>();
 

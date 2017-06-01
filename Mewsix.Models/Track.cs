@@ -207,7 +207,8 @@ namespace Mewsix.Models
 
         public override int GetHashCode()
         {
-            return Math.Abs(Title.GetHashCode()) % 31;
+            if (Title != null) return Math.Abs(Title.GetHashCode()) % 31;
+            else return ID.GetHashCode() % 31; 
         }
     }
 }

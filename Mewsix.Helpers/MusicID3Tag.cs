@@ -34,7 +34,13 @@ namespace Mewsix.Helpers
             Comment = tags.Comment;
             Genre = tags.JoinedGenres;
             Lyrics = tags.Lyrics;
-
+            if (!Artists.ToList().Any())
+            {
+                Artists = new string[] { "Unknown" };
+            }
+            if (Title == null) Title = "None";
+            if (Year == null) Year = "1984";
+            if (Album == null) Album = "Unknown";
         }
 
     }
