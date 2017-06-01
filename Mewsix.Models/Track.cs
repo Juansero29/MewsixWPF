@@ -157,6 +157,7 @@ namespace Mewsix.Models
             ID = IdGenerator.GetID();
         }
 
+
         public Track(string title, string artists, string uri, string album, string year, string lyrics) : this(title, artists, uri)
         {
             Album = album;
@@ -167,6 +168,13 @@ namespace Mewsix.Models
 
         public Track(string trackPath, MusicID3Tag t, string albumUri) : this(t.Title, t.Artists.ToList().Aggregate((i, j) => i + ", " + j), albumUri, t.Album, t.Year, t.Lyrics)
         {
+            Path = trackPath;
+            ID = IdGenerator.GetID();
+        }
+
+        public Track(string trackPath, MusicID3Tag t, string albumUri, string lyricsString) : this(t.Title, t.Artists.ToList().Aggregate((i, j) => i + ", " + j), albumUri, t.Album, t.Year, t.Lyrics)
+        {
+            Lyrics = lyricsString;
             Path = trackPath;
             ID = IdGenerator.GetID();
         }

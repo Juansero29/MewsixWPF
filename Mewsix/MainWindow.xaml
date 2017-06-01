@@ -144,7 +144,9 @@
 
             <TabControl SelectionChanged="TabControl_SelectionChanged">
                 <TabItem Header="Lyrics">
-                    <TextBlock Grid.Column="1" Text="{Binding Lyrics}"/>
+                    <ScrollViewer>
+                        <TextBlock Grid.Column="1" Text="{Binding SelectedTrack.Lyrics}" TextAlignment="Center"/>
+                    </ScrollViewer>
                 </TabItem>
                 <TabItem IsSelected="True" Header="Info">
                     <Grid Margin="4">
@@ -177,13 +179,6 @@
                             <TextBlock VerticalAlignment="Center" Text="Year : "/>
                             <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
-
-                        <StackPanel Grid.Row="4" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Lyrics : "/>
-                            <TextBlock KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Lyrics, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
-
-
                     </Grid>
 
                 </TabItem>

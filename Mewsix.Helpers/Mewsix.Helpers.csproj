@@ -58,6 +58,7 @@
     <Compile Include="MusicID3Tag.cs" />
     <Compile Include="TabSizeConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrackLyricsRetriever.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
