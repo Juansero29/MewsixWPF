@@ -30,7 +30,7 @@ namespace Mewsix.Helpers
                     {
                         lyrics = parsedObject.message.body.lyrics.lyrics_body;
                     }
-                    
+
                 } catch(JsonSerializationException e)
                 {
                     Debug.WriteLine(e.Message);

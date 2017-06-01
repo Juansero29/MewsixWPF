@@ -56,7 +56,7 @@
         </Grid.ColumnDefinitions>
         <Grid>
             <ListView AllowDrop="True" Drop="ListView_Drop" DragDrop.GiveFeedback="ListView_GiveFeedback" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
-                  ItemsSource="{Binding Tracks}" MinWidth="200" SelectionChanged="ListView_SelectionChanged">
+                  ItemsSource="{Binding Tracks}" MinWidth="200">
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Click="MenuItemRemove_Click"  Header="Remove"/>
@@ -142,7 +142,7 @@
                 </Grid>
             </Grid>
 
-            <TabControl SelectionChanged="TabControl_SelectionChanged">
+            <TabControl>
                 <TabItem Header="Lyrics">
                     <ScrollViewer>
                         <TextBlock Grid.Column="1" Text="{Binding SelectedTrack.Lyrics}" TextAlignment="Center"/>

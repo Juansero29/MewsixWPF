@@ -31,32 +31,6 @@ namespace Mewsix
         }
 
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // TODO Put the tab's names into a constant file? 
-            string tabItem = ((sender as TabControl).SelectedItem as TabItem).Header as string;
-
-            switch (tabItem)
-            {
-                case "Lyrics":
-                    break;
-
-                case "Info":
-                    break;
-
-                default:
-                    return;
-            }
-        }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // ListView lv = e.OriginalSource as ListView;
-            // ListViewItem lvi = lv.SelectedItem as ListViewItem;
-
-            // if ((DataContext as MainWindowViewModel).SelectedTrack != null)
-            //     MessageBox.Show((DataContext as MainWindowViewModel).SelectedTrack.ToString());
-        }
         private void Button_Add_Click(object sender, RoutedEventArgs e)
         {
             //TODO Make this a command.
