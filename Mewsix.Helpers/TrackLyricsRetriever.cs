@@ -21,21 +21,31 @@ namespace Mewsix.Helpers
 
             using (WebClient wc = new WebClient())
             {
-                string json = wc.DownloadString("http://api.musixmatch.com/ws/1.1/matcher.lyrics.get?apikey="+ MUSIXMATCH_AUTH_KEY + "&q_track=" + trackTitle.ToLower().Replace(" ", "%20") + "&q_artist=" + artist.ToLower().Replace(" ", "%20"));
                 try
                 {
-                    RootObject parsedObject = JsonConvert.DeserializeObject<RootObject>(json);
-                    if (parsedObject.message.body == null) return lyrics;
-                    if (!String.IsNullOrWhiteSpace(parsedObject.message.body.lyrics.lyrics_body))
+                    string json = wc.DownloadString("http://api.musixmatch.com/ws/1.1/matcher.lyrics.get?apikey=" + MUSIXMATCH_AUTH_KEY + "&q_track=" + trackTitle.ToLower().Replace(" ", "%20") + "&q_artist=" + artist.ToLower().Replace(" ", "%20"));
+                    try
                     {
-                        lyrics = parsedObject.message.body.lyrics.lyrics_body;
-                    }
+                        RootObject parsedObject = JsonConvert.DeserializeObject<RootObject>(json);
+                        if (parsedObject.message.body == null) return lyrics;
+                        if (!String.IsNullOrWhiteSpace(parsedObject.message.body.lyrics.lyrics_body))
+                        {
+                            lyrics = parsedObject.message.body.lyrics.lyrics_body;
+                        }
 
-                } catch(JsonSerializationException e)
+                    }
+                    catch (JsonSerializationException e)
+                    {
+                        Debug.WriteLine(e.Message);
+                        return lyrics;
+                    }
+                }
+                catch (Exception exception)
                 {
-                    Debug.WriteLine(e.Message);
+                    Debug.WriteLine(exception.Message);
                     return lyrics;
                 }
+                
             }
             return lyrics;
 
