@@ -31,6 +31,8 @@ namespace Mewsix.Helpers
                         if (!String.IsNullOrWhiteSpace(parsedObject.message.body.lyrics.lyrics_body))
                         {
                             lyrics = parsedObject.message.body.lyrics.lyrics_body;
+
+                            lyrics = lyrics.Substring(0, lyrics.IndexOf("*******"));
                         }
 
                     }

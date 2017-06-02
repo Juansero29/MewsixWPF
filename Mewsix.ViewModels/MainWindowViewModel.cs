@@ -149,6 +149,7 @@ namespace Mewsix.ViewModels
 
                 tag.Title = currentTrack.Title;
                 tag.Album = currentTrack.Album;
+                tag.AlbumArtists = currentTrack.Artists;
                 tag.Year = Convert.ToUInt32(currentTrack.Year);
 
                 try
