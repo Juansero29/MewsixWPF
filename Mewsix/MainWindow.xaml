@@ -45,7 +45,7 @@
             <Image x:Key="Pause" Source="pack://application:,,,/Resources/pause.png"/>
             <Image x:Key="Play" Source="pack://application:,,,/Resources/play.png"/>
 
-
+            <conv:StringArrayToStringConverter x:Key="StringArrayToStringConverter"></conv:StringArrayToStringConverter>
 
         </ResourceDictionary>
     </Window.Resources>
@@ -81,7 +81,7 @@
                                         <RowDefinition Height="5*"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock VerticalAlignment="Bottom" Text="{Binding Title}" Grid.Row="0" Margin="0,0,0,4" FontSize="14"/>
-                                    <TextBlock VerticalAlignment="Top" Text="{Binding Artists}" Grid.Row="1" Margin="0,0,0,4" FontWeight="Bold"/>
+                                    <TextBlock VerticalAlignment="Top" Text="{Binding Artists, Converter={StaticResource StringArrayToStringConverter}}" Grid.Row="1" Margin="0,0,0,4" FontWeight="Bold"/>
                                 </Grid>
                             </Grid>
                         </Border>
@@ -145,7 +145,7 @@
             <TabControl>
                 
                 <TabItem IsSelected="True" Header="Info">
-                    <Grid Margin="4">
+                    <Grid Margin="16,16,16,16">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="1*"/>
@@ -163,7 +163,7 @@
 
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center" Text="Artist(s) : "/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Artists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Artists,  Converter={StaticResource StringArrayToStringConverter},Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="2" Orientation="Horizontal">

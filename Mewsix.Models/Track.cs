@@ -52,8 +52,8 @@ namespace Mewsix.Models
             }
         }
 
-        private string _Artists;
-        public string Artists
+        private string[] _Artists;
+        public string[] Artists
         {
             get { return _Artists; }
             set
@@ -149,7 +149,7 @@ namespace Mewsix.Models
             ID = pocotrack.ID;
         }
 
-        public Track(string title, string artists, string uri)
+        public Track(string title, string[] artists, string uri)
         {
             Title = title;
             Artists = artists;
@@ -158,7 +158,7 @@ namespace Mewsix.Models
         }
 
 
-        public Track(string title, string artists, string uri, string album, string year, string lyrics) : this(title, artists, uri)
+        public Track(string title, string[] artists, string uri, string album, string year, string lyrics) : this(title, artists, uri)
         {
             Album = album;
             Year = year;
@@ -166,13 +166,13 @@ namespace Mewsix.Models
             ID = IdGenerator.GetID();
         }
 
-        public Track(string trackPath, MusicID3Tag t, string albumUri) : this(t.Title, t.Artists.ToList().Aggregate((i, j) => i + ", " + j), albumUri, t.Album, t.Year, t.Lyrics)
+        public Track(string trackPath, MusicID3Tag t, string albumUri) : this(t.Title, t.Artists, albumUri, t.Album, t.Year, t.Lyrics)
         {
             Path = trackPath;
             ID = IdGenerator.GetID();
         }
 
-        public Track(string trackPath, MusicID3Tag t, string albumUri, string lyricsString) : this(t.Title, t.Artists.ToList().Aggregate((i, j) => i + ", " + j), albumUri, t.Album, t.Year, t.Lyrics)
+        public Track(string trackPath, MusicID3Tag t, string albumUri, string lyricsString) : this(t.Title, t.Artists, albumUri, t.Album, t.Year, t.Lyrics)
         {
             Lyrics = lyricsString;
             Path = trackPath;
@@ -187,7 +187,7 @@ namespace Mewsix.Models
 
         public override string ToString()
         {
-            return Title + " by " + Artists;
+            return Title + " by " + Artists.Aggregate((i, j) => i + ", " + j);
         }
 
         public override bool Equals(object obj)

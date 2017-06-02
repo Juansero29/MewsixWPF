@@ -10,14 +10,16 @@ namespace Mewsix.Helpers
 {
     public static class AlbumImageLinkRetriever
     {
-        public static string GiveAlbumImageLink(string trackTitle, string artist)
+        public static string GiveAlbumImageLink(string trackTitle, string[] artistsArray)
         {
             string link;
-            if (artist == null) { artist = ""; }
+            string artists = artistsArray.Aggregate((i, j) => i + ", " + j);
+
+            if (artists == null) { artists = ""; }
             if (trackTitle == null) { trackTitle = ""; }
             using (WebClient wc = new WebClient())
             {
-                string json = wc.DownloadString("https://api.deezer.com/search?q=" + artist.ToLower().Replace(" ", "_") + "_" + trackTitle.ToLower().Replace(" ", "_") + "&index=0&limit=2");
+                string json = wc.DownloadString("https://api.deezer.com/search?q=" + artists.ToLower().Replace(" ", "_") + "_" + trackTitle.ToLower().Replace(" ", "_") + "&index=0&limit=2");
                 RootObject parsedObject = JsonConvert.DeserializeObject<RootObject>(json);
 
                 if (parsedObject.data.Count > 0)

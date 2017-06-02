@@ -191,7 +191,7 @@ namespace Mewsix.ViewModels
         public void AddTrack(string trackPath)
         {
             MusicID3Tag tag = new MusicID3Tag(trackPath);
-            string albumUri = AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists?[0]);
+            string albumUri = AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists);
             string lyrics = TrackLyricsRetriever.GiveTrackLyrics(tag.Title, tag.Artists[0]);
             Track newTrack = new Track(trackPath, tag, albumUri, lyrics);
             newTrack.PropertyChanged += OnTrackPropertyChanged;
