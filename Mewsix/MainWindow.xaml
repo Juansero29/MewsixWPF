@@ -136,9 +136,9 @@
                     <Button Margin="6" Grid.Column="2" Name="Button_Next" Click="Button_Next_Click">
                         <materialDesign:PackIcon Kind="SkipNext" Height="Auto" Width="Auto" />
                     </Button>
-                    <TextBlock x:Name="TextBlock_Current_Time" Grid.Column="3" TextAlignment="Center" Text="0:00" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="3" TextAlignment="Center"  VerticalAlignment="Center" Text="{Binding MPlayer.CurrentTime}"/>
                     <Slider TickFrequency="1000" Margin="4" Grid.Column="4" x:Name="Slider_Time" Minimum="0" Maximum="1000" MinWidth="80" VerticalAlignment="Center" />
-                    <TextBlock x:Name="TextBlock_Total_Time"  Grid.Column="5" Text="0:00" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="5" VerticalAlignment="Center" Text="{Binding MPlayer.TotalTime}"/>
                 </Grid>
             </Grid>
 
@@ -181,7 +181,7 @@
 
                 <TabItem Header="Lyrics">
                     <ScrollViewer>
-                        <TextBlock Grid.Column="1" Text="{Binding SelectedTrack.Lyrics}" TextAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{Binding SelectedTrack.Lyrics}" TextAlignment="Center" Margin="16"/>
                     </ScrollViewer>
                 </TabItem>
 

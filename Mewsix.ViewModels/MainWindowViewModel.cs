@@ -37,7 +37,7 @@ namespace Mewsix.ViewModels
             }
         }
 
-        private MewsixPlayer MPlayer { get; set; }
+        public MewsixPlayer MPlayer { get; set; }
 
         Track _selectedTrack;
         public Track SelectedTrack
@@ -173,13 +173,13 @@ namespace Mewsix.ViewModels
             }
         }
 
-        public MainWindowViewModel(TextBlock TextBlock_Current_Time, TextBlock TextBlock_Total_Time, Slider Slider_Time)
+        public MainWindowViewModel(Slider Slider_Time)
         {
             DataManager = new StubData();
             if (DataManager.Tracks != null) _Tracks = new ObservableCollection<Track>(DataManager.Tracks);
 
             if (Tracks != null && Tracks.ToList().Count > 0) { SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
-            MPlayer = new MewsixPlayer(TextBlock_Current_Time, TextBlock_Total_Time, Slider_Time);
+            MPlayer = new MewsixPlayer(Slider_Time);
         }
 
         private void OnTrackPropertyChanged(object sender, PropertyChangedEventArgs e)
