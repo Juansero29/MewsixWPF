@@ -20,7 +20,6 @@ namespace Mewsix.Models
         public string CurrentTrackPath { get; private set; }
 
         public DispatcherTimer Timer { get; private set; } = new DispatcherTimer();
-        private Slider TimeSlider { get; set; }
         public int Duration { get; private set; }
         private bool MouseDown { get; set; }
 
@@ -41,6 +40,14 @@ namespace Mewsix.Models
             }
         }
 
+        private double _SliderValue;
+        public double SliderValue
+        {
+            get { return _SliderValue; }
+            set { _SliderValue = value; }
+        }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -51,7 +58,7 @@ namespace Mewsix.Models
 
 
 
-        public MewsixPlayer(Slider timeSlider)
+        public MewsixPlayer()
         {
             TotalTime = "0:00";
             CurrentTime = "0:00";
@@ -59,9 +66,6 @@ namespace Mewsix.Models
             MediaOpened += MewsixPlayer_MediaOpened;
             Timer.Interval = TimeSpan.FromSeconds(1);
             Timer.Tick += Timer_Tick;
-            TimeSlider = timeSlider;
-            TimeSlider.PreviewMouseUp += TimeSlider_PreviewMouseUp;
-            TimeSlider.PreviewMouseDown += TimeSlider_PreviewMouseDown;
         }
 
 
@@ -85,20 +89,20 @@ namespace Mewsix.Models
             CurrentTime = String.Format($"{Position.ToString(@"m\:ss")}");
             if (Duration != 0 && !MouseDown)
             {
-                TimeSlider.Value = ((float)Position.TotalSeconds / Duration) * 1000;
+                SliderValue = (double) ((float)Position.TotalSeconds / Duration) * 1000;
                 //Debug.WriteLine(TimeSlider.Value);
             }
         }
 
         // MouseDown Allows us to let the slider progress only if the user hasn't clicked on it
-        private void TimeSlider_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        public void OnPreviewMouseDown()
         {
             MouseDown = true;
         }
 
-        private void TimeSlider_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        public void OnPreviewMouseUp()
         {
-            double sliderValue = TimeSlider.Value;
+            double sliderValue = SliderValue;
             int timeValue = (int)(((float)sliderValue / 1000) * Duration);
             Position = new TimeSpan(0, 0, timeValue);
             MouseDown = false;

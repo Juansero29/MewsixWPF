@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using Mewsix.ViewModels.Commands;
 
 namespace Mewsix.ViewModels
 {
@@ -90,6 +91,32 @@ namespace Mewsix.ViewModels
                 Debug.Print("selectedIndex : " + value);
             }
         }
+
+
+
+        public MainWindowViewModel()
+        {
+            DataManager = new StubData();
+            if (DataManager.Tracks != null) _Tracks = new ObservableCollection<Track>(DataManager.Tracks);
+
+            if (Tracks != null && Tracks.ToList().Count > 0) { SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
+            MPlayer = new MewsixPlayer();
+
+
+            /* COMMAND CREATION AND DEFINITION OF THE FUNCTION WE WANT TO CALL WHEN ACTION IS INVOKED */
+            _previewMouseDownCommand = new MewsixCommand(MPlayer.OnPreviewMouseDown, t => true);
+            _previewMouseUpCommand = new MewsixCommand(MPlayer.OnPreviewMouseUp, t => true);
+
+        }
+
+
+        /* DEFINITION OF COMMAND REFERENCES THAT WILL BE USED WHEN EVENT IS TRIGGERED */
+        private readonly MewsixCommand _previewMouseDownCommand;
+        public ICommand PreviewMouseDownCommand => _previewMouseDownCommand;
+        private readonly MewsixCommand _previewMouseUpCommand;
+        public ICommand PreviewMouseUpCommand => _previewMouseUpCommand;
+
+        
 
         public void AddButton()
         {
@@ -171,15 +198,6 @@ namespace Mewsix.ViewModels
                 }
 
             }
-        }
-
-        public MainWindowViewModel(Slider Slider_Time)
-        {
-            DataManager = new StubData();
-            if (DataManager.Tracks != null) _Tracks = new ObservableCollection<Track>(DataManager.Tracks);
-
-            if (Tracks != null && Tracks.ToList().Count > 0) { SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
-            MPlayer = new MewsixPlayer(Slider_Time);
         }
 
         private void OnTrackPropertyChanged(object sender, PropertyChangedEventArgs e)

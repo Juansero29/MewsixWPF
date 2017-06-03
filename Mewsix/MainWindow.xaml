@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:conv="clr-namespace:Mewsix.Helpers;assembly=Mewsix.Helpers"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
         mc:Ignorable="d"
         Title="Mewsix" Height="450" Width="750"
@@ -137,7 +138,21 @@
                         <materialDesign:PackIcon Kind="SkipNext" Height="Auto" Width="Auto" />
                     </Button>
                     <TextBlock Grid.Column="3" TextAlignment="Center"  VerticalAlignment="Center" Text="{Binding MPlayer.CurrentTime}"/>
-                    <Slider TickFrequency="1000" Margin="4" Grid.Column="4" x:Name="Slider_Time" Minimum="0" Maximum="1000" MinWidth="80" VerticalAlignment="Center" />
+
+
+                    <Slider TickFrequency="1000" Margin="4" Grid.Column="4" x:Name="Slider_Time" Minimum="0" Maximum="1000" MinWidth="80" VerticalAlignment="Center" Value="{Binding MPlayer.SliderValue}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <i:InvokeCommandAction Command="{Binding PreviewMouseDownCommand}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewMouseUp">
+                                <i:InvokeCommandAction Command="{Binding PreviewMouseUpCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Slider>
+
+
+
                     <TextBlock Grid.Column="5" VerticalAlignment="Center" Text="{Binding MPlayer.TotalTime}"/>
                 </Grid>
             </Grid>

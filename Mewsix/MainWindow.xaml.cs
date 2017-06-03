@@ -26,7 +26,7 @@ namespace Mewsix
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel(Slider_Time);
+            DataContext = new MainWindowViewModel();
             Closing += (DataContext as MainWindowViewModel).OnWindowClosing;
         }
 
