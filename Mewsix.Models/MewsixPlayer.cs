@@ -44,7 +44,11 @@ namespace Mewsix.Models
         public double SliderValue
         {
             get { return _SliderValue; }
-            set { _SliderValue = value; }
+            set
+            {
+                _SliderValue = value;
+                OnPropertyChanged(nameof(SliderValue));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -85,7 +89,7 @@ namespace Mewsix.Models
             CurrentTime = String.Format($"{Position.ToString(@"m\:ss")}");
             if (Duration != 0 && !MouseDown)
             {
-                SliderValue = (double) ((float)Position.TotalSeconds / Duration) * 1000;
+                SliderValue = (double)((float)Position.TotalSeconds / Duration) * 1000;
                 //Debug.WriteLine(TimeSlider.Value);
             }
         }

@@ -363,16 +363,24 @@ namespace Mewsix.ViewModels
         {
             if (!Tracks.Any()) return;
 
-            SelectedIndex = GetCurrentlyPlayingIndex() - 1;
-            MPlayer.NewTrack(SelectedTrack.Path);
+            if (!MPlayer.IsOpened) { SelectedIndex--; }
+            else
+            {
+                SelectedIndex = GetCurrentlyPlayingIndex() - 1;
+                MPlayer.NewTrack(SelectedTrack.Path);
+            }
         }
 
         public void PlayNext()
         {
             if (!Tracks.Any()) return;
-                       
-            SelectedIndex = GetCurrentlyPlayingIndex() +1;
-            MPlayer.NewTrack(SelectedTrack.Path);
+
+            if (!MPlayer.IsOpened) { SelectedIndex++; }
+            else
+            {
+                SelectedIndex = GetCurrentlyPlayingIndex() + 1;
+                MPlayer.NewTrack(SelectedTrack.Path);
+            }
         }
 
         public void AddFolder()
@@ -382,7 +390,7 @@ namespace Mewsix.ViewModels
                 DialogResult result = fbd.ShowDialog();
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                     string[] files = Directory.GetFiles(fbd.SelectedPath);
+                    string[] files = Directory.GetFiles(fbd.SelectedPath);
                     foreach (string trackPath in files)
                     {
                         if (Path.GetExtension(trackPath) == ".mp3" || Path.GetExtension(trackPath) == ".flac")

@@ -134,7 +134,7 @@
 
                     </Grid.ColumnDefinitions>
 
-                    <Button Margin="6" Grid.Column="0" Command="{Binding PreviousTrackButttonClickCommand}">
+                    <Button Margin="6" Grid.Column="0" Command="{Binding PreviousTrackButtonClickCommand}">
                         <materialDesign:PackIcon Kind="SkipPrevious" Height="Auto" Width="Auto"/>
                     </Button>
                     <Button Margin="6" Grid.Column="1" Command="{Binding PlayPauseTrackButtonClickCommand}">
