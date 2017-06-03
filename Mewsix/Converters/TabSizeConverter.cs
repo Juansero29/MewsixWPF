@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Mewsix.Helpers
+namespace Mewsix.Converters
 {
     public class TabSizeConverter : IMultiValueConverter
     {

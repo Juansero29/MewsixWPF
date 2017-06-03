@@ -4,9 +4,9 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:conv="clr-namespace:Mewsix.Helpers;assembly=Mewsix.Helpers"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:converters="clr-namespace:Mewsix.Converters"
         mc:Ignorable="d"
         Title="Mewsix" Height="450" Width="750"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -28,8 +28,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:StringArrayToStringConverter x:Key="StringArrayToStringConverter"></converters:StringArrayToStringConverter>
 
-            <conv:TabSizeConverter x:Key="tabSizeConverter" />
+            <converters:TabSizeConverter x:Key="tabSizeConverter" />
             <Style TargetType="{x:Type TabItem}">
                 <Setter Property="Width">
                     <Setter.Value>
@@ -40,13 +41,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <Image x:Key="Previous" Source="pack://application:,,,/Resources/previous.png"/>
-            <Image x:Key="Next" Source="pack://application:,,,/Resources/next.png"/>
-            <Image x:Key="Pause" Source="pack://application:,,,/Resources/pause.png"/>
-            <Image x:Key="Play" Source="pack://application:,,,/Resources/play.png"/>
-
-            <conv:StringArrayToStringConverter x:Key="StringArrayToStringConverter"></conv:StringArrayToStringConverter>
 
         </ResourceDictionary>
     </Window.Resources>
@@ -140,7 +134,7 @@
                     <TextBlock Grid.Column="3" TextAlignment="Center"  VerticalAlignment="Center" Text="{Binding MPlayer.CurrentTime}"/>
 
 
-                    <Slider TickFrequency="1000" Margin="4" Grid.Column="4" x:Name="Slider_Time" Minimum="0" Maximum="1000" MinWidth="80" VerticalAlignment="Center" Value="{Binding MPlayer.SliderValue}">
+                    <Slider TickFrequency="1000" Margin="4" Grid.Column="4" Minimum="0" Maximum="1000" MinWidth="80" VerticalAlignment="Center" Value="{Binding MPlayer.SliderValue}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseDown">
                                 <i:InvokeCommandAction Command="{Binding PreviewMouseDownCommand}"/>

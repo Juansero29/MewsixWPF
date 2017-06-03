@@ -20,7 +20,7 @@ namespace Mewsix.ViewModels.Commands
         private readonly Func<object, bool> _checkCanExecute;
 
         /// <summary>
-        /// Initialize a default <see cref="IutCommand"/>
+        /// Initialize a default <see cref="MewsixCommand"/>
         /// </summary>
         /// <param name="actionToExecute">The action to execute</param>
         /// <param name="actionToCheckExecute">The action who check if we can execute</param>

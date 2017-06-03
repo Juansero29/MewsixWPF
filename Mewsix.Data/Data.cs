@@ -12,7 +12,7 @@ namespace Mewsix.Data
 {
     //This class is in charge of giving Tracks for the ViewModel from the PocoTracks.
     //This class contains the raw data and it's the one who is in charge of adding, updating and deleting information.
-    public class StubData : IDataManager
+    public class Data : IDataManager
     {
         private IEnumerable<PocoTrack> _Tracks;
         public IEnumerable<Track> Tracks
@@ -27,7 +27,7 @@ namespace Mewsix.Data
             }
         }
 
-        public StubData()
+        public Data()
         {
             Read();
         }

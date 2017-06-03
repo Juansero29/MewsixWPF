@@ -92,11 +92,9 @@ namespace Mewsix.ViewModels
             }
         }
 
-
-
         public MainWindowViewModel()
         {
-            DataManager = new StubData();
+            DataManager = new Data.Data();
             if (DataManager.Tracks != null) _Tracks = new ObservableCollection<Track>(DataManager.Tracks);
 
             if (Tracks != null && Tracks.ToList().Count > 0) { SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
@@ -118,22 +116,6 @@ namespace Mewsix.ViewModels
 
         
 
-        public void AddButton()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
-            {
-                Filter = "Music files|*.mp3;*.flac",
-                Multiselect = true
-            };
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                foreach (string trackPath in openFileDialog.FileNames)
-                {
-                    AddTrack(trackPath);
-                }
-            }
-        }
 
         public void OnObjectDroppedOnView(object sender, System.Windows.DragEventArgs e)
         {
@@ -205,6 +187,31 @@ namespace Mewsix.ViewModels
             Track t = sender as Track;
             if (t == null) return;
             Update(t);
+        }
+
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            DataManager.Save(Tracks);
+            e.Cancel = false;
+        }
+
+
+
+        public void AddButton()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Music files|*.mp3;*.flac",
+                Multiselect = true
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (string trackPath in openFileDialog.FileNames)
+                {
+                    AddTrack(trackPath);
+                }
+            }
         }
 
         public void AddTrack(string trackPath)
@@ -343,12 +350,6 @@ namespace Mewsix.ViewModels
             return Tracks.IndexOf(currentlyPlaying);
         }
 
-
-        public void OnWindowClosing(object sender, CancelEventArgs e)
-        {
-            DataManager.Save(Tracks);
-            e.Cancel = false;
-        }
 
     }
 }

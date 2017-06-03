@@ -6,13 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Mewsix.Helpers
+namespace Mewsix.Converters
 {
     public class StringArrayToStringConverter : IValueConverter
     {
-
-
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string[] artists = value as string[];

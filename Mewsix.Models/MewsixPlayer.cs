@@ -47,15 +47,11 @@ namespace Mewsix.Models
             set { _SliderValue = value; }
         }
 
-
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         public void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
 
 
         public MewsixPlayer()
@@ -94,7 +90,7 @@ namespace Mewsix.Models
             }
         }
 
-        // MouseDown Allows us to let the slider progress only if the user hasn't clicked on it
+        // MouseDown allows us to let the slider progress only if the user hasn't clicked on it
         public void OnPreviewMouseDown()
         {
             MouseDown = true;
