@@ -207,8 +207,10 @@ namespace Mewsix.Models
 
         public override int GetHashCode()
         {
-            if (Title != null) return Math.Abs(Title.GetHashCode()) % 31;
-            else return ID.GetHashCode() % 31; 
+            //DON'T USE A PROPERTY THAT CHANGES FOR RETURNING THE HASHCODE!!!!11!!!!!!!
+            //if (Title != null) return Math.Abs(Title.GetHashCode()) % 31;
+            //else return ID.GetHashCode() % 31; 
+            return ID.GetHashCode() % 31;
         }
     }
 }
