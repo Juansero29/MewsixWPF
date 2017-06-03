@@ -28,14 +28,6 @@ namespace Mewsix
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
-            Closing += (DataContext as MainWindowViewModel).OnWindowClosing;
-        }
-
-
-        private void Button_Add_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO Make this a command.
-            (DataContext as MainWindowViewModel).AddButton();
         }
 
         private void ListView_Drop(object sender, DragEventArgs e)
@@ -45,48 +37,16 @@ namespace Mewsix
           
         }
 
-        private void Button_Play_Pause_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO Make this a command.
-            (DataContext as MainWindowViewModel).PlaySelectedTrack();
-        }
-
-
-        private void Button_Previous_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO Make this a command.
-            (DataContext as MainWindowViewModel).PlayPrevious();
-        }
-
-
-        private void Button_Next_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO Make this a command.
-            (DataContext as MainWindowViewModel).PlayNext();
-        }
-
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             //TODO Make this a command.
             (DataContext as MainWindowViewModel).OnTextBoxKeyDown(sender, e);
         }
 
-        private void Button_Add_Folder_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO Make this a command.
-            (DataContext as MainWindowViewModel).AddFolder();
-        }
-
         private void ListView_GiveFeedback(object sender, GiveFeedbackEventArgs e)
         {
             e.UseDefaultCursors = false;
             Mouse.SetCursor(Cursors.Wait);
-        }
-
-        private void MenuItemRemove_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO Make this a command.
-            (DataContext as MainWindowViewModel).Remove((DataContext as MainWindowViewModel).SelectedTrack);
         }
     }
 }

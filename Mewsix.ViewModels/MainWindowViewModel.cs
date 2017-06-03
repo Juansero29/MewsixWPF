@@ -104,17 +104,72 @@ namespace Mewsix.ViewModels
             /* COMMAND CREATION AND DEFINITION OF THE FUNCTION WE WANT TO CALL WHEN ACTION IS INVOKED */
             _previewMouseDownCommand = new MewsixCommand(MPlayer.OnPreviewMouseDown, t => true);
             _previewMouseUpCommand = new MewsixCommand(MPlayer.OnPreviewMouseUp, t => true);
-
+            _singleTrackAddCommand = new MewsixCommand(OnAddButtonClicked, t => true);
+            _singleFolderAddCommand = new MewsixCommand(AddFolder, t => true);
+            _playPauseTrackButtonClickCommand = new MewsixCommand(PlaySelectedTrack, t => true);
+            _previousTrackButtonClickCommand = new MewsixCommand(PlayPrevious, t => true);
+            _nextTrackButtonClickCommand = new MewsixCommand(PlayNext, t => true);
+            _removeItemClickCommand = new MewsixCommand(() => Remove(SelectedTrack), t => true);
+            _windowClosingCommand = new MewsixCommand(OnWindowClosing, t => true);
         }
 
 
         /* DEFINITION OF COMMAND REFERENCES THAT WILL BE USED WHEN EVENT IS TRIGGERED */
+
+        /// <summary>
+        /// Command invoked when the slider PreviewMouseUp event is launched.
+        /// </summary>
         private readonly MewsixCommand _previewMouseDownCommand;
         public ICommand PreviewMouseDownCommand => _previewMouseDownCommand;
+
+        /// <summary>
+        /// Command invoked when the slider PreviewMouseUp event is launched.
+        /// </summary>
         private readonly MewsixCommand _previewMouseUpCommand;
         public ICommand PreviewMouseUpCommand => _previewMouseUpCommand;
 
-        
+        /// <summary>
+        /// Command invoked when the button to add a single track is clicked.
+        /// </summary>
+        private readonly MewsixCommand _singleTrackAddCommand;
+        public ICommand SingleTrackAddCommand => _singleTrackAddCommand;
+
+        /// <summary>
+        /// Command invoked when the button to add a single folder is clicked.
+        /// </summary>
+        private readonly MewsixCommand _singleFolderAddCommand;
+        public ICommand SingleFolderAddCommand => _singleFolderAddCommand;
+
+        /// <summary>
+        /// Command invoked when the button to add a single folder is clicked.
+        /// </summary>
+        private readonly MewsixCommand _playPauseTrackButtonClickCommand;
+        public ICommand PlayPauseTrackButtonClickCommand => _playPauseTrackButtonClickCommand;
+
+        /// <summary>
+        /// Command invoked when the button to add a single folder is clicked.
+        /// </summary>
+        private readonly MewsixCommand _previousTrackButtonClickCommand;
+        public ICommand PreviousTrackButtonClickCommand => _previousTrackButtonClickCommand;
+
+        /// <summary>
+        /// Command invoked when the button to add a single folder is clicked.
+        /// </summary>
+        private readonly MewsixCommand _nextTrackButtonClickCommand;
+        public ICommand NextTrackButtonClickCommand => _nextTrackButtonClickCommand;
+
+        /// <summary>
+        /// Command invoked when the button to add a single folder is clicked.
+        /// </summary>
+        private readonly MewsixCommand _removeItemClickCommand;
+        public ICommand RemoveItemClickCommand => _removeItemClickCommand;
+
+
+        /// <summary>
+        /// Command invoked when the button to add a single folder is clicked.
+        /// </summary>
+        private readonly MewsixCommand _windowClosingCommand;
+        public ICommand WindowClosingCommand => _windowClosingCommand;
 
 
         public void OnObjectDroppedOnView(object sender, System.Windows.DragEventArgs e)
@@ -189,15 +244,12 @@ namespace Mewsix.ViewModels
             Update(t);
         }
 
-        public void OnWindowClosing(object sender, CancelEventArgs e)
+        public void OnWindowClosing()
         {
             DataManager.Save(Tracks);
-            e.Cancel = false;
         }
 
-
-
-        public void AddButton()
+        public void OnAddButtonClicked()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
@@ -213,6 +265,8 @@ namespace Mewsix.ViewModels
                 }
             }
         }
+
+
 
         public void AddTrack(string trackPath)
         {
@@ -269,7 +323,7 @@ namespace Mewsix.ViewModels
                 if (Tracks[i].Equals(t))
                 {
                     Tracks.RemoveAt(i);
-                    Tracks.Add(t);
+                    Tracks.Insert(i, t);
                 }
             }
 

@@ -16,6 +16,12 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding WindowClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Window.Resources>
         <ResourceDictionary>
 
@@ -50,11 +56,17 @@
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
         <Grid>
-            <ListView AllowDrop="True" Drop="ListView_Drop" DragDrop.GiveFeedback="ListView_GiveFeedback" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+            <ListView AllowDrop="True" Drop="ListView_Drop" DragDrop.GiveFeedback="ListView_GiveFeedback"  SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                   ItemsSource="{Binding Tracks}" MinWidth="200">
                 <ListView.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Click="MenuItemRemove_Click"  Header="Remove"/>
+                        <MenuItem Header="Remove">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding RemoveItemClickCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
                     </ContextMenu>
                 </ListView.ContextMenu>
                 <ListView.ItemTemplate>
@@ -91,11 +103,11 @@
                                      VerticalAlignment="Bottom"
                                      Margin="16">
                 <StackPanel>
-                    <Button ToolTip="Add a music file" Opacity="0.8" Name="Button_Add" Click="Button_Add_Click">
+                    <Button ToolTip="Add a music file" Opacity="0.8" Command="{Binding SingleTrackAddCommand}">
                         <materialDesign:PackIcon Kind="MusicNote" />
                     </Button>
 
-                    <Button ToolTip="Add a folder" Opacity="0.8" Name="Button_Add_Folder" Click="Button_Add_Folder_Click">
+                    <Button ToolTip="Add a folder" Opacity="0.8" Command="{Binding SingleFolderAddCommand}">
                         <materialDesign:PackIcon Kind="Folder" />
                     </Button>
                 </StackPanel>
@@ -122,13 +134,13 @@
 
                     </Grid.ColumnDefinitions>
 
-                    <Button Margin="6" Grid.Column="0" Name="Button_Previous" Click="Button_Previous_Click">
+                    <Button Margin="6" Grid.Column="0" Command="{Binding PreviousTrackButttonClickCommand}">
                         <materialDesign:PackIcon Kind="SkipPrevious" Height="Auto" Width="Auto"/>
                     </Button>
-                    <Button Margin="6" Grid.Column="1" Name="Button_Play_Pause" Click="Button_Play_Pause_Click">
+                    <Button Margin="6" Grid.Column="1" Command="{Binding PlayPauseTrackButtonClickCommand}">
                         <materialDesign:PackIcon Kind="PlayPause" Height="Auto" Width="Auto" />
                     </Button>
-                    <Button Margin="6" Grid.Column="2" Name="Button_Next" Click="Button_Next_Click">
+                    <Button Margin="6" Grid.Column="2" Command="{Binding NextTrackButtonClickCommand}">
                         <materialDesign:PackIcon Kind="SkipNext" Height="Auto" Width="Auto" />
                     </Button>
                     <TextBlock Grid.Column="3" TextAlignment="Center"  VerticalAlignment="Center" Text="{Binding MPlayer.CurrentTime}"/>
@@ -152,7 +164,7 @@
             </Grid>
 
             <TabControl>
-                
+
                 <TabItem IsSelected="True" Header="Info">
                     <Grid Margin="16,16,16,16">
                         <Grid.RowDefinitions>
@@ -199,5 +211,6 @@
         </DockPanel>
 
     </Grid>
-
+    
+    
 </controls:MetroWindow>

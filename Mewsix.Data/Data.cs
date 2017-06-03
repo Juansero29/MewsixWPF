@@ -58,7 +58,7 @@ namespace Mewsix.Data
                 if (list[i].Equals(t))
                 {
                     list.RemoveAt(i);
-                    list.Add(t);
+                    list.Insert(i, t);
                 }
             }
             Save(list);
