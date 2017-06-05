@@ -238,7 +238,7 @@
                         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center" Text="Genre : "/>
                             <ComboBox VerticalAlignment="Center">
-                                <ComboBoxItem IsSelected="True" Content="{Binding SelectedTrack.Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <ComboBoxItem IsSelected="True" Content="{Binding SelectedTrack.Genre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 <ComboBoxItem />
                                 <ComboBoxItem/>
                             </ComboBox>
@@ -246,7 +246,7 @@
 
                         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center" Text="Comments : "/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="This is a comment"/>
+                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                     </Grid>

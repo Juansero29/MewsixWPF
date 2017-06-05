@@ -128,7 +128,7 @@ namespace Mewsix.Data
             List<PocoTrack> pocoTracksToReturn = new List<PocoTrack>();
             foreach (Track t in tracksToConvert)
             {
-                pocoTracksToReturn.Add(new PocoTrack { Album = t.Album, Artists = t.Artists, Lyrics = t.Lyrics, AlbumUri = t.AlbumUri.ToString(), Title = t.Title, TrackPath = t.Path, Year = t.Year, ID = t.ID });
+                pocoTracksToReturn.Add(new PocoTrack { Album = t.Album, Artists = t.Artists, Comment = t.Comment, Genre=t.Genre, Lyrics = t.Lyrics, AlbumUri = t.AlbumUri.ToString(), Title = t.Title, TrackPath = t.Path, Year = t.Year, ID = t.ID });
             }
 
             return pocoTracksToReturn;

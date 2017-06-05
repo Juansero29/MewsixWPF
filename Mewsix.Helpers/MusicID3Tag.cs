@@ -41,6 +41,8 @@ namespace Mewsix.Helpers
             if (Title == null) Title = "None";
             if (Year == null) Year = "1984";
             if (Album == null) Album = "Unknown";
+            if (Comment == null) Comment = "";
+            if (Genre == null) Genre = "Unknown";
         }
 
     }

@@ -109,6 +109,34 @@ namespace Mewsix.Models
             }
         }
 
+        private string _comment;
+        public string Comment
+        {
+            get { return _comment; }
+            set
+            {
+                if (_comment != value)
+                {
+                    _comment = value;
+                    OnPropertyChanged(nameof(Comment));
+                }
+            }
+        }
+
+        private string _genre;
+        public string Genre
+        {
+            get { return _genre; }
+            set
+            {
+                if (_genre != value)
+                {
+                    _genre = value;
+                    OnPropertyChanged(nameof(Genre));
+                }
+            }
+        }
+
         private string _Lyrics;
         public string Lyrics
         {
@@ -144,6 +172,8 @@ namespace Mewsix.Models
             AlbumUri = new Uri(pocotrack.AlbumUri);
             Album = pocotrack.Album;
             Year = pocotrack.Year;
+            Comment = pocotrack.Comment;
+            Genre = pocotrack.Genre;
             Lyrics = pocotrack.Lyrics;
             Path = pocotrack.TrackPath;
             ID = pocotrack.ID;
@@ -158,21 +188,23 @@ namespace Mewsix.Models
         }
 
 
-        public Track(string title, string[] artists, string uri, string album, string year, string lyrics) : this(title, artists, uri)
+        public Track(string title, string[] artists, string uri, string album, string year, string comment, string genre, string lyrics) : this(title, artists, uri)
         {
             Album = album;
             Year = year;
+            Comment = comment;
+            Genre = genre;
             Lyrics = lyrics;
             ID = IdGenerator.GetID();
         }
 
-        public Track(string trackPath, MusicID3Tag t, string albumUri) : this(t.Title, t.Artists, albumUri, t.Album, t.Year, t.Lyrics)
+        /*public Track(string trackPath, MusicID3Tag t, string albumUri) : this(t.Title, t.Artists, albumUri, t.Album, t.Year, t.Lyrics)
         {
             Path = trackPath;
             ID = IdGenerator.GetID();
-        }
+        }*/
 
-        public Track(string trackPath, MusicID3Tag t, string albumUri, string lyricsString) : this(t.Title, t.Artists, albumUri, t.Album, t.Year, t.Lyrics)
+        public Track(string trackPath, MusicID3Tag t, string albumUri, string lyricsString) : this(t.Title, t.Artists, albumUri, t.Album, t.Year, t.Comment, t.Genre, t.Lyrics)
         {
             Lyrics = lyricsString;
             Path = trackPath;
