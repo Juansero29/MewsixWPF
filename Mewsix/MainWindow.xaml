@@ -47,6 +47,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+           
 
         </ResourceDictionary>
     </Window.Resources>
@@ -168,34 +169,86 @@
                 <TabItem IsSelected="True" Header="Info">
                     <Grid Margin="16,16,16,16">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="200*"/>
                             <RowDefinition Height="1*"/>
+                            <RowDefinition Height="150*"/>
                             <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-
+                            <RowDefinition Height="100*"/>
+                            <RowDefinition Height="100*"/>
+                            <RowDefinition Height="100*"/>
+                            <RowDefinition Height="100*"/>
                         </Grid.RowDefinitions>
 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Row="0" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Track title : "/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+                        <Grid Grid.Row="0" Grid.ColumnSpan="3" Margin="8,8,8,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                             <!--   <TextBlock VerticalAlignment="Center" Text="Title : "/> -->
+                                <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{
+                                    Binding SelectedTrack.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
 
-                        <StackPanel Grid.Row="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Artist(s) : "/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Artists,  Converter={StaticResource StringArrayToStringConverter},Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                              <!--  <TextBlock VerticalAlignment="Center" Text="Artist(s) : "/> -->
+                                <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" 
+                                     Text="{Binding SelectedTrack.Artists,  Converter={StaticResource StringArrayToStringConverter},Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
 
-                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                            <Viewbox Grid.Column="3" Grid.RowSpan="2">
+                                <Image Source="{Binding SelectedTrack.AlbumUri}" Stretch="UniformToFill"/>
+                            </Viewbox>
+
+                        </Grid>
+
+                        <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Height="2" Fill="{DynamicResource AccentColorBrush3}" />
+
+                       
+                            <TextBlock Grid.Row="2" Grid.Column="1" KeyDown="TextBox_KeyDown" VerticalAlignment="Center" 
+                                     Text="Artist info from internet 
+                                     Blah blah blah lorem ipsum ipsum lorem"/>
+
+                        <Rectangle Grid.Row="3" Grid.ColumnSpan="3" Height="2" Fill="{DynamicResource AccentColorBrush3}" />
+
+
+                        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center" Text="Album : "/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Album, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" 
+                                     Text="{Binding SelectedTrack.Album, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="3" Orientation="Horizontal">
+                        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center" Text="Year : "/>
                             <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
+
+                        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Genre : "/>
+                            <ComboBox VerticalAlignment="Center">
+                                <ComboBoxItem IsSelected="True" Content="{Binding SelectedTrack.Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <ComboBoxItem />
+                                <ComboBoxItem/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Comments : "/>
+                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="This is a comment"/>
+                        </StackPanel>
+
                     </Grid>
 
                 </TabItem>
@@ -211,6 +264,6 @@
         </DockPanel>
 
     </Grid>
-    
-    
+
+
 </controls:MetroWindow>

@@ -106,11 +106,12 @@ namespace Mewsix.ViewModels
             _previewMouseUpCommand = new MewsixCommand(MPlayer.OnPreviewMouseUp, t => true);
             _singleTrackAddCommand = new MewsixCommand(OnAddButtonClicked, t => true);
             _singleFolderAddCommand = new MewsixCommand(AddFolder, t => true);
-            _playPauseTrackButtonClickCommand = new MewsixCommand(PlaySelectedTrack, t => true);
-            _previousTrackButtonClickCommand = new MewsixCommand(PlayPrevious, t => true);
-            _nextTrackButtonClickCommand = new MewsixCommand(PlayNext, t => true);
+            _playPauseTrackButtonClickCommand = new MewsixCommand(PlaySelectedTrack, t => true);           
             _removeItemClickCommand = new MewsixCommand(() => Remove(SelectedTrack), t => true);
             _windowClosingCommand = new MewsixCommand(OnWindowClosing, t => true);
+
+            _nextTrackButtonClickCommand = new MewsixCommand(PlayNext, t => Tracks.Any());
+            _previousTrackButtonClickCommand = new MewsixCommand(PlayPrevious, t => Tracks.Any());
         }
 
 
@@ -359,22 +360,8 @@ namespace Mewsix.ViewModels
 
         }
 
-        public void PlayPrevious()
-        {
-            if (!Tracks.Any()) return;
-
-            if (!MPlayer.IsOpened) { SelectedIndex--; }
-            else
-            {
-                SelectedIndex = GetCurrentlyPlayingIndex() - 1;
-                MPlayer.NewTrack(SelectedTrack.Path);
-            }
-        }
-
         public void PlayNext()
         {
-            if (!Tracks.Any()) return;
-
             if (!MPlayer.IsOpened) { SelectedIndex++; }
             else
             {
@@ -382,6 +369,17 @@ namespace Mewsix.ViewModels
                 MPlayer.NewTrack(SelectedTrack.Path);
             }
         }
+
+        public void PlayPrevious()
+        {
+            if (!MPlayer.IsOpened) { SelectedIndex--; }
+            else
+            {
+                SelectedIndex = GetCurrentlyPlayingIndex() - 1;
+                MPlayer.NewTrack(SelectedTrack.Path);
+            }
+        }
+          
 
         public void AddFolder()
         {
