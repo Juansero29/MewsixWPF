@@ -216,6 +216,8 @@ namespace Mewsix.ViewModels
                 tag.Album = currentTrack.Album;
                 tag.AlbumArtists = currentTrack.Artists;
                 tag.Year = Convert.ToUInt32(currentTrack.Year);
+                tag.Comment = currentTrack.Comment;
+                // TODO tag.Genre = currentTrack.Genre;
 
                 try
                 {
