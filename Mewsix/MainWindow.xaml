@@ -73,7 +73,7 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="12">
                 <materialDesign:PackIcon VerticalAlignment="Center" Kind="Magnify" />
-                <TextBox Margin="10, 0, 0, 0" MinWidth="250" HorizontalAlignment="Stretch" Text="{Binding SearchCriteria, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBox Margin="10, 0, 0, 0" MinWidth="250" HorizontalAlignment="Stretch" Text="{Binding SearchCriteria, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
 
             <ListView Grid.Row="1" AllowDrop="True" Drop="ListView_Drop" DragDrop.GiveFeedback="ListView_GiveFeedback"  SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
