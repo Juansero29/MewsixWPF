@@ -41,6 +41,32 @@
             </Style>
 
 
+            <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+                x:Key="TextBlockStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+
+            <Style BasedOn="{StaticResource {x:Type TextBox}}"
+                x:Key="TextBoxStyle" TargetType="TextBox">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <EventSetter Event="KeyDown" Handler="TextBox_KeyDown"/>
+            </Style>
+
+            <Style BasedOn="{StaticResource {x:Type ComboBoxItem}}"
+                x:Key="ComboBoxItemStyle" TargetType="ComboBoxItem">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <Style BasedOn="{StaticResource {x:Type ComboBox}}"
+                x:Key="ComboBoxStyle" TargetType="ComboBox">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -213,18 +239,11 @@
                         </Image>
 
 
-
-
-
-
                         <Grid Grid.Row="0" Grid.ColumnSpan="3" Margin="8,8,8,8" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="7*"/>
                                 <ColumnDefinition Width="3*"/>
                             </Grid.ColumnDefinitions>
-
-
-
 
 
                             <Grid Grid.Column="0" VerticalAlignment="Center" Margin="40,0,0,0">
@@ -237,7 +256,6 @@
                                 <Viewbox HorizontalAlignment="Left" Grid.Row="0" MaxHeight="50">
                                     <TextBox TextWrapping="Wrap"  KeyDown="TextBox_KeyDown" Text="{Binding SelectedTrack.Title, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" />
                                 </Viewbox>
-
 
 
                                 <Viewbox HorizontalAlignment="Left" Grid.Row="1" MaxHeight="50">
@@ -256,36 +274,35 @@
 
                         </Grid>
 
-                        <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Height="2" Fill="{DynamicResource AccentColorBrush3}" />
+                        <Rectangle Visibility="Hidden" Grid.Row="1" Grid.ColumnSpan="3" Height="1" Fill="{DynamicResource AccentColorBrush3}" />
 
                         <ScrollViewer  Grid.Row="2" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Disabled">
                             <TextBlock Padding="20" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Justify" Text="{Binding SelectedTrack.Summary}" FontSize="17" FontStretch="ExtraExpanded"/>
                         </ScrollViewer>
 
-                        <Rectangle  Grid.Row="3" Grid.ColumnSpan="3" Height="2" Fill="{DynamicResource AccentColorBrush3}" />
+                        <Rectangle  Grid.Row="3" Grid.ColumnSpan="3" Height="1" Fill="{DynamicResource AccentColorBrush3}" />
 
 
                         <StackPanel HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Album : " FontSize="20"/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center"  FontSize="20"
-                                     Text="{Binding SelectedTrack.Album, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="Album : "/>
+                            <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding SelectedTrack.Album, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel HorizontalAlignment="Center" Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Year : " FontSize="20"/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center"  FontSize="20" Text="{Binding SelectedTrack.Year, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="Year : "/>
+                            <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding SelectedTrack.Year, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Genre : " FontSize="20"/>
-                            <ComboBox VerticalAlignment="Center">
-                                <ComboBoxItem IsSelected="True" Content="{Binding SelectedTrack.Genre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="Genre : "/>
+                            <ComboBox Style="{StaticResource ComboBoxStyle}">
+                                <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}" IsSelected="True" Content="{Binding SelectedTrack.Genre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </ComboBox>
                         </StackPanel>
 
                         <StackPanel HorizontalAlignment="Center" Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Comments : " FontSize="20"/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" FontSize="20" Text="{Binding SelectedTrack.Comment, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Style="{StaticResource TextBlockStyle}" Text="Comments : "/>
+                            <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding SelectedTrack.Comment, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                     </Grid>
