@@ -6,20 +6,22 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net.Http;
+
 namespace Mewsix.Helpers
 {
     public static class AlbumImageLinkRetriever
     {
-        public static string GiveAlbumImageLink(string trackTitle, string[] artistsArray)
+        public static async Task<string> GiveAlbumImageLink(string trackTitle, string[] artistsArray)
         {
             string link;
             string artists = artistsArray.Aggregate((i, j) => i + ", " + j);
 
             if (artists == null) { artists = ""; }
             if (trackTitle == null) { trackTitle = ""; }
-            using (WebClient wc = new WebClient())
+            using (HttpClient c = new HttpClient())
             {
-                string json = wc.DownloadString("https://api.deezer.com/search?q=" + artists.ToLower().Replace(" ", "_") + "_" + trackTitle.ToLower().Replace(" ", "_") + "&index=0&limit=2");
+                string json = await c.GetStringAsync("https://api.deezer.com/search?q=" + artists.ToLower().Replace(" ", "_") + "_" + trackTitle.ToLower().Replace(" ", "_") + "&index=0&limit=2");
                 RootObject parsedObject = JsonConvert.DeserializeObject<RootObject>(json);
 
                 if (parsedObject.data.Count > 0)

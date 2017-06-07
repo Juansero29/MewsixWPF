@@ -29,7 +29,7 @@ namespace Mewsix.Models
             }
             private set
             {
-                if(_ID != value)
+                if (_ID != value)
                 {
                     _ID = value;
                     OnPropertyChanged(nameof(Title));
@@ -44,7 +44,7 @@ namespace Mewsix.Models
             get { return _Title; }
             set
             {
-                if(_ID != value)
+                if (_ID != value)
                 {
                     _Title = value;
                     OnPropertyChanged(nameof(Title));
@@ -61,7 +61,7 @@ namespace Mewsix.Models
                 if (_Artists != value)
                 {
                     _Artists = value;
-                    OnPropertyChanged(nameof(Artists)); 
+                    OnPropertyChanged(nameof(Artists));
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace Mewsix.Models
                 if (_AlbumUri != value)
                 {
                     _AlbumUri = value;
-                    OnPropertyChanged(nameof(AlbumUri)); 
+                    OnPropertyChanged(nameof(AlbumUri));
                 }
             }
         }
@@ -89,7 +89,7 @@ namespace Mewsix.Models
                 if (_Album != value)
                 {
                     _Album = value;
-                    OnPropertyChanged(nameof(Album)); 
+                    OnPropertyChanged(nameof(Album));
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace Mewsix.Models
                 if (_Year != value)
                 {
                     _Year = value;
-                    OnPropertyChanged(nameof(Year)); 
+                    OnPropertyChanged(nameof(Year));
                 }
             }
         }
@@ -146,12 +146,12 @@ namespace Mewsix.Models
                 if (_Lyrics != value)
                 {
                     _Lyrics = value;
-                    OnPropertyChanged(nameof(Year)); 
+                    OnPropertyChanged(nameof(Year));
                 }
             }
         }
-        private string _TrackPath;
 
+        private string _TrackPath;
         public string Path
         {
             get { return _TrackPath; }
@@ -160,8 +160,19 @@ namespace Mewsix.Models
                 if (_TrackPath != value)
                 {
                     _TrackPath = value;
-                    OnPropertyChanged(nameof(Path)); 
+                    OnPropertyChanged(nameof(Path));
                 }
+            }
+        }
+
+        private string _Summary;
+        public string Summary
+        {
+            get { return _Summary; }
+            set
+            {
+                _Summary = value;
+                OnPropertyChanged(nameof(Summary));
             }
         }
 
@@ -175,6 +186,7 @@ namespace Mewsix.Models
             Comment = pocotrack.Comment;
             Genre = pocotrack.Genre;
             Lyrics = pocotrack.Lyrics;
+            Summary = pocotrack.Summary;
             Path = pocotrack.TrackPath;
             ID = pocotrack.ID;
         }
@@ -211,10 +223,20 @@ namespace Mewsix.Models
             ID = IdGenerator.GetID();
         }
 
-
-        public void UpdateImage()
+        public Track(string trackPath, MusicID3Tag t, string albumUri, string lyricsString, string summary) : this(t.Title, t.Artists, albumUri, t.Album, t.Year, t.Comment, t.Genre, t.Lyrics)
         {
-            AlbumUri = new Uri(AlbumImageLinkRetriever.GiveAlbumImageLink(Title, Artists));
+            Lyrics = lyricsString;
+            Summary = summary;
+            Path = trackPath;
+            ID = IdGenerator.GetID();
+        }
+
+
+        public async void UpdateContents()
+        {
+            AlbumUri = new Uri(await AlbumImageLinkRetriever.GiveAlbumImageLink(Title, Artists) as string);
+            Summary = await WikiSummaryRetriever.GiveTrackSummary(Artists[0]);
+            Lyrics = await TrackLyricsRetriever.GiveTrackLyrics(Title, Artists[0]);
         }
 
         public override string ToString()
@@ -234,7 +256,7 @@ namespace Mewsix.Models
         {
             if (other == null) return false;
             if (ID == other.ID) return true;
-            return Title == other.Title && Artists == other.Artists;
+            return Title == other.Title && Artists[0] == other.Artists[0];
         }
 
         public override int GetHashCode()

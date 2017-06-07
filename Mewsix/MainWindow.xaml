@@ -1,5 +1,6 @@
 ﻿<controls:MetroWindow x:Class="Mewsix.MainWindow"    
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -25,18 +26,9 @@
     <Window.Resources>
         <ResourceDictionary>
 
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListBox.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.RadioButton.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+            <converters:TabSizeConverter x:Key="tabSizeConverter" />
             <converters:StringArrayToStringConverter x:Key="StringArrayToStringConverter"></converters:StringArrayToStringConverter>
 
-            <converters:TabSizeConverter x:Key="tabSizeConverter" />
             <Style TargetType="{x:Type TabItem}">
                 <Setter Property="Width">
                     <Setter.Value>
@@ -47,17 +39,44 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-           
+
+
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.RadioButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+
 
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" MinWidth="210"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
+
+
+        
         <Grid>
-            <ListView AllowDrop="True" Drop="ListView_Drop" DragDrop.GiveFeedback="ListView_GiveFeedback"  SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*" MinHeight="50"/>
+                <RowDefinition Height="9.5*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="12">
+                <materialDesign:PackIcon VerticalAlignment="Center" Kind="Magnify" />
+                <TextBox Margin="10, 0, 0, 0" MinWidth="250" HorizontalAlignment="Stretch" Text="{Binding SearchCriteria, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </StackPanel>
+
+            <ListView Grid.Row="1" AllowDrop="True" Drop="ListView_Drop" DragDrop.GiveFeedback="ListView_GiveFeedback"  SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                   ItemsSource="{Binding Tracks}" MinWidth="200">
                 <ListView.ContextMenu>
                     <ContextMenu>
@@ -88,8 +107,9 @@
                                         <RowDefinition Height="5*"/>
                                         <RowDefinition Height="5*"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock VerticalAlignment="Bottom" Text="{Binding Title}" Grid.Row="0" Margin="0,0,0,4" FontSize="14"/>
-                                    <TextBlock VerticalAlignment="Top" Text="{Binding Artists, Converter={StaticResource StringArrayToStringConverter}}" Grid.Row="1" Margin="0,0,0,4" FontWeight="Bold"/>
+
+                                    <TextBlock VerticalAlignment="Bottom" Text="{Binding Title}" Margin="0,0,0,4" FontSize="20"/>
+                                    <TextBlock VerticalAlignment="Top" Text="{Binding Artists, Converter={StaticResource StringArrayToStringConverter}}" FontSize="15" Grid.Row="1" Margin="0,0,0,4" FontWeight="Bold" Foreground="#757575"/>
                                 </Grid>
                             </Grid>
                         </Border>
@@ -102,7 +122,8 @@
                                      MaxWidth="48"
                                      HorizontalAlignment="Right"
                                      VerticalAlignment="Bottom"
-                                     Margin="16">
+                                     Margin="16"
+                                     Grid.Row="1">
                 <StackPanel>
                     <Button ToolTip="Add a music file" Opacity="0.8" Command="{Binding SingleTrackAddCommand}">
                         <materialDesign:PackIcon Kind="MusicNote" />
@@ -167,48 +188,69 @@
             <TabControl>
 
                 <TabItem IsSelected="True" Header="Info">
-                    <Grid Margin="16,16,16,16">
+                    <Grid Margin="16">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="200*"/>
-                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="5*"/>
                             <RowDefinition Height="150*"/>
-                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="5*"/>
                             <RowDefinition Height="100*"/>
                             <RowDefinition Height="100*"/>
                             <RowDefinition Height="100*"/>
                             <RowDefinition Height="100*"/>
                         </Grid.RowDefinitions>
-
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Row="0" Grid.ColumnSpan="3" Margin="8,8,8,8">
+
+                        <Image Grid.ColumnSpan="3" Source="{Binding SelectedTrack.AlbumUri}" Stretch="UniformToFill" Opacity="0.42">
+                            <Image.Effect>
+                                <BlurEffect Radius="15"/>
+                            </Image.Effect>
+                        </Image>
+
+
+
+
+
+
+                        <Grid Grid.Row="0" Grid.ColumnSpan="3" Margin="8,8,8,8" >
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition Width="3*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
-                            
-                            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                             <!--   <TextBlock VerticalAlignment="Center" Text="Title : "/> -->
-                                <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{
-                                    Binding SelectedTrack.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
 
-                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                              <!--  <TextBlock VerticalAlignment="Center" Text="Artist(s) : "/> -->
-                                <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" 
-                                     Text="{Binding SelectedTrack.Artists,  Converter={StaticResource StringArrayToStringConverter},Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </StackPanel>
 
-                            <Viewbox Grid.Column="3" Grid.RowSpan="2">
+
+
+
+                            <Grid Grid.Column="0" VerticalAlignment="Center" Margin="40,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="5*"/>
+                                </Grid.RowDefinitions>
+
+
+                                <Viewbox HorizontalAlignment="Left" Grid.Row="0" MaxHeight="50">
+                                    <TextBox TextWrapping="Wrap"  KeyDown="TextBox_KeyDown" Text="{Binding SelectedTrack.Title, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" />
+                                </Viewbox>
+
+
+
+                                <Viewbox HorizontalAlignment="Left" Grid.Row="1" MaxHeight="50">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Foreground="#757575" FontSize="10">by</Label>
+                                        <TextBox  TextWrapping="Wrap" KeyDown="TextBox_KeyDown" Text="{Binding SelectedTrack.Artists, TargetNullValue={x:Static sys:String.Empty},  Converter={StaticResource StringArrayToStringConverter},Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Foreground="#757575"/>
+                                    </StackPanel>
+
+                                </Viewbox>
+
+                            </Grid>
+
+                            <Viewbox Grid.Column="3">
                                 <Image Source="{Binding SelectedTrack.AlbumUri}" Stretch="UniformToFill"/>
                             </Viewbox>
 
@@ -216,47 +258,45 @@
 
                         <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Height="2" Fill="{DynamicResource AccentColorBrush3}" />
 
-                       
-                            <TextBlock Grid.Row="2" Grid.Column="1" KeyDown="TextBox_KeyDown" VerticalAlignment="Center" 
-                                     Text="Artist info from internet 
-                                     Blah blah blah lorem ipsum ipsum lorem"/>
+                        <ScrollViewer  Grid.Row="2" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Disabled">
+                            <TextBlock Padding="20" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Justify" Text="{Binding SelectedTrack.Summary}" FontSize="17" FontStretch="ExtraExpanded"/>
+                        </ScrollViewer>
 
-                        <Rectangle Grid.Row="3" Grid.ColumnSpan="3" Height="2" Fill="{DynamicResource AccentColorBrush3}" />
+                        <Rectangle  Grid.Row="3" Grid.ColumnSpan="3" Height="2" Fill="{DynamicResource AccentColorBrush3}" />
 
 
-                        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Album : "/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" 
-                                     Text="{Binding SelectedTrack.Album, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <StackPanel HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Album : " FontSize="20"/>
+                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center"  FontSize="20"
+                                     Text="{Binding SelectedTrack.Album, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Year : "/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <StackPanel HorizontalAlignment="Center" Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Year : " FontSize="20"/>
+                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center"  FontSize="20" Text="{Binding SelectedTrack.Year, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Genre : "/>
+                        <StackPanel HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Genre : " FontSize="20"/>
                             <ComboBox VerticalAlignment="Center">
                                 <ComboBoxItem IsSelected="True" Content="{Binding SelectedTrack.Genre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <ComboBoxItem />
-                                <ComboBoxItem/>
                             </ComboBox>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Comments : "/>
-                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" Text="{Binding SelectedTrack.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <StackPanel HorizontalAlignment="Center" Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Comments : " FontSize="20"/>
+                            <TextBox KeyDown="TextBox_KeyDown" VerticalAlignment="Center" FontSize="20" Text="{Binding SelectedTrack.Comment, TargetNullValue={x:Static sys:String.Empty}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                     </Grid>
-
                 </TabItem>
 
                 <TabItem Header="Lyrics">
                     <ScrollViewer>
-                        <TextBlock Grid.Column="1" Text="{Binding SelectedTrack.Lyrics}" TextAlignment="Center" Margin="16"/>
+                        <TextBlock Grid.Column="1" TextWrapping="Wrap" Text="{Binding SelectedTrack.Lyrics}" TextAlignment="Center" Margin="16" FontSize="25"/>
                     </ScrollViewer>
+
+
                 </TabItem>
 
             </TabControl>

@@ -57,6 +57,7 @@
     <Compile Include="MusicID3Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackLyricsRetriever.cs" />
+    <Compile Include="WikiSummaryRetriever.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

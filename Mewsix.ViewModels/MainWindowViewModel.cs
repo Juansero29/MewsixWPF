@@ -1,18 +1,14 @@
 ﻿using Mewsix.Helpers;
 using Mewsix.Models;
-using Mewsix.Data;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
-using System.Windows.Media;
-using System.Windows.Controls;
 using System.Linq;
 using System.Collections.Generic;
 using System;
 using System.Windows.Forms;
 using System.IO;
-using System.Windows;
 using System.Windows.Input;
 using Mewsix.ViewModels.Commands;
 
@@ -30,13 +26,34 @@ namespace Mewsix.ViewModels
             get
             {
                 if (_Tracks == null) { return new ObservableCollection<Track>(); }
-                return _Tracks;
+                if(!(String.IsNullOrEmpty(SearchCriteria) || String.IsNullOrWhiteSpace(SearchCriteria)))
+                {
+                    return new ObservableCollection<Track>(_Tracks.Where(t => t.Title.ToLower().Contains(SearchCriteria.ToLower()) || t.Artists[0].ToLower().Contains(SearchCriteria.ToLower())));
+                } else
+                {
+                    return _Tracks;
+                }
+                
             }
             set
             {
                 _Tracks = value;
             }
         }
+
+        private string _SearchCriteria;
+
+        public string SearchCriteria
+        {
+            get { return _SearchCriteria; }
+            set
+            {
+                _SearchCriteria = value;
+                OnPropertyChanged(nameof(SearchCriteria));
+                OnPropertyChanged(nameof(Tracks));
+            }
+        }
+
 
         public MewsixPlayer MPlayer { get; set; }
 
@@ -94,6 +111,7 @@ namespace Mewsix.ViewModels
 
         public MainWindowViewModel()
         {
+            SearchCriteria = "   ";
             DataManager = new Data.Data();
             if (DataManager.Tracks != null) _Tracks = new ObservableCollection<Track>(DataManager.Tracks);
 
@@ -208,7 +226,7 @@ namespace Mewsix.ViewModels
             if (e.Key == Key.Enter)
             {
                 Track currentTrack = SelectedTrack;
-                currentTrack.UpdateImage();
+                currentTrack.UpdateContents();
                 TagLib.File file = TagLib.File.Create(currentTrack.Path);
                 TagLib.Tag tag = file.Tag;
 
@@ -249,6 +267,7 @@ namespace Mewsix.ViewModels
 
         public void OnWindowClosing()
         {
+            SearchCriteria = null;
             DataManager.Save(Tracks);
         }
 
@@ -271,12 +290,14 @@ namespace Mewsix.ViewModels
 
 
 
-        public void AddTrack(string trackPath)
+        public async void AddTrack(string trackPath)
         {
+            SearchCriteria = null;
             MusicID3Tag tag = new MusicID3Tag(trackPath);
-            string albumUri = AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists);
-            string lyrics = TrackLyricsRetriever.GiveTrackLyrics(tag.Title, tag.Artists[0]);
-            Track newTrack = new Track(trackPath, tag, albumUri, lyrics);
+            string albumUri = await AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists);
+            string lyrics = await TrackLyricsRetriever.GiveTrackLyrics(tag.Title, tag.Artists[0]);
+            string summary = await WikiSummaryRetriever.GiveTrackSummary(tag.Artists[0]);
+            Track newTrack = new Track(trackPath, tag, albumUri, lyrics, summary);
             newTrack.PropertyChanged += OnTrackPropertyChanged;
             if (_Tracks == null) _Tracks = new ObservableCollection<Track>();
 
@@ -295,6 +316,7 @@ namespace Mewsix.ViewModels
 
         public void Remove(Track t)
         {
+            SearchCriteria = null;
             /* REMOVE FROM VIEW MODEL'S DATA */
             int oldIndex = SelectedIndex;
             string oldTrackPath = t.Path;
@@ -320,6 +342,7 @@ namespace Mewsix.ViewModels
 
         public void Update(Track t)
         {
+            SearchCriteria = null;
             /* UPDATE FOR THE VIEW MODEL'S DATA */
             for (int i = Tracks.Count - 1; i >= 0; i--)
             {
@@ -330,6 +353,7 @@ namespace Mewsix.ViewModels
                 }
             }
 
+            SelectedTrack = Tracks[Tracks.ToList().FindIndex(track => track.ID == t.ID)];
             /* UPDATE FOR THE DATA MANAGER'S DATA */
             DataManager.Update(t);
             OnPropertyChanged(nameof(Tracks));
@@ -407,6 +431,7 @@ namespace Mewsix.ViewModels
 
         private int GetCurrentlyPlayingIndex()
         {
+            SearchCriteria = null;
             // The index of the currently playing song which may be different from the selected song
             Track currentlyPlaying = Tracks.Where(t => t.Path.Equals(MPlayer.CurrentTrackPath)).First();
             return Tracks.IndexOf(currentlyPlaying);

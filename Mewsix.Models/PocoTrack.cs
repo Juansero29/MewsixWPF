@@ -16,8 +16,10 @@ namespace Mewsix.Models
         public string Comment { get; set; }
         public string Genre { get; set; }
         public string Lyrics { get; set; }
+        public string Summary { get; set; }
         public string TrackPath { get; set; }
         public string ID { get; set; }
+
     
     }
 }
