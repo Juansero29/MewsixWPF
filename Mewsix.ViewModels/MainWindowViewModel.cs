@@ -11,11 +11,13 @@ using System.Windows.Forms;
 using System.IO;
 using System.Windows.Input;
 using Mewsix.ViewModels.Commands;
+using System.Windows;
 
 namespace Mewsix.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public IDataManager DataManager { get; set; }
@@ -26,14 +28,15 @@ namespace Mewsix.ViewModels
             get
             {
                 if (_Tracks == null) { return new ObservableCollection<Track>(); }
-                if(!(String.IsNullOrEmpty(SearchCriteria) || String.IsNullOrWhiteSpace(SearchCriteria)))
+                if (!(String.IsNullOrEmpty(SearchCriteria) || String.IsNullOrWhiteSpace(SearchCriteria)))
                 {
                     return new ObservableCollection<Track>(_Tracks.Where(t => t.Title.ToLower().Contains(SearchCriteria.ToLower()) || t.Artists[0].ToLower().Contains(SearchCriteria.ToLower())));
-                } else
+                }
+                else
                 {
                     return _Tracks;
                 }
-                
+
             }
             set
             {
@@ -62,14 +65,17 @@ namespace Mewsix.ViewModels
         {
             get
             {
-                return _selectedTrack;
+                if (Tracks == null || Tracks.Count == 0 || SelectedIndex < 0 || SelectedIndex >= Tracks.Count) return null;
+                return Tracks[SelectedIndex];
+                
+ //               return _selectedTrack;
             }
 
-            set
-            {
-                _selectedTrack = value;
-                OnPropertyChanged(nameof(SelectedTrack));
-            }
+            //set
+            //{
+            //    _selectedTrack = value;
+            //    OnPropertyChanged(nameof(SelectedTrack));
+            //}
         }
 
         private int _selectedIndex;
@@ -81,30 +87,37 @@ namespace Mewsix.ViewModels
             }
             set
             {
+                if (value == _selectedIndex) return;
+
+
                 if (value < 0)
                 {
                     _selectedIndex = Tracks.Count - 1;
-                    if (!Tracks.ToList().Any())
-                    {
-                        SelectedTrack = null;
-                    }
-                    else
-                    {
-                        SelectedTrack = Tracks[SelectedIndex];
-                    }
+                    //if (!Tracks.ToList().Any())
+                    //{
+                    //    SelectedTrack = null;
+                    //}
+                    //else
+                    //{
+                    //    SelectedTrack = Tracks[SelectedIndex];
+                    //}
                     Debug.Print("selectedIndex : " + value);
+                    OnPropertyChanged(nameof(SelectedIndex));
+                    OnPropertyChanged(nameof(SelectedTrack));
                     return;
                 }
                 if (value > Tracks.Count - 1)
                 {
                     _selectedIndex = 0;
-                    SelectedTrack = Tracks[SelectedIndex];
+                    //SelectedTrack = Tracks[SelectedIndex];
                     Debug.Print("selectedIndex : " + value);
                     return;
                 }
 
                 _selectedIndex = value;
-                SelectedTrack = Tracks[SelectedIndex];
+                //SelectedTrack = Tracks[SelectedIndex];
+                OnPropertyChanged(nameof(SelectedIndex));
+                OnPropertyChanged(nameof(SelectedTrack));
                 Debug.Print("selectedIndex : " + value);
             }
         }
@@ -115,8 +128,17 @@ namespace Mewsix.ViewModels
             DataManager = new Data.Data();
             if (DataManager.Tracks != null) _Tracks = new ObservableCollection<Track>(DataManager.Tracks);
 
-            if (Tracks != null && Tracks.ToList().Count > 0) { SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
+
+            if (Tracks != null && Tracks.ToList().Count > 0)
+            {
+                SelectedIndex = 0;
+            }
+            else
+            {
+                SelectedIndex = -1;
+            }//{ SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
             MPlayer = MewsixPlayer.Instance;
+
 
 
             /* COMMAND CREATION AND DEFINITION OF THE FUNCTION WE WANT TO CALL WHEN ACTION IS INVOKED */
@@ -124,13 +146,15 @@ namespace Mewsix.ViewModels
             _previewMouseUpCommand = new MewsixCommand(MPlayer.OnPreviewMouseUp, t => true);
             _singleTrackAddCommand = new MewsixCommand(OnAddButtonClicked, t => true);
             _singleFolderAddCommand = new MewsixCommand(AddFolder, t => true);
-       
+
             _removeItemClickCommand = new MewsixCommand(() => Remove(SelectedTrack), t => true);
             _windowClosingCommand = new MewsixCommand(OnWindowClosing, t => true);
 
             _playPauseTrackButtonClickCommand = new MewsixCommand(PlaySelectedTrack, t => Tracks.Any());
             _nextTrackButtonClickCommand = new MewsixCommand(PlayNext, t => Tracks.Any());
             _previousTrackButtonClickCommand = new MewsixCommand(PlayPrevious, t => Tracks.Any());
+
+
         }
 
 
@@ -289,8 +313,6 @@ namespace Mewsix.ViewModels
             }
         }
 
-
-
         public async void AddTrack(string trackPath)
         {
             SearchCriteria = null;
@@ -328,7 +350,8 @@ namespace Mewsix.ViewModels
 
             if (Tracks.Count <= 0)
             {
-                SelectedTrack = null;
+                //SelectedTrack = null;
+                SelectedIndex = -1;
                 return;
             }
 
@@ -354,7 +377,8 @@ namespace Mewsix.ViewModels
                 }
             }
 
-            SelectedTrack = Tracks[Tracks.ToList().FindIndex(track => track.ID == t.ID)];
+            //SelectedTrack = Tracks[Tracks.ToList().FindIndex(track => track.ID == t.ID)];
+            SelectedIndex = Tracks.ToList().FindIndex(track => track.ID == t.ID);
             /* UPDATE FOR THE DATA MANAGER'S DATA */
             DataManager.Update(t);
             OnPropertyChanged(nameof(Tracks));
@@ -406,7 +430,7 @@ namespace Mewsix.ViewModels
                 MPlayer.NewTrack(SelectedTrack.Path);
             }
         }
-          
+
 
         public void AddFolder()
         {

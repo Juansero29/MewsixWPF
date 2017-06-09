@@ -27,14 +27,15 @@ namespace Mewsix
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            var vm = new MainWindowViewModel();
+            DataContext = vm;
+            vm.Tracks.CollectionChanged += (s, a) => { gridTracksCommands.DataContext = null; gridTracksCommands.DataContext = vm; };
         }
 
         private void ListView_Drop(object sender, DragEventArgs e)
         {
             //TODO Make this a command.
-            (DataContext as MainWindowViewModel).OnObjectDroppedOnView(sender, e);
-          
+            (DataContext as MainWindowViewModel).OnObjectDroppedOnView(sender, e);          
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
