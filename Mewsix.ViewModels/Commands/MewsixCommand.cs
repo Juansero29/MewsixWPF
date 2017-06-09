@@ -33,10 +33,11 @@ namespace Mewsix.ViewModels.Commands
         /// <summary>
         /// Occurs when the <see cref="CanExecute(object)"/> changed
         /// </summary>
+
         public event EventHandler CanExecuteChanged
         {
 
-            //CALLS CANEXECUTE WHEN IT DETECTS THAT A PROPERTY THAT INFLUENCES THE COMMAND HAS CHANGED
+            //WE ADD A COMMAND MANAGER AND IT'S RequerySuggested EVENT WHICH IS GOING TO CHECK IF SOME CONDITIONS MAY AFFECT THE POSSIBILITY OF THE COMMAND TO EXECUTE HENCE RE-EXECUTING THE COMMAND.
             add
             {
                 if (_checkCanExecute != null)
