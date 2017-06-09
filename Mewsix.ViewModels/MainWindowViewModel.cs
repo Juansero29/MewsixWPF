@@ -116,7 +116,7 @@ namespace Mewsix.ViewModels
             if (DataManager.Tracks != null) _Tracks = new ObservableCollection<Track>(DataManager.Tracks);
 
             if (Tracks != null && Tracks.ToList().Count > 0) { SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
-            MPlayer = new MewsixPlayer();
+            MPlayer = MewsixPlayer.Instance;
 
 
             /* COMMAND CREATION AND DEFINITION OF THE FUNCTION WE WANT TO CALL WHEN ACTION IS INVOKED */
