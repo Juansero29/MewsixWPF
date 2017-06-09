@@ -102,8 +102,9 @@
                 <TextBox Margin="10, 0, 0, 0" MinWidth="250" HorizontalAlignment="Stretch" Text="{Binding SearchCriteria, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
 
-            <ListView Grid.Row="1" AllowDrop="True" Drop="ListView_Drop" DragDrop.GiveFeedback="ListView_GiveFeedback"  SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+            <ListView Grid.Row="1" AllowDrop="True" Drop="ListView_Drop" DragDrop.GiveFeedback="ListView_GiveFeedback"  SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"  Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                   ItemsSource="{Binding Tracks}" MinWidth="200">
+                <!--SelectedItem="{Binding SelectedTrack, Mode=TwoWay}"-->
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Remove">
@@ -169,7 +170,7 @@
 
         <DockPanel Grid.Column="1"  >
 
-            <Grid DockPanel.Dock="Bottom" Height="48" Background="#BBDEFB">
+            <Grid DockPanel.Dock="Bottom" Height="48" Background="#BBDEFB" x:Name="gridTracksCommands">
                 <Grid Margin="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
@@ -310,7 +311,7 @@
 
                 <TabItem Header="Lyrics">
                     <ScrollViewer>
-                        <TextBlock Grid.Column="1" TextWrapping="Wrap" Text="{Binding SelectedTrack.Lyrics}" TextAlignment="Center" Margin="16" FontSize="25"/>
+                        <TextBlock Grid.Column="1" TextWrapping="Wrap" Text="{Binding SelectedTrack.Lyrics}" TextAlignment="Center" Margin="16" FontSize="18"/>
                     </ScrollViewer>
 
 
