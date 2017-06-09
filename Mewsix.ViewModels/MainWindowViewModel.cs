@@ -124,10 +124,11 @@ namespace Mewsix.ViewModels
             _previewMouseUpCommand = new MewsixCommand(MPlayer.OnPreviewMouseUp, t => true);
             _singleTrackAddCommand = new MewsixCommand(OnAddButtonClicked, t => true);
             _singleFolderAddCommand = new MewsixCommand(AddFolder, t => true);
-            _playPauseTrackButtonClickCommand = new MewsixCommand(PlaySelectedTrack, t => true);           
+       
             _removeItemClickCommand = new MewsixCommand(() => Remove(SelectedTrack), t => true);
             _windowClosingCommand = new MewsixCommand(OnWindowClosing, t => true);
 
+            _playPauseTrackButtonClickCommand = new MewsixCommand(PlaySelectedTrack, t => Tracks.Any());
             _nextTrackButtonClickCommand = new MewsixCommand(PlayNext, t => Tracks.Any());
             _previousTrackButtonClickCommand = new MewsixCommand(PlayPrevious, t => Tracks.Any());
         }

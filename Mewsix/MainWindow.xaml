@@ -87,7 +87,7 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" MinWidth="210"/>
+            <ColumnDefinition Width="4*" MinWidth="210" MaxWidth="400"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
 
