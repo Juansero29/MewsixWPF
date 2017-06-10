@@ -103,9 +103,17 @@ namespace Mewsix.ViewModels
                     return;
                 }
 
+
+
                 _selectedIndex = value;
                 SelectedTrack = Tracks[SelectedIndex];
                 Debug.Print("selectedIndex : " + value);
+
+                _playPauseTrackButtonClickCommand.RaiseCanExecute();
+                _nextTrackButtonClickCommand.RaiseCanExecute();
+                _previousTrackButtonClickCommand.RaiseCanExecute();
+
+
             }
         }
 
