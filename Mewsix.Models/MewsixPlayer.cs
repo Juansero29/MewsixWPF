@@ -12,7 +12,7 @@ using System.Windows.Threading;
 
 namespace Mewsix.Models
 {
-    public class MewsixPlayer : MediaPlayer, INotifyPropertyChanged
+    public sealed class MewsixPlayer : MediaPlayer, INotifyPropertyChanged
     {
         public bool IsOpened { get; private set; }
         public bool IsPaused { get; private set; }
@@ -57,8 +57,11 @@ namespace Mewsix.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        private static MewsixPlayer _Instance = null;
+        private static readonly object Padlock = new object();
 
-        public MewsixPlayer()
+
+        MewsixPlayer()
         {
             TotalTime = "0:00";
             CurrentTime = "0:00";
@@ -66,6 +69,26 @@ namespace Mewsix.Models
             MediaOpened += MewsixPlayer_MediaOpened;
             Timer.Interval = TimeSpan.FromSeconds(1);
             Timer.Tick += Timer_Tick;
+        }
+
+        public static MewsixPlayer Instance
+        {
+            get
+            {
+                /* The lock keyword ensures that one thread does not enter a critical
+                 * section of code while another thread is in the critical section. 
+                 * If another thread tries to enter a locked code, it will wait, 
+                 * block, until the object is released. Unfortunately, performance
+                 * suffers as a lock is acquired every time the instance is requested.*/
+                lock (Padlock)
+                {
+                    if(_Instance == null)
+                    {
+                        _Instance = new MewsixPlayer();
+                    }
+                    return _Instance;
+                }
+            }
         }
 
 

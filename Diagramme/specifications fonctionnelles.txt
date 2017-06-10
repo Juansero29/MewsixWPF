@@ -1,0 +1,33 @@
+Les spécifications fonctionnelles
+Les spécifications fonctionnelles permettent de définir comme votre produit doit se comporter. Chaque spécification est sous la forme suivante :
+
+Fenêtre de login
+- Cas normal : L'utilisateur rentre son identifiant et son mot de passe puis clique sur le bouton et navigue vers la page principale
+- Cas d'erreur : L'utilisateur ne rentre pas le bon mot de passe. Une boîte de dialogue lui indique son erreur et il doit recommencer
+- Cas limite : L'utilisateur ne peut rentrer un identifiant avec plus de 100 caractères
+
+L'utilisateur appuie sur bouton NextTrack ou PreviousTrack ou Pause
+- Cas normal : on joue le morceau suivant/précédent, ou on le met en pause.
+
+Glisser - déposer
+- Cas normal : le fichier déposé est de type .mp3 ou .flac, il est donc ajouté à la liste des Tracks
+- Cas d'erreur : le fichier déposé n'est pas compatible avec le logiciel
+- Cas limite : L'utilisateur ne peut pas déposer des dossiers contenant des dossiers
+
+Modification d'informations
+- Cas normal : L'utilisateur modifie les informations sur un morceau; Une boîte de dialogue indique que les changements ont été sauvegardés
+- Cas limite : Certaines informations ne sont pas modifiables
+- Cas d'erreur : Le morceau est en train d'être joué
+
+Barre de recherche
+- Cas normal : On trouve ce qu'on recherche
+- Cas limite : On ne peut pas trouver ce qu'on n'a pas sur son ordinateur
+
+Requête API (paroles, image d'album, informations Artiste)
+- Cas normal : Les informations voulues sont trouvées sur internet
+- Cas limite : L'API ne renvoie pas d'informations suite à la requête, on affiche des informations par défaut.
+- Cas d'erreur : L'utilisateur ne dispose pas d'une connexion internet ou l'API est indisponible.
+
+
+
+

@@ -12,7 +12,6 @@ namespace Mewsix.Helpers
 {
     public class TrackLyricsRetriever
     {
-        //TODO Protect this API Key!!
         private static readonly string MUSIXMATCH_AUTH_KEY = "f2a6f30c5bbd5d93e582d93b03f32d1e";
         public static async Task<string> GiveTrackLyrics(string trackTitle, string artist)
         {
