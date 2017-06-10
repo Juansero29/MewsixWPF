@@ -39,32 +39,32 @@ First stable version of Mewsix. The first music player that uses your song files
 <h2>Functional Specifications: </h2>
 
 <h3>
-Les spécifications fonctionnelles
-Les spécifications fonctionnelles permettent de définir comme le produit doit se comporter.
+Les spÃ©cifications fonctionnelles
+Les spÃ©cifications fonctionnelles permettent de dÃ©finir comment le produit doit se comporter.
 
 L'utilisateur appuie sur bouton NextTrack ou PreviousTrack ou Pause
-- Cas normal : on joue le morceau suivant/précédent, ou on le met en pause.
+- Cas normal : on joue le morceau suivant/prÃ©cÃ©dent, ou on le met en pause.
 - Cas d'erreur : S/O
 - Cas limite : S/O
 
-Glisser - déposer
-- Cas normal : le fichier déposé est de type .mp3 ou .flac, il est donc ajouté à la liste des Tracks
-- Cas d'erreur : le fichier déposé n'est pas compatible avec le logiciel
-- Cas limite : L'utilisateur ne peut pas déposer des dossiers contenant des dossiers
+Glisser - dÃ©poser
+- Cas normal : le fichier dÃ©posÃ© est de type .mp3 ou .flac, il est donc ajoutÃ© Ã  la liste des Tracks
+- Cas d'erreur : le fichier dÃ©posÃ© n'est pas compatible avec le logiciel
+- Cas limite : L'utilisateur ne peut pas dÃ©poser des dossiers contenant des dossiers
 
 Modification d'informations
-- Cas normal : L'utilisateur modifie les informations sur un morceau. Une boîte de dialogue indique que les changements ont été sauvegardés
+- Cas normal : L'utilisateur modifie les informations sur un morceau. Une boÃ®te de dialogue indique que les changements ont Ã©tÃ© sauvegardÃ©s
 - Cas limite : Certaines informations ne sont pas modifiables
-- Cas d'erreur : Le morceau est en train d'être joué
+- Cas d'erreur : Le morceau est en train d'Ãªtre jouÃ©
 
 Barre de recherche
 - Cas normal : On trouve ce qu'on recherche
 - Cas limite : On ne peut pas trouver ce qu'on n'a pas sur son ordinateur
 - Cas d'erruer : S/O
 
-Requête API (paroles, image d'album, informations Artiste)
-- Cas normal : Les informations voulues sont trouvées sur internet
-- Cas limite : L'API ne renvoie pas d'informations suite à la requête, on affiche des informations par défaut.
+RequÃªte API (paroles, image d'album, informations Artiste)
+- Cas normal : Les informations voulues sont trouvÃ©es sur internet
+- Cas limite : L'API ne renvoie pas d'informations suite Ã  la requÃªte, on affiche des informations par dÃ©faut.
 - Cas d'erreur : L'utilisateur ne dispose pas d'une connexion internet ou l'API est indisponible.
 </h3>
 
