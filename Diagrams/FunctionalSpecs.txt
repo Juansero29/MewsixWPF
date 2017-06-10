@@ -8,6 +8,8 @@ Fenêtre de login
 
 L'utilisateur appuie sur bouton NextTrack ou PreviousTrack ou Pause
 - Cas normal : on joue le morceau suivant/précédent, ou on le met en pause.
+- Cas d'erreur : S/O
+- Cas limite : S/O
 
 Glisser - déposer
 - Cas normal : le fichier déposé est de type .mp3 ou .flac, il est donc ajouté à la liste des Tracks
@@ -22,6 +24,7 @@ Modification d'informations
 Barre de recherche
 - Cas normal : On trouve ce qu'on recherche
 - Cas limite : On ne peut pas trouver ce qu'on n'a pas sur son ordinateur
+- Cas d'erruer : S/O
 
 Requête API (paroles, image d'album, informations Artiste)
 - Cas normal : Les informations voulues sont trouvées sur internet
