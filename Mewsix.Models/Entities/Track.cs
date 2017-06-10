@@ -17,6 +17,8 @@ namespace Mewsix.Models
         }
 
 
+
+
         private string _ID;
         public string ID
         {
@@ -33,7 +35,6 @@ namespace Mewsix.Models
                 }
             }
         }
-
 
         private string _Title;
         public string Title
@@ -206,12 +207,6 @@ namespace Mewsix.Models
             ID = IdGenerator.GetID();
         }
 
-        /*public Track(string trackPath, MusicID3Tag t, string albumUri) : this(t.Title, t.Artists, albumUri, t.Album, t.Year, t.Lyrics)
-        {
-            Path = trackPath;
-            ID = IdGenerator.GetID();
-        }*/
-
         public Track(string trackPath, MusicID3Tag t, string albumUri, string lyricsString) : this(t.Title, t.Artists, albumUri, t.Album, t.Year, t.Comment, t.Genre, t.Lyrics)
         {
             Lyrics = lyricsString;
@@ -230,9 +225,9 @@ namespace Mewsix.Models
 
         public async void UpdateContents()
         {
-            AlbumUri = new Uri(await AlbumImageLinkRetriever.GiveAlbumImageLink(Title, Artists) as string);
-            Summary = await WikiSummaryRetriever.GiveTrackSummary(Artists[0]);
-            Lyrics = await TrackLyricsRetriever.GiveTrackLyrics(Title, Artists[0]);
+            AlbumUri = new Uri(await AlbumImageLinkRetrieverService.Instance.GiveAlbumImageLinkAsync(Title, Artists) as string);
+            Summary = await WikiSummaryRetrieverService.Instance.GiveTrackSummaryAsync(Artists[0]);
+            Lyrics = await TrackLyricsRetrieverService.Instance.GiveTrackLyricsAsync(Title, Artists[0]);
         }
 
         public override string ToString()

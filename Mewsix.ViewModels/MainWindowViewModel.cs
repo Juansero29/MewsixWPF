@@ -16,11 +16,28 @@ namespace Mewsix.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-
+        #region ON PROPERTY CHANGED
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        #endregion ON PROPERTY CHANGED
+
+
+
+        #region PROPERTIES
+
+        /// <summary>
+        /// In charge of CRUD operations
+        /// </summary>
         public IDataManager DataManager { get; set; }
 
+        /// <summary>
+        /// Collection of Tracks containing all Tracks that show up on the screen.
+        /// </summary>
         private ObservableCollection<Track> _Tracks;
         public ObservableCollection<Track> Tracks
         {
@@ -43,6 +60,10 @@ namespace Mewsix.ViewModels
             }
         }
 
+
+        /// <summary>
+        /// String binded to the view in order to search elements in Tracks collection
+        /// </summary>
         private string _SearchCriteria;
         public string SearchCriteria
         {
@@ -55,10 +76,14 @@ namespace Mewsix.ViewModels
             }
         }
 
-
+        /// <summary>
+        /// Object in charge of audio playing
+        /// </summary>
         public MewsixPlayer MPlayer { get; set; }
 
-
+        /// <summary>
+        /// Track that has been selected by the user.
+        /// </summary>
         public Track SelectedTrack
         {
             get
@@ -68,6 +93,9 @@ namespace Mewsix.ViewModels
             }
         }
 
+        /// <summary>
+        /// Index of the track that has been selected by the user.
+        /// </summary>
         private int _selectedIndex;
         public int SelectedIndex
         {
@@ -108,6 +136,9 @@ namespace Mewsix.ViewModels
             }
         }
 
+        /// <summary>
+        /// Constructor for the MainWindowViewModel
+        /// </summary>
         public MainWindowViewModel()
         {
             DataManager = new Data.Data();
@@ -140,7 +171,11 @@ namespace Mewsix.ViewModels
 
 
         }
+        #endregion PROPERTIES
 
+
+
+        #region COMMANDS FOR VIEW ACTIONS
 
         /* DEFINITION OF COMMAND REFERENCES THAT WILL BE USED WHEN EVENT IS TRIGGERED */
 
@@ -192,14 +227,17 @@ namespace Mewsix.ViewModels
         private readonly MewsixCommand _removeItemClickCommand;
         public ICommand RemoveItemClickCommand => _removeItemClickCommand;
 
-
         /// <summary>
         /// Command invoked when the button to add a single folder is clicked.
         /// </summary>
         private readonly MewsixCommand _windowClosingCommand;
         public ICommand WindowClosingCommand => _windowClosingCommand;
 
+        #endregion COMMANDS FOR VIEW ACTIONS
 
+
+
+        #region REACTIONS TO VIEW ACTIONS
         public void OnObjectDroppedOnView(object sender, System.Windows.DragEventArgs e)
         {
             List<string> filepaths = new List<string>();
@@ -296,14 +334,21 @@ namespace Mewsix.ViewModels
                 }
             }
         }
+        #endregion REACTIONS TO VIEW ACTIONS
 
+
+
+
+        #region CRUD OPERATIONS
         public async void AddTrack(string trackPath)
         {
             SearchCriteria = null;
             MusicID3Tag tag = new MusicID3Tag(trackPath);
-            string albumUri = await AlbumImageLinkRetriever.GiveAlbumImageLink(tag.Title, tag.Artists);
-            string lyrics = await TrackLyricsRetriever.GiveTrackLyrics(tag.Title, tag.Artists[0]);
-            string summary = await WikiSummaryRetriever.GiveTrackSummary(tag.Artists[0]);
+
+            string albumUri = await AlbumImageLinkRetrieverService.Instance.GiveAlbumImageLinkAsync(tag.Title, tag.Artists);
+            string lyrics = await TrackLyricsRetrieverService.Instance.GiveTrackLyricsAsync(tag.Title, tag.Artists[0]);
+            string summary = await WikiSummaryRetrieverService.Instance.GiveTrackSummaryAsync(tag.Artists[0]);
+
             Track newTrack = new Track(trackPath, tag, albumUri, lyrics, summary);
             newTrack.PropertyChanged += OnTrackPropertyChanged;
             if (_Tracks == null) _Tracks = new ObservableCollection<Track>();
@@ -361,18 +406,44 @@ namespace Mewsix.ViewModels
                 }
             }
 
-            //SelectedTrack = Tracks[Tracks.ToList().FindIndex(track => track.ID == t.ID)];
             SelectedIndex = Tracks.ToList().FindIndex(track => track.ID == t.ID);
             /* UPDATE FOR THE DATA MANAGER'S DATA */
             DataManager.Update(t);
             OnPropertyChanged(nameof(Tracks));
         }
 
-        public void OnPropertyChanged([CallerMemberName] string name = null)
+        public void AddFolder()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string[] files = Directory.GetFiles(fbd.SelectedPath);
+                    foreach (string trackPath in files)
+                    {
+                        if (Path.GetExtension(trackPath) == ".mp3" || Path.GetExtension(trackPath) == ".flac")
+                        {
+                            AddTrack(trackPath);
+                        }
+                    }
+                }
+
+
+            }
+
         }
 
+        #endregion CRUDOPERATIONS
+
+
+
+
+        #region MEDIA PLAYER ACTIONS
+
+        /// <summary>
+        /// Starts playing the sound of the current track
+        /// </summary>
         public void PlaySelectedTrack()
         {
             if (!Tracks.Any()) return;
@@ -415,29 +486,6 @@ namespace Mewsix.ViewModels
             }
         }
 
-
-        public void AddFolder()
-        {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                DialogResult result = fbd.ShowDialog();
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    string[] files = Directory.GetFiles(fbd.SelectedPath);
-                    foreach (string trackPath in files)
-                    {
-                        if (Path.GetExtension(trackPath) == ".mp3" || Path.GetExtension(trackPath) == ".flac")
-                        {
-                            AddTrack(trackPath);
-                        }
-                    }
-                }
-
-
-            }
-
-        }
-
         private int GetCurrentlyPlayingIndex()
         {
             SearchCriteria = null;
@@ -446,6 +494,7 @@ namespace Mewsix.ViewModels
             return Tracks.IndexOf(currentlyPlaying);
         }
 
+        #endregion MEDIA PLAYER ACTIONS
 
     }
 }

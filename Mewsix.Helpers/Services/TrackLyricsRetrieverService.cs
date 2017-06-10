@@ -7,10 +7,29 @@ using System.Net.Http;
 
 namespace Mewsix.Helpers
 {
-    public class TrackLyricsRetriever
+    public class TrackLyricsRetrieverService
     {
+        private static TrackLyricsRetrieverService _instance;
+        /// <summary>
+        /// Gets singleton instance of the <see cref="TrackLyricsRetrieverService"/>
+        /// </summary>
+        public static TrackLyricsRetrieverService Instance
+        {
+            get
+            {
+                if (_instance == null) _instance = new TrackLyricsRetrieverService();
+
+                return _instance;
+            }
+        }
+
+        /// <summary>
+        /// Initialize a default <see cref="TrackLyricsRetrieverService"/> who manage players
+        /// </summary>
+        private TrackLyricsRetrieverService() { }
+
         private static readonly string MUSIXMATCH_AUTH_KEY = "f2a6f30c5bbd5d93e582d93b03f32d1e";
-        public static async Task<string> GiveTrackLyrics(string trackTitle, string artist)
+        public async Task<string> GiveTrackLyricsAsync(string trackTitle, string artist)
         {
             string lyrics = "No lyrics have been found!";
             if (artist == null) { artist = ""; }

@@ -6,9 +6,28 @@ using System.Net.Http;
 
 namespace Mewsix.Helpers
 {
-    public static class AlbumImageLinkRetriever
+    public class AlbumImageLinkRetrieverService
     {
-        public static async Task<string> GiveAlbumImageLink(string trackTitle, string[] artistsArray)
+        private static AlbumImageLinkRetrieverService _instance;
+        /// <summary>
+        /// Gets singleton instance of the <see cref="TrackLyricsRetrieverService"/>
+        /// </summary>
+        public static AlbumImageLinkRetrieverService Instance
+        {
+            get
+            {
+                if (_instance == null) _instance = new AlbumImageLinkRetrieverService();
+
+                return _instance;
+            }
+        }
+
+        /// <summary>
+        /// Initialize a default <see cref="AlbumImageLinkRetrieverService"/> who manage players
+        /// </summary>
+        private AlbumImageLinkRetrieverService() { }
+
+        public async Task<string> GiveAlbumImageLinkAsync(string trackTitle, string[] artistsArray)
         {
             string link;
             string artists = artistsArray.Aggregate((i, j) => i + ", " + j);

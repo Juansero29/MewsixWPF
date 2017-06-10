@@ -10,9 +10,30 @@ using System.Threading.Tasks;
 
 namespace Mewsix.Helpers
 {
-    public static class WikiSummaryRetriever
+    public class WikiSummaryRetrieverService
     {
-        public static async Task<string> GiveTrackSummary(string artist)
+        private static WikiSummaryRetrieverService _instance;
+
+        /// <summary>
+        /// Gets singleton instance of the <see cref="WikiSummaryRetrieverService"/>
+        /// </summary>
+        public static WikiSummaryRetrieverService Instance
+        {
+            get
+            {
+                if (_instance == null) _instance = new WikiSummaryRetrieverService();
+
+                return _instance;
+            }
+        }
+
+        /// <summary>
+        /// Initialize a default <see cref="WikiSummaryRetrieverService"/> who manage players
+        /// </summary>
+        private WikiSummaryRetrieverService() { }
+
+
+        public async Task<string> GiveTrackSummaryAsync(string artist)
         {
             if (artist == null) { artist = "This"; }
             string summary = $"{artist} is a great artist! That's all we know.";
