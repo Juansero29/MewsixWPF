@@ -92,7 +92,6 @@ namespace Mewsix.Models
         }
 
         private string _Year;
-
         public string Year
         {
             get { return _Year; }

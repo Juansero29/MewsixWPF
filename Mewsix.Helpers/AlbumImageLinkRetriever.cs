@@ -32,7 +32,7 @@ namespace Mewsix.Helpers
             return link;
         }
 
-        public class Artist
+        private class Artist
         {
             public int id { get; set; }
             public string name { get; set; }
@@ -46,7 +46,7 @@ namespace Mewsix.Helpers
             public string type { get; set; }
         }
 
-        public class Album
+        private class Album
         {
             public int id { get; set; }
             public string title { get; set; }
@@ -59,7 +59,7 @@ namespace Mewsix.Helpers
             public string type { get; set; }
         }
 
-        public class Datum
+        private class Datum
         {
             public int id { get; set; }
             public bool readable { get; set; }
@@ -76,7 +76,7 @@ namespace Mewsix.Helpers
             public string type { get; set; }
         }
 
-        public class RootObject
+        private class RootObject
         {
             public List<Datum> data { get; set; }
             public int total { get; set; }

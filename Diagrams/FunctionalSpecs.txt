@@ -15,7 +15,7 @@ Glisser - déposer
 - Cas limite : L'utilisateur ne peut pas déposer des dossiers contenant des dossiers
 
 Modification d'informations
-- Cas normal : L'utilisateur modifie les informations sur un morceau; Une boîte de dialogue indique que les changements ont été sauvegardés
+- Cas normal : L'utilisateur modifie les informations sur un morceau. Une boîte de dialogue indique que les changements ont été sauvegardés
 - Cas limite : Certaines informations ne sont pas modifiables
 - Cas d'erreur : Le morceau est en train d'être joué
 
