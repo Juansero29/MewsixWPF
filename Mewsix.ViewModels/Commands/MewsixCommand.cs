@@ -77,12 +77,6 @@ namespace Mewsix.ViewModels.Commands
         {
 
             _MyEvent?.Invoke(this, new EventArgs());
-
-            //CanExecuteChanged();
-            //if (CanExecuteChanged != null)
-            //{
-            //    CanExecuteChanged(this, new EventArgs());
-            //}
         }
     }
 }

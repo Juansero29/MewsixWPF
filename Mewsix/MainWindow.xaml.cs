@@ -27,9 +27,7 @@ namespace Mewsix
         public MainWindow()
         {
             InitializeComponent();
-            var vm = new MainWindowViewModel();
-            DataContext = vm;
-            vm.Tracks.CollectionChanged += (s, a) => { gridTracksCommands.DataContext = null; gridTracksCommands.DataContext = vm; };
+            DataContext = new MainWindowViewModel();
         }
 
         private void ListView_Drop(object sender, DragEventArgs e)

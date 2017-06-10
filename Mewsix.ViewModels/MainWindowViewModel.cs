@@ -45,7 +45,6 @@ namespace Mewsix.ViewModels
         }
 
         private string _SearchCriteria;
-
         public string SearchCriteria
         {
             get { return _SearchCriteria; }
@@ -60,22 +59,14 @@ namespace Mewsix.ViewModels
 
         public MewsixPlayer MPlayer { get; set; }
 
-        Track _selectedTrack;
+
         public Track SelectedTrack
         {
             get
             {
                 if (Tracks == null || Tracks.Count == 0 || SelectedIndex < 0 || SelectedIndex >= Tracks.Count) return null;
                 return Tracks[SelectedIndex];
-                
- //               return _selectedTrack;
             }
-
-            //set
-            //{
-            //    _selectedTrack = value;
-            //    OnPropertyChanged(nameof(SelectedTrack));
-            //}
         }
 
         private int _selectedIndex;
@@ -93,14 +84,6 @@ namespace Mewsix.ViewModels
                 if (value < 0)
                 {
                     _selectedIndex = Tracks.Count - 1;
-                    //if (!Tracks.ToList().Any())
-                    //{
-                    //    SelectedTrack = null;
-                    //}
-                    //else
-                    //{
-                    //    SelectedTrack = Tracks[SelectedIndex];
-                    //}
                     Debug.Print("selectedIndex : " + value);
                     OnPropertyChanged(nameof(SelectedIndex));
                     OnPropertyChanged(nameof(SelectedTrack));
@@ -109,15 +92,11 @@ namespace Mewsix.ViewModels
                 if (value > Tracks.Count - 1)
                 {
                     _selectedIndex = 0;
-                    //SelectedTrack = Tracks[SelectedIndex];
                     Debug.Print("selectedIndex : " + value);
                     return;
                 }
 
-
-
                 _selectedIndex = value;
-                //SelectedTrack = Tracks[SelectedIndex];
                 OnPropertyChanged(nameof(SelectedIndex));
                 OnPropertyChanged(nameof(SelectedTrack));
                 Debug.Print("selectedIndex : " + value);
@@ -125,14 +104,11 @@ namespace Mewsix.ViewModels
                 _playPauseTrackButtonClickCommand.RaiseCanExecute();
                 _nextTrackButtonClickCommand.RaiseCanExecute();
                 _previousTrackButtonClickCommand.RaiseCanExecute();
-
-
             }
         }
 
         public MainWindowViewModel()
         {
-            SearchCriteria = "   ";
             DataManager = new Data.Data();
             if (DataManager.Tracks != null) _Tracks = new ObservableCollection<Track>(DataManager.Tracks);
 
@@ -143,7 +119,7 @@ namespace Mewsix.ViewModels
             else
             {
                 SelectedIndex = -1;
-            }//{ SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
+            }
 
             MPlayer = MewsixPlayer.Instance;
 

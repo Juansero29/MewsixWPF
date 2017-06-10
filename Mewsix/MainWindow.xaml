@@ -105,7 +105,7 @@
 
             <ListView Grid.Row="1" AllowDrop="True" Drop="ListView_Drop" DragDrop.GiveFeedback="ListView_GiveFeedback"  SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"  Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                   ItemsSource="{Binding Tracks}" MinWidth="200">
-                <!--SelectedItem="{Binding SelectedTrack, Mode=TwoWay}"-->
+                
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Remove">
