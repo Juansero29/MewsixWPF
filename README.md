@@ -8,7 +8,7 @@ First stable version of Mewsix. The first music player that uses your song files
 </h3>
 
 
-<h2> *Current version: v0.1.0.0-alpha.1* </h2>
+<h2> Current version: v0.1.0.0-alpha.1*</h2>
 <h3> 
 - Added .mp3 or .flac files support.
 - Drag n' drop function available.
@@ -32,7 +32,7 @@ First stable version of Mewsix. The first music player that uses your song files
 
 
 <h2>Use-case Diagram: </h2>
-![UseCaseDiagram](https://github.com/Juansero29/MewsixWPF/blob/master/Diagrams/UseCase%20Diagram/MewsixUseCaseDiagram.PNG "Use-case diagram... ")
+![MewsixUseCaseDiagram](https://github.com/Juansero29/MewsixWPF/blob/master/Diagrams/UseCase%20Diagram/MewsixUseCaseDiagram.PNG "Use-case diagram... ")
 
 
 <h2>Functional Specifications: </h2>
