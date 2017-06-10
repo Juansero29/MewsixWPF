@@ -78,7 +78,7 @@ Requête API (paroles, image d'album, informations Artiste)
 </h3>
 
 
-<h2> Sketchs </h2>
+<h2> Sketchs: </h2>
 
 ![InfoTab](https://github.com/Juansero29/MewsixWPF/blob/master/Sketch/InfoTab.png "Info tab sketch...")
 
