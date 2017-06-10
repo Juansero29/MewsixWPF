@@ -93,6 +93,8 @@ namespace Mewsix.ViewModels
                 {
                     _selectedIndex = 0;
                     Debug.Print("selectedIndex : " + value);
+                    OnPropertyChanged(nameof(SelectedIndex));
+                    OnPropertyChanged(nameof(SelectedTrack));
                     return;
                 }
 
