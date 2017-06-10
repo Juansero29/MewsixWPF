@@ -6,8 +6,10 @@ using System.Windows.Threading;
 
 namespace Mewsix.Models
 {
-    public sealed class MewsixPlayer : MediaPlayer, INotifyPropertyChanged
+    public sealed class MewsixPlayer : INotifyPropertyChanged
     {
+        private static readonly MediaPlayer basePlayer = new MediaPlayer();
+
         public bool IsOpened { get; private set; }
         public bool IsPaused { get; private set; }
 
@@ -59,8 +61,8 @@ namespace Mewsix.Models
         {
             TotalTime = "0:00";
             CurrentTime = "0:00";
-            MediaEnded += MewixPlayer_MediaEnded;
-            MediaOpened += MewsixPlayer_MediaOpened;
+            basePlayer.MediaEnded += MewixPlayer_MediaEnded;
+            basePlayer.MediaOpened += MewsixPlayer_MediaOpened;
             Timer.Interval = TimeSpan.FromSeconds(1);
             Timer.Tick += Timer_Tick;
         }
@@ -89,7 +91,7 @@ namespace Mewsix.Models
         private void MewixPlayer_MediaEnded(object sender, EventArgs e)
         {
             IsOpened = false;
-            Stop();
+            basePlayer.Stop();
             Timer.Stop();
             Duration = 0;
         }
@@ -97,16 +99,16 @@ namespace Mewsix.Models
         // NaturalDuration.TimeSpan can only be called after the Media has been opened.
         private void MewsixPlayer_MediaOpened(object sender, EventArgs e)
         {
-            TotalTime = NaturalDuration.TimeSpan.ToString(@"mm\:ss");
-            Duration = (int)NaturalDuration.TimeSpan.TotalSeconds;
+            TotalTime = basePlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss");
+            Duration = (int)basePlayer.NaturalDuration.TimeSpan.TotalSeconds;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            CurrentTime = String.Format($"{Position.ToString(@"m\:ss")}");
+            CurrentTime = String.Format($"{basePlayer.Position.ToString(@"m\:ss")}");
             if (Duration != 0 && !MouseDown)
             {
-                SliderValue = (double)((float)Position.TotalSeconds / Duration) * 1000;
+                SliderValue = (double)((float)basePlayer.Position.TotalSeconds / Duration) * 1000;
                 //Debug.WriteLine(TimeSlider.Value);
             }
         }
@@ -121,7 +123,7 @@ namespace Mewsix.Models
         {
             double sliderValue = SliderValue;
             int timeValue = (int)(((float)sliderValue / 1000) * Duration);
-            Position = new TimeSpan(0, 0, timeValue);
+            basePlayer.Position = new TimeSpan(0, 0, timeValue);
             MouseDown = false;
         }
 
@@ -129,39 +131,39 @@ namespace Mewsix.Models
         {
             if (path != null)
             {
-                Open(new Uri(path));
+                basePlayer.Open(new Uri(path));
                 CurrentTrackPath = path;
                 IsOpened = true;
-                base.Play();
+                basePlayer.Play();
                 Timer.Start();
             }
         }
 
         public void Resume()
         {
-            base.Play();
+            basePlayer.Play();
             IsOpened = true;
             IsPaused = false;
             Timer.IsEnabled = true;
         }
 
-        public new void Pause()
+        public void Pause()
         {
-            base.Pause();
+            basePlayer.Pause();
             IsPaused = true;
             Timer.IsEnabled = false;
         }
 
         public void NewTrack(string path)
         {
-            Open(new Uri(path));
+            basePlayer.Open(new Uri(path));
             CurrentTrackPath = path;
             IsOpened = true;
             Timer.Start();
 
             if (!IsPaused)
             {
-                base.Play();
+                basePlayer.Play();
             }
 
         }
