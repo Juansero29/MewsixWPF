@@ -28,6 +28,7 @@ namespace Mewsix.ViewModels
 
 
 
+
         #region PROPERTIES
 
         /// <summary>
@@ -175,6 +176,7 @@ namespace Mewsix.ViewModels
 
 
 
+
         #region COMMANDS FOR VIEW ACTIONS
 
         /* DEFINITION OF COMMAND REFERENCES THAT WILL BE USED WHEN EVENT IS TRIGGERED */
@@ -234,6 +236,7 @@ namespace Mewsix.ViewModels
         public ICommand WindowClosingCommand => _windowClosingCommand;
 
         #endregion COMMANDS FOR VIEW ACTIONS
+
 
 
 
@@ -495,6 +498,5 @@ namespace Mewsix.ViewModels
         }
 
         #endregion MEDIA PLAYER ACTIONS
-
     }
 }
