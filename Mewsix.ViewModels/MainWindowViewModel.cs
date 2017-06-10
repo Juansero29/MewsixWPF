@@ -136,10 +136,6 @@ namespace Mewsix.ViewModels
             DataManager = new Data.Data();
             if (DataManager.Tracks != null) _Tracks = new ObservableCollection<Track>(DataManager.Tracks);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 1fbdaf38e18e5fd1bb1a50525873f02af6b1358c
             if (Tracks != null && Tracks.ToList().Count > 0)
             {
                 SelectedIndex = 0;
@@ -148,12 +144,9 @@ namespace Mewsix.ViewModels
             {
                 SelectedIndex = -1;
             }//{ SelectedTrack = Tracks[0]; } else { SelectedTrack = null; }
-<<<<<<< HEAD
-            MPlayer = new MewsixPlayer();
-=======
+
             MPlayer = MewsixPlayer.Instance;
 
->>>>>>> 1fbdaf38e18e5fd1bb1a50525873f02af6b1358c
 
 
             /* COMMAND CREATION AND DEFINITION OF THE FUNCTION WE WANT TO CALL WHEN ACTION IS INVOKED */
@@ -161,10 +154,6 @@ namespace Mewsix.ViewModels
             _previewMouseUpCommand = new MewsixCommand(MPlayer.OnPreviewMouseUp, t => true);
             _singleTrackAddCommand = new MewsixCommand(OnAddButtonClicked, t => true);
             _singleFolderAddCommand = new MewsixCommand(AddFolder, t => true);
-<<<<<<< HEAD
-=======
-
->>>>>>> 1fbdaf38e18e5fd1bb1a50525873f02af6b1358c
             _removeItemClickCommand = new MewsixCommand(() => Remove(SelectedTrack), t => true);
             _windowClosingCommand = new MewsixCommand(OnWindowClosing, t => true);
 
