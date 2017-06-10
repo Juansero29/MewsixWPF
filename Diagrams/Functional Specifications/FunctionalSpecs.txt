@@ -1,10 +1,5 @@
 Les spécifications fonctionnelles
-Les spécifications fonctionnelles permettent de définir comme votre produit doit se comporter. Chaque spécification est sous la forme suivante :
-
-Fenêtre de login
-- Cas normal : L'utilisateur rentre son identifiant et son mot de passe puis clique sur le bouton et navigue vers la page principale
-- Cas d'erreur : L'utilisateur ne rentre pas le bon mot de passe. Une boîte de dialogue lui indique son erreur et il doit recommencer
-- Cas limite : L'utilisateur ne peut rentrer un identifiant avec plus de 100 caractères
+Les spécifications fonctionnelles permettent de définir comme le produit doit se comporter.
 
 L'utilisateur appuie sur bouton NextTrack ou PreviousTrack ou Pause
 - Cas normal : on joue le morceau suivant/précédent, ou on le met en pause.
