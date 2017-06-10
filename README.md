@@ -32,6 +32,7 @@ First stable version of Mewsix. The first music player that uses your song files
 
 
 <h2>Use-case Diagram: </h2>
+
 ![MewsixUseCaseDiagram](https://github.com/Juansero29/MewsixWPF/blob/master/Diagrams/UseCase%20Diagram/MewsixUseCaseDiagram.PNG "Use-case diagram... ")
 
 
@@ -69,8 +70,11 @@ Requête API (paroles, image d'album, informations Artiste)
 
 
 <h2> Sketchs </h2>
+
 ![InfoTab](https://github.com/Juansero29/MewsixWPF/blob/master/Sketch/InfoTab.png "Info tab sketch...")
+
 ![LyricsTab](https://github.com/Juansero29/MewsixWPF/blob/master/Sketch/LyricsTab.png "Lyrics tab sketch...")
+
 ![MainWindow](https://github.com/Juansero29/MewsixWPF/blob/master/Sketch/MainWindow.png "Main window sketch...")
 
 
