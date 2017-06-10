@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Windows.Input;
 using Mewsix.ViewModels.Commands;
-using System.Windows;
 
 namespace Mewsix.ViewModels
 {
