@@ -31,11 +31,13 @@ namespace Mewsix.ViewModels.Commands
         }
 
 
-        private event EventHandler _MyEvent;
+
 
         /// <summary>
         /// Occurs when the <see cref="CanExecute(object)"/> changed
         /// </summary>
+        /// 
+        private event EventHandler _MyEvent;
         public event EventHandler CanExecuteChanged
         {
             add
