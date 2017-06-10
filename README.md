@@ -39,8 +39,8 @@ First stable version of Mewsix. The first music player that uses your song files
 <h2>Functional Specifications: </h2>
 
 <h3>
-Les spécifications fonctionnelles
 Les spécifications fonctionnelles permettent de définir comment le produit doit se comporter.
+
 
 L'utilisateur appuie sur bouton NextTrack ou PreviousTrack ou Pause
 - Cas normal : on joue le morceau suivant/précédent, ou on le met en pause.
