@@ -33,6 +33,21 @@ namespace Mewsix.ViewModels.Commands
         /// <summary>
         /// Occurs when the <see cref="CanExecute(object)"/> changed
         /// </summary>
+<<<<<<< HEAD
+        public event EventHandler CanExecuteChanged
+        {
+
+            //CALLS CANEXECUTE WHEN IT DETECTS THAT A PROPERTY THAT INFLUENCES THE COMMAND HAS CHANGED
+            add
+            {
+                if (_checkCanExecute != null)
+                    CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                if(_checkCanExecute != null)
+                    CommandManager.RequerySuggested -= value;
+=======
         /// 
 
         private event EventHandler _MyEvent;
@@ -51,6 +66,7 @@ namespace Mewsix.ViewModels.Commands
             {
                 _MyEvent -= value;
                 CommandManager.RequerySuggested -= value;
+>>>>>>> 1fbdaf38e18e5fd1bb1a50525873f02af6b1358c
             }
         }
 
@@ -73,6 +89,8 @@ namespace Mewsix.ViewModels.Commands
             _actionToExecute.Invoke();
         }
 
+<<<<<<< HEAD
+=======
         public void RaiseCanExecute()
         {
 
@@ -84,5 +102,6 @@ namespace Mewsix.ViewModels.Commands
             //    CanExecuteChanged(this, new EventArgs());
             //}
         }
+>>>>>>> 1fbdaf38e18e5fd1bb1a50525873f02af6b1358c
     }
 }
